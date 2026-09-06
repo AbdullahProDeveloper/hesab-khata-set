@@ -2,11 +2,10 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>শপ ম্যানেজার Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         * {
@@ -14,128 +13,81 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Hind Siliguri', sans-serif;
-            -webkit-tap-highlight-color: transparent;
         }
         
         :root {
             --primary: #667eea;
-            --primary-dark: #5a67d8;
             --secondary: #f093fb;
             --success: #48bb78;
             --danger: #f56565;
             --warning: #ed8936;
             --info: #4299e1;
             --dark: #1a202c;
-            --dark2: #2d3748;
             --light: #f7fafc;
             --white: #fff;
-            --shadow: 0 4px 20px rgba(0,0,0,0.08);
-            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
         }
         
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            overflow-x: hidden;
         }
         
-        /* ====== AUTH SCREEN ====== */
+        /* AUTH */
         .auth-screen {
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .auth-screen::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
-            animation: shine 6s ease-in-out infinite;
-        }
-        
-        @keyframes shine {
-            0% { transform: translateX(-50%) translateY(-50%); }
-            50% { transform: translateX(50%) translateY(50%); }
-            100% { transform: translateX(-50%) translateY(-50%); }
         }
         
         .auth-card {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 40px 30px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
             width: 100%;
-            max-width: 450px;
+            max-width: 400px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 10;
         }
         
         .auth-logo {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         
-        .auth-logo-icon {
-            width: 80px;
-            height: 80px;
+        .auth-logo i {
+            font-size: 50px;
+            color: var(--primary);
             background: linear-gradient(135deg, #667eea, #f093fb);
-            border-radius: 24px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: white;
-            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .auth-title {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--dark);
-            margin-top: 15px;
-        }
-        
-        .auth-subtitle {
-            font-size: 14px;
-            color: #718096;
-            margin-top: 5px;
+            margin-top: 10px;
         }
         
         .auth-tabs {
             display: flex;
             background: #f7fafc;
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 4px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         
         .auth-tab {
             flex: 1;
-            padding: 12px;
+            padding: 10px;
             border: none;
             background: transparent;
-            border-radius: 10px;
-            font-size: 14px;
+            border-radius: 8px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             color: #718096;
-            transition: all 0.3s;
         }
         
         .auth-tab.active {
@@ -145,37 +97,23 @@
         }
         
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 15px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: var(--dark);
             font-weight: 500;
-            font-size: 14px;
-        }
-        
-        .input-wrapper {
-            position: relative;
-        }
-        
-        .input-wrapper i {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #a0aec0;
-            font-size: 16px;
+            font-size: 13px;
         }
         
         .form-control {
             width: 100%;
-            padding: 14px 14px 14px 42px;
+            padding: 12px;
             border: 2px solid #e2e8f0;
-            border-radius: 14px;
-            font-size: 15px;
-            transition: all 0.3s;
+            border-radius: 10px;
+            font-size: 14px;
             background: #f7fafc;
         }
         
@@ -183,7 +121,6 @@
             outline: none;
             border-color: var(--primary);
             background: white;
-            box-shadow: 0 0 0 4px rgba(102,126,234,0.1);
         }
         
         .btn {
@@ -191,34 +128,15 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 14px 24px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 14px;
-            font-size: 15px;
+            border-radius: 10px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
             color: white;
             transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.2);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
         }
         
         .btn-primary {
@@ -227,38 +145,30 @@
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.3);
         }
         
         .btn-success {
-            background: linear-gradient(135deg, #48bb78, #38a169);
+            background: var(--success);
         }
         
         .btn-danger {
-            background: linear-gradient(135deg, #f56565, #e53e3e);
-        }
-        
-        .btn-info {
-            background: linear-gradient(135deg, #4299e1, #3182ce);
-        }
-        
-        .btn-warning {
-            background: linear-gradient(135deg, #ed8936, #dd6b20);
+            background: var(--danger);
         }
         
         .forgot-password {
             text-align: center;
-            margin-top: 15px;
+            margin-top: 12px;
         }
         
         .forgot-password a {
             color: var(--primary);
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
         }
         
-        /* ====== APP ====== */
+        /* APP */
         .app-container {
             display: none;
             background: #f0f2f5;
@@ -267,7 +177,7 @@
         
         .navbar {
             background: white;
-            padding: 12px 15px;
+            padding: 10px 15px;
             position: fixed;
             top: 0;
             left: 0;
@@ -280,62 +190,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
         }
         
         .navbar-brand {
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: var(--dark);
-            font-size: 18px;
-            font-weight: 700;
-        }
-        
-        .brand-icon {
-            width: 38px;
-            height: 38px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-        }
-        
-        .navbar-actions {
-            display: flex;
-            align-items: center;
             gap: 8px;
-        }
-        
-        .notification-btn {
-            position: relative;
-            background: var(--light);
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 8px 12px;
-            cursor: pointer;
             color: var(--dark);
-            font-size: 14px;
-        }
-        
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--danger);
-            color: white;
-            font-size: 10px;
+            font-size: 16px;
             font-weight: 700;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         
         .navbar-user {
@@ -345,255 +208,112 @@
         }
         
         .user-avatar {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 14px;
-            font-weight: 700;
-        }
-        
-        .user-name {
             font-size: 13px;
-            color: var(--dark);
-            font-weight: 500;
+            font-weight: 700;
         }
         
         .navbar-btn {
             background: var(--light);
             border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 8px 10px;
+            border-radius: 8px;
+            padding: 6px 8px;
             cursor: pointer;
             color: var(--dark);
-            font-size: 13px;
-            transition: all 0.3s;
+            font-size: 12px;
         }
         
-        .navbar-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-        
-        /* ====== MAIN CONTENT ====== */
         .main-content {
-            padding: 75px 15px 90px 15px;
-            max-width: 1400px;
+            padding: 70px 15px 80px 15px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         
-        /* ====== DASHBOARD ====== */
+        /* DASHBOARD */
         .dashboard-header {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .dashboard-title {
-            font-size: 24px;
+            font-size: 22px;
             color: var(--dark);
             font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
         
         .dashboard-subtitle {
             color: #718096;
-            font-size: 13px;
-            margin-top: 5px;
+            font-size: 12px;
+            margin-top: 3px;
         }
         
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin-bottom: 15px;
         }
         
         .stat-card {
             background: white;
-            border-radius: 18px;
-            padding: 18px;
-            box-shadow: var(--shadow);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
+            border-radius: 14px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
         }
-        
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .stat-card::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.3));
-            transform: rotate(45deg);
-        }
-        
-        .stat-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        
-        .stat-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: white;
-        }
-        
-        .stat-card.green .stat-icon { background: linear-gradient(135deg, #48bb78, #38a169); }
-        .stat-card.red .stat-icon { background: linear-gradient(135deg, #f56565, #e53e3e); }
-        .stat-card.yellow .stat-icon { background: linear-gradient(135deg, #ed8936, #dd6b20); }
-        .stat-card.blue .stat-icon { background: linear-gradient(135deg, #4299e1, #3182ce); }
-        .stat-card.purple .stat-icon { background: linear-gradient(135deg, #667eea, #5a67d8); }
         
         .stat-value {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--dark);
-            line-height: 1;
         }
         
         .stat-label {
-            font-size: 12px;
+            font-size: 11px;
             color: #718096;
-            margin-top: 8px;
+            margin-top: 4px;
         }
         
-        /* ====== CHARTS ====== */
-        .charts-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .chart-card {
-            background: white;
-            border-radius: 18px;
-            padding: 18px;
-            box-shadow: var(--shadow);
-        }
-        
-        .chart-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        
-        .chart-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .chart-card canvas {
-            max-height: 280px;
-        }
-        
-        /* ====== SECTION CARD ====== */
         .section-card {
             background: white;
-            border-radius: 18px;
-            padding: 18px;
-            box-shadow: var(--shadow);
-            margin-bottom: 18px;
+            border-radius: 14px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            margin-bottom: 15px;
         }
         
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
-            flex-wrap: wrap;
-            gap: 10px;
+            margin-bottom: 12px;
         }
         
         .section-title {
-            font-size: 17px;
+            font-size: 15px;
             color: var(--dark);
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         
         .add-btn {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            padding: 10px 16px;
-            border-radius: 12px;
+            padding: 8px 12px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.3s;
         }
         
-        .add-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102,126,234,0.4);
-        }
-        
-        /* ====== SEARCH ====== */
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: var(--light);
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 10px 14px;
-            margin-bottom: 15px;
-            transition: all 0.3s;
-        }
-        
-        .search-box:focus-within {
-            border-color: var(--primary);
-            background: white;
-            box-shadow: 0 0 0 4px rgba(102,126,234,0.1);
-        }
-        
-        .search-box i {
-            color: #718096;
-            margin-right: 8px;
-        }
-        
-        .search-box input {
-            border: none;
-            background: transparent;
-            outline: none;
-            width: 100%;
-            font-size: 14px;
-            color: var(--dark);
-        }
-        
-        /* ====== TABLES ====== */
+        /* TABLE */
         .table-wrapper {
             overflow-x: auto;
-            border-radius: 12px;
         }
         
         table {
@@ -604,19 +324,16 @@
         table th {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 12px;
+            padding: 10px;
             text-align: left;
             font-size: 11px;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
         
         table td {
-            padding: 12px;
+            padding: 10px;
             border-bottom: 1px solid #e2e8f0;
             font-size: 12px;
-            color: var(--dark);
         }
         
         table tr:hover {
@@ -625,8 +342,8 @@
         
         .badge {
             display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
+            padding: 3px 8px;
+            border-radius: 15px;
             font-size: 10px;
             font-weight: 600;
         }
@@ -634,257 +351,8 @@
         .badge-success { background: #c6f6d5; color: #22543d; }
         .badge-danger { background: #fed7d7; color: #742a2a; }
         .badge-warning { background: #fefcbf; color: #744210; }
-        .badge-info { background: #bee3f8; color: #2c5282; }
         
-        .action-btn {
-            padding: 8px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: all 0.3s;
-            width: 32px;
-            height: 32px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .action-btn:hover {
-            transform: scale(1.1);
-        }
-        
-        .action-btn-info { background: #bee3f8; color: #2c5282; }
-        .action-btn-warning { background: #fefcbf; color: #744210; }
-        .action-btn-danger { background: #fed7d7; color: #742a2a; }
-        
-        /* ====== MODALS ====== */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 10000;
-            align-items: flex-end;
-            justify-content: center;
-            backdrop-filter: blur(5px);
-        }
-        
-        .modal.active {
-            display: flex;
-        }
-        
-        .modal-content {
-            background: white;
-            border-radius: 25px 25px 0 0;
-            padding: 20px;
-            width: 100%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: slideUp 0.3s ease;
-        }
-        
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .modal-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .modal-close {
-            background: var(--light);
-            border: none;
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            color: var(--dark);
-            transition: all 0.3s;
-        }
-        
-        .modal-close:hover {
-            background: var(--danger);
-            color: white;
-        }
-        
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        
-        /* ====== NOTIFICATION PANEL ====== */
-        .notification-panel {
-            background: white;
-            border-radius: 18px;
-            padding: 18px;
-            box-shadow: var(--shadow);
-            margin-bottom: 18px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        
-        .notification-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 12px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            background: var(--light);
-            transition: all 0.3s;
-        }
-        
-        .notification-item:hover {
-            background: #edf2f7;
-        }
-        
-        .notification-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-        
-        .notification-icon.success { background: #c6f6d5; color: #22543d; }
-        .notification-icon.error { background: #fed7d7; color: #742a2a; }
-        .notification-icon.warning { background: #fefcbf; color: #744210; }
-        .notification-icon.info { background: #bee3f8; color: #2c5282; }
-        
-        .notification-content {
-            flex: 1;
-        }
-        
-        .notification-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-        
-        .notification-message {
-            font-size: 12px;
-            color: #718096;
-            margin-top: 4px;
-        }
-        
-        .notification-time {
-            font-size: 10px;
-            color: #a0aec0;
-            margin-top: 4px;
-        }
-        
-        /* ====== TOAST ====== */
-        .toast {
-            position: fixed;
-            top: 70px;
-            right: 15px;
-            left: 15px;
-            background: var(--dark);
-            color: white;
-            padding: 14px 18px;
-            border-radius: 14px;
-            z-index: 10001;
-            display: none;
-            font-size: 14px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            max-width: 400px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .toast.show {
-            display: block;
-            animation: slideIn 0.3s ease;
-        }
-        
-        @keyframes slideIn {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        .toast-success { background: linear-gradient(135deg, #48bb78, #38a169); }
-        .toast-error { background: linear-gradient(135deg, #f56565, #e53e3e); }
-        .toast-warning { background: linear-gradient(135deg, #ed8936, #dd6b20); }
-        .toast-info { background: linear-gradient(135deg, #4299e1, #3182ce); }
-        
-        /* ====== LOADING ====== */
-        .loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255,255,255,0.9);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 10001;
-        }
-        
-        .loading.active {
-            display: flex;
-        }
-        
-        .loading-spinner {
-            text-align: center;
-        }
-        
-        .spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid #e2e8f0;
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .loading-text {
-            color: var(--dark);
-            font-size: 16px;
-            font-weight: 600;
-        }
-        
-        /* ====== BOTTOM NAV ====== */
+        /* BOTTOM NAV */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -896,7 +364,6 @@
             padding: 8px 0;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
             z-index: 1000;
-            padding-bottom: calc(8px + env(safe-area-inset-bottom));
         }
         
         .bottom-nav-item {
@@ -907,9 +374,8 @@
             color: #718096;
             font-size: 10px;
             cursor: pointer;
-            padding: 8px 10px;
-            border-radius: 12px;
-            transition: all 0.3s;
+            padding: 6px 8px;
+            border-radius: 10px;
         }
         
         .bottom-nav-item.active {
@@ -918,72 +384,107 @@
         }
         
         .bottom-nav-item i {
-            font-size: 20px;
+            font-size: 18px;
         }
         
-        /* ====== RESPONSIVE ====== */
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 10000;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px 20px 0 0;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .modal-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .modal-close {
+            background: var(--light);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        /* TOAST */
+        .toast {
+            position: fixed;
+            top: 60px;
+            right: 15px;
+            left: 15px;
+            background: var(--dark);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            z-index: 10001;
+            display: none;
+            font-size: 13px;
+            text-align: center;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+        
+        .toast.show {
+            display: block;
+        }
+        
+        .toast-success { background: var(--success); }
+        .toast-error { background: var(--danger); }
+        .toast-warning { background: var(--warning); }
+        
+        /* RESPONSIVE */
         @media (min-width: 768px) {
             .stats-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
             
-            .charts-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .bottom-nav {
-                max-width: 600px;
-                left: 50%;
-                transform: translateX(-50%);
-                border-radius: 25px 25px 0 0;
-                box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
-            }
-            
             .modal-content {
-                border-radius: 25px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-            
-            .stat-card {
-                padding: 15px;
-            }
-            
-            .stat-value {
-                font-size: 24px;
-            }
-            
-            table {
-                font-size: 10px;
-            }
-            
-            table th,
-            table td {
-                padding: 8px;
-            }
-            
-            .auth-card {
-                padding: 30px 20px;
+                border-radius: 20px;
             }
         }
     </style>
 </head>
 <body>
 
-<!-- ====== AUTH SCREEN ====== -->
+<!-- AUTH SCREEN -->
 <div class="auth-screen" id="authScreen">
     <div class="auth-card">
         <div class="auth-logo">
-            <div class="auth-logo-icon">
-                <i class="fas fa-store"></i>
-            </div>
+            <i class="fas fa-store"></i>
             <h1 class="auth-title">শপ ম্যানেজার</h1>
-            <p class="auth-subtitle">প্রফেশনাল শপ ম্যানেজমেন্ট সিস্টেম</p>
+            <p style="color:#718096; font-size:13px;">প্রফেশনাল শপ ম্যানেজমেন্ট</p>
         </div>
         
         <div class="auth-tabs">
@@ -991,224 +492,109 @@
             <button class="auth-tab" onclick="showRegister()">রেজিস্ট্রেশন</button>
         </div>
         
-        <!-- Login Form -->
+        <!-- Login -->
         <form id="loginForm">
             <div class="form-group">
                 <label>ইমেইল</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" class="form-control" id="loginEmail" placeholder="admin@shop.com" required>
-                </div>
+                <input type="email" class="form-control" id="loginEmail" placeholder="admin@shop.com" required>
             </div>
             <div class="form-group">
                 <label>পাসওয়ার্ড</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" class="form-control" id="loginPassword" placeholder="••••••••" required>
-                </div>
+                <input type="password" class="form-control" id="loginPassword" placeholder="••••••••" required>
             </div>
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-sign-in-alt"></i> লগইন করুন
-            </button>
+            <button type="submit" class="btn btn-primary">লগইন করুন</button>
             <div class="forgot-password">
                 <a onclick="showResetPassword()">পাসওয়ার্ড ভুলে গেছেন?</a>
             </div>
         </form>
         
-        <!-- Register Form -->
+        <!-- Register -->
         <form id="registerForm" style="display:none;">
             <div class="form-group">
                 <label>নাম</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-user"></i>
-                    <input type="text" class="form-control" id="regName" placeholder="আপনার নাম" required>
-                </div>
+                <input type="text" class="form-control" id="regName" required>
             </div>
             <div class="form-group">
                 <label>ইমেইল</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" class="form-control" id="regEmail" placeholder="you@email.com" required>
-                </div>
+                <input type="email" class="form-control" id="regEmail" required>
             </div>
             <div class="form-group">
                 <label>ফোন</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-phone"></i>
-                    <input type="tel" class="form-control" id="regPhone" placeholder="01XXXXXXXXX" required>
-                </div>
+                <input type="tel" class="form-control" id="regPhone" required>
             </div>
             <div class="form-group">
                 <label>পাসওয়ার্ড</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" class="form-control" id="regPassword" placeholder="Min 6 characters" minlength="6" required>
-                </div>
+                <input type="password" class="form-control" id="regPassword" minlength="6" required>
             </div>
-            <button type="submit" class="btn btn-success">
-                <i class="fas fa-user-plus"></i> রেজিস্ট্রেশন করুন
-            </button>
+            <button type="submit" class="btn btn-success">রেজিস্ট্রেশন করুন</button>
         </form>
         
-        <!-- Reset Password Form -->
+        <!-- Reset Password -->
         <form id="resetPasswordForm" style="display:none;">
             <div class="form-group">
                 <label>ইমেইল</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" class="form-control" id="resetEmail" placeholder="you@email.com" required>
-                </div>
+                <input type="email" class="form-control" id="resetEmail" required>
             </div>
             <div class="form-group">
                 <label>নতুন পাসওয়ার্ড</label>
-                <div class="input-wrapper">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" class="form-control" id="resetPassword" placeholder="Min 6 characters" minlength="6" required>
-                </div>
+                <input type="password" class="form-control" id="resetPassword" minlength="6" required>
             </div>
-            <button type="submit" class="btn btn-warning">
-                <i class="fas fa-key"></i> পাসওয়ার্ড রিসেট করুন
-            </button>
-            <button type="button" class="btn" style="background:#e2e8f0; color:#2d3748; margin-top:10px;" onclick="showLogin()">
-                লগইনে ফিরে যান
-            </button>
+            <button type="submit" class="btn btn-warning">রিসেট করুন</button>
+            <button type="button" class="btn" style="background:#e2e8f0; color:#2d3748; margin-top:10px;" onclick="showLogin()">ফিরে যান</button>
         </form>
     </div>
 </div>
 
-<!-- ====== APP CONTAINER ====== -->
+<!-- APP -->
 <div class="app-container" id="appContainer">
-    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="navbar-content">
             <div class="navbar-brand">
-                <div class="brand-icon">
-                    <i class="fas fa-store"></i>
-                </div>
+                <i class="fas fa-store"></i>
                 <span id="shopName">শপ ম্যানেজার</span>
             </div>
-            <div class="navbar-actions">
-                <button class="notification-btn" onclick="toggleNotifications()" id="notificationBtn">
-                    <i class="fas fa-bell"></i>
-                    <span class="notification-badge" id="notificationBadge">0</span>
-                </button>
-                <div class="navbar-user">
-                    <div class="user-avatar" id="userAvatar">A</div>
-                    <span class="user-name" id="userName">Admin</span>
-                    <button class="navbar-btn" onclick="changePassword()"><i class="fas fa-key"></i></button>
-                    <button class="navbar-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
-                </div>
+            <div class="navbar-user">
+                <div class="user-avatar" id="userAvatar">A</div>
+                <span id="userName">Admin</span>
+                <button class="navbar-btn" onclick="changePassword()"><i class="fas fa-key"></i></button>
+                <button class="navbar-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
             </div>
         </div>
     </nav>
     
-    <!-- MAIN CONTENT -->
     <div class="main-content">
         <!-- Dashboard -->
         <div class="page" id="dashboard">
             <div class="dashboard-header">
-                <h2 class="dashboard-title">
-                    <i class="fas fa-chart-line"></i>
-                    ড্যাশবোর্ড
-                </h2>
+                <h2 class="dashboard-title">📊 ড্যাশবোর্ড</h2>
                 <p class="dashboard-subtitle" id="dashboardDate"></p>
             </div>
             
             <div class="stats-grid">
-                <div class="stat-card green">
-                    <div class="stat-card-header">
-                        <div class="stat-icon">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <i class="fas fa-trend-up" style="color: #48bb78;"></i>
-                    </div>
+                <div class="stat-card">
                     <div class="stat-value" id="totalSales">৳0</div>
                     <div class="stat-label">মোট বিক্রয়</div>
                 </div>
-                
-                <div class="stat-card red">
-                    <div class="stat-card-header">
-                        <div class="stat-icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <i class="fas fa-trend-down" style="color: #f56565;"></i>
-                    </div>
+                <div class="stat-card">
                     <div class="stat-value" id="totalPurchases">৳0</div>
                     <div class="stat-label">মোট ক্রয়</div>
                 </div>
-                
-                <div class="stat-card yellow">
-                    <div class="stat-card-header">
-                        <div class="stat-icon">
-                            <i class="fas fa-boxes"></i>
-                        </div>
-                    </div>
+                <div class="stat-card">
                     <div class="stat-value" id="totalStock">0</div>
                     <div class="stat-label">মোট স্টক</div>
                 </div>
-                
-                <div class="stat-card blue">
-                    <div class="stat-card-header">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                    </div>
+                <div class="stat-card">
                     <div class="stat-value" id="totalCustomers">0</div>
                     <div class="stat-label">মোট কাস্টমার</div>
                 </div>
-                
-                <div class="stat-card red">
-                    <div class="stat-card-header">
-                        <div class="stat-icon">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                    </div>
+                <div class="stat-card">
                     <div class="stat-value" id="totalDue">৳0</div>
                     <div class="stat-label">মোট বাকি</div>
                 </div>
-                
-                <div class="stat-card purple">
-                    <div class="stat-card-header">
-                        <div class="stat-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                    </div>
+                <div class="stat-card">
                     <div class="stat-value" id="totalProfit">৳0</div>
                     <div class="stat-label">মোট লাভ</div>
                 </div>
-            </div>
-            
-            <div class="charts-grid">
-                <div class="chart-card">
-                    <div class="chart-card-header">
-                        <h3 class="chart-title">
-                            <i class="fas fa-chart-line"></i>
-                            বিক্রয় ট্রেন্ড
-                        </h3>
-                    </div>
-                    <canvas id="salesChart"></canvas>
-                </div>
-                
-                <div class="chart-card">
-                    <div class="chart-card-header">
-                        <h3 class="chart-title">
-                            <i class="fas fa-chart-pie"></i>
-                            ক্যাটাগরি অনুযায়ী
-                        </h3>
-                    </div>
-                    <canvas id="categoryChart"></canvas>
-                </div>
-            </div>
-            
-            <!-- Recent Transactions -->
-            <div class="section-card">
-                <div class="section-header">
-                    <div class="section-title">
-                        <i class="fas fa-clock"></i>
-                        সাম্প্রতিক লেনদেন
-                    </div>
-                </div>
-                <div id="recentTransactions"></div>
             </div>
         </div>
         
@@ -1216,20 +602,9 @@
         <div class="page" id="sales" style="display:none;">
             <div class="section-card">
                 <div class="section-header">
-                    <div class="section-title">
-                        <i class="fas fa-shopping-cart"></i>
-                        বিক্রয় ম্যানেজমেন্ট
-                    </div>
-                    <button class="add-btn" onclick="openSalesModal()">
-                        <i class="fas fa-plus"></i> নতুন বিক্রয়
-                    </button>
+                    <div class="section-title">🛒 বিক্রয়</div>
+                    <button class="add-btn" onclick="openSalesModal()">+ নতুন</button>
                 </div>
-                
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="salesSearch" placeholder="বিক্রয় খুঁজুন...">
-                </div>
-                
                 <div class="table-wrapper">
                     <table>
                         <thead>
@@ -1237,9 +612,7 @@
                                 <th>ইনভয়েস</th>
                                 <th>তারিখ</th>
                                 <th>কাস্টমার</th>
-                                <th>পণ্য</th>
                                 <th>মোট</th>
-                                <th>বাকি</th>
                                 <th>স্ট্যাটাস</th>
                                 <th>অ্যাকশন</th>
                             </tr>
@@ -1254,26 +627,14 @@
         <div class="page" id="inventory" style="display:none;">
             <div class="section-card">
                 <div class="section-header">
-                    <div class="section-title">
-                        <i class="fas fa-boxes"></i>
-                        ইনভেন্টরি
-                    </div>
-                    <button class="add-btn" onclick="openProductModal()">
-                        <i class="fas fa-plus"></i> নতুন পণ্য
-                    </button>
+                    <div class="section-title">📦 ইনভেন্টরি</div>
+                    <button class="add-btn" onclick="openProductModal()">+ নতুন</button>
                 </div>
-                
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="inventorySearch" placeholder="পণ্য খুঁজুন...">
-                </div>
-                
                 <div class="table-wrapper">
                     <table>
                         <thead>
                             <tr>
                                 <th>পণ্য</th>
-                                <th>ক্যাটাগরি</th>
                                 <th>স্টক</th>
                                 <th>বিক্রয় মূল্য</th>
                                 <th>স্ট্যাটাস</th>
@@ -1290,27 +651,15 @@
         <div class="page" id="customers" style="display:none;">
             <div class="section-card">
                 <div class="section-header">
-                    <div class="section-title">
-                        <i class="fas fa-users"></i>
-                        কাস্টমার ম্যানেজমেন্ট
-                    </div>
-                    <button class="add-btn" onclick="openCustomerModal()">
-                        <i class="fas fa-plus"></i> নতুন কাস্টমার
-                    </button>
+                    <div class="section-title">👥 কাস্টমার</div>
+                    <button class="add-btn" onclick="openCustomerModal()">+ নতুন</button>
                 </div>
-                
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="customerSearch" placeholder="কাস্টমার খুঁজুন...">
-                </div>
-                
                 <div class="table-wrapper">
                     <table>
                         <thead>
                             <tr>
                                 <th>নাম</th>
                                 <th>ফোন</th>
-                                <th>মোট কেনা</th>
                                 <th>বাকি</th>
                                 <th>অ্যাকশন</th>
                             </tr>
@@ -1321,63 +670,18 @@
             </div>
         </div>
         
-        <!-- Reports -->
-        <div class="page" id="reports" style="display:none;">
-            <div class="section-card">
-                <div class="section-header">
-                    <div class="section-title">
-                        <i class="fas fa-file-alt"></i>
-                        রিপোর্ট
-                    </div>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card green">
-                        <div class="stat-value" id="reportSales">৳0</div>
-                        <div class="stat-label">বিক্রয়</div>
-                    </div>
-                    <div class="stat-card red">
-                        <div class="stat-value" id="reportExpenses">৳0</div>
-                        <div class="stat-label">খরচ</div>
-                    </div>
-                    <div class="stat-card purple">
-                        <div class="stat-value" id="reportProfit">৳0</div>
-                        <div class="stat-label">লাভ</div>
-                    </div>
-                </div>
-                
-                <button class="btn btn-primary" onclick="downloadReport()">
-                    <i class="fas fa-download"></i> রিপোর্ট ডাউনলোড করুন
-                </button>
-            </div>
-        </div>
-        
-        <!-- Admin Panel (Only visible to admin) -->
+        <!-- Admin (Only for admin) -->
         <div class="page" id="admin" style="display:none;">
             <div class="section-card">
                 <div class="section-header">
-                    <div class="section-title">
-                        <i class="fas fa-user-shield"></i>
-                        অ্যাডমিন প্যানেল
-                    </div>
-                    <button class="add-btn" onclick="openAddUserModal()">
-                        <i class="fas fa-user-plus"></i> নতুন ইউজার
-                    </button>
+                    <div class="section-title">🔐 অ্যাডমিন প্যানেল</div>
                 </div>
-                
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="userSearch" placeholder="ইউজার খুঁজুন...">
-                </div>
-                
                 <div class="table-wrapper">
                     <table>
                         <thead>
                             <tr>
                                 <th>নাম</th>
                                 <th>ইমেইল</th>
-                                <th>ফোন</th>
-                                <th>রোল</th>
                                 <th>স্ট্যাটাস</th>
                                 <th>অ্যাকশন</th>
                             </tr>
@@ -1389,7 +693,7 @@
         </div>
     </div>
     
-    <!-- BOTTOM NAVIGATION -->
+    <!-- Bottom Nav -->
     <nav class="bottom-nav">
         <a class="bottom-nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
             <i class="fas fa-home"></i>
@@ -1407,10 +711,6 @@
             <i class="fas fa-users"></i>
             <span>কাস্টমার</span>
         </a>
-        <a class="bottom-nav-item" data-page="reports" onclick="showPage('reports')">
-            <i class="fas fa-chart-bar"></i>
-            <span>রিপোর্ট</span>
-        </a>
         <a class="bottom-nav-item" data-page="admin" onclick="showPage('admin')" id="adminNav" style="display:none;">
             <i class="fas fa-user-shield"></i>
             <span>অ্যাডমিন</span>
@@ -1418,63 +718,47 @@
     </nav>
 </div>
 
-<!-- NOTIFICATION PANEL -->
-<div class="notification-panel" id="notificationPanel" style="display:none; position: fixed; top: 70px; right: 15px; left: 15px; z-index: 10001; max-width: 400px; margin: 0 auto;">
-    <div class="section-header">
-        <div class="section-title">
-            <i class="fas fa-bell"></i>
-            নোটিফিকেশন
-        </div>
-        <button class="modal-close" onclick="toggleNotifications()">&times;</button>
-    </div>
-    <div id="notificationList"></div>
-</div>
-
-<!-- ====== MODALS ====== -->
+<!-- MODALS -->
 <div class="modal" id="salesModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title"><i class="fas fa-shopping-cart"></i> নতুন বিক্রয়</h3>
+            <h3 class="modal-title">নতুন বিক্রয়</h3>
             <button class="modal-close" onclick="closeModal('salesModal')">&times;</button>
         </div>
         <form id="salesForm">
             <div class="form-group">
                 <label>কাস্টমার</label>
                 <select class="form-control" id="saleCustomer" required>
-                    <option value="">কাস্টমার নির্বাচন করুন</option>
+                    <option value="">নির্বাচন করুন</option>
                 </select>
             </div>
             <div class="form-group">
                 <label>পণ্য</label>
                 <select class="form-control" id="saleProduct" onchange="updateProductPrice()" required>
-                    <option value="">পণ্য নির্বাচন করুন</option>
+                    <option value="">নির্বাচন করুন</option>
                 </select>
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>পরিমাণ</label>
-                    <input type="number" class="form-control" id="saleQuantity" min="1" oninput="calculateTotal()" required>
-                </div>
-                <div class="form-group">
-                    <label>দাম</label>
-                    <input type="number" class="form-control" id="salePrice" oninput="calculateTotal()" required>
-                </div>
+            <div class="form-group">
+                <label>পরিমাণ</label>
+                <input type="number" class="form-control" id="saleQuantity" min="1" oninput="calculateTotal()" required>
+            </div>
+            <div class="form-group">
+                <label>দাম</label>
+                <input type="number" class="form-control" id="salePrice" oninput="calculateTotal()" required>
             </div>
             <div class="form-group">
                 <label>মোট</label>
                 <input type="text" class="form-control" id="saleTotal" readonly>
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>পরিশোধ</label>
-                    <input type="number" class="form-control" id="salePaid" oninput="calculateDue()" required>
-                </div>
-                <div class="form-group">
-                    <label>বাকি</label>
-                    <input type="text" class="form-control" id="saleDue" readonly>
-                </div>
+            <div class="form-group">
+                <label>পরিশোধ</label>
+                <input type="number" class="form-control" id="salePaid" oninput="calculateDue()" required>
             </div>
-            <button type="submit" class="btn btn-primary">বিক্রয় সম্পন্ন করুন</button>
+            <div class="form-group">
+                <label>বাকি</label>
+                <input type="text" class="form-control" id="saleDue" readonly>
+            </div>
+            <button type="submit" class="btn btn-primary">বিক্রয় করুন</button>
         </form>
     </div>
 </div>
@@ -1482,7 +766,7 @@
 <div class="modal" id="productModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title"><i class="fas fa-box"></i> নতুন পণ্য</h3>
+            <h3 class="modal-title">নতুন পণ্য</h3>
             <button class="modal-close" onclick="closeModal('productModal')">&times;</button>
         </div>
         <form id="productForm">
@@ -1492,27 +776,19 @@
             </div>
             <div class="form-group">
                 <label>ক্যাটাগরি</label>
-                <input type="text" class="form-control" id="productCategory" placeholder="যেমন: ইলেকট্রনিক্স">
+                <input type="text" class="form-control" id="productCategory">
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>ক্রয় মূল্য</label>
-                    <input type="number" class="form-control" id="productBuyPrice" required>
-                </div>
-                <div class="form-group">
-                    <label>বিক্রয় মূল্য</label>
-                    <input type="number" class="form-control" id="productSalePrice" required>
-                </div>
+            <div class="form-group">
+                <label>ক্রয় মূল্য</label>
+                <input type="number" class="form-control" id="productBuyPrice" required>
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>স্টক</label>
-                    <input type="number" class="form-control" id="productStock" min="0" required>
-                </div>
-                <div class="form-group">
-                    <label>সর্বনিম্ন স্টক</label>
-                    <input type="number" class="form-control" id="productMinStock" value="10">
-                </div>
+            <div class="form-group">
+                <label>বিক্রয় মূল্য</label>
+                <input type="number" class="form-control" id="productSalePrice" required>
+            </div>
+            <div class="form-group">
+                <label>স্টক</label>
+                <input type="number" class="form-control" id="productStock" min="0" required>
             </div>
             <button type="submit" class="btn btn-primary">পণ্য যোগ করুন</button>
         </form>
@@ -1522,7 +798,7 @@
 <div class="modal" id="customerModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title"><i class="fas fa-user"></i> নতুন কাস্টমার</h3>
+            <h3 class="modal-title">নতুন কাস্টমার</h3>
             <button class="modal-close" onclick="closeModal('customerModal')">&times;</button>
         </div>
         <form id="customerForm">
@@ -1534,14 +810,6 @@
                 <label>ফোন</label>
                 <input type="tel" class="form-control" id="customerPhone" required>
             </div>
-            <div class="form-group">
-                <label>ইমেইল</label>
-                <input type="email" class="form-control" id="customerEmail">
-            </div>
-            <div class="form-group">
-                <label>ঠিকানা</label>
-                <textarea class="form-control" id="customerAddress"></textarea>
-            </div>
             <button type="submit" class="btn btn-primary">কাস্টমার যোগ করুন</button>
         </form>
     </div>
@@ -1550,7 +818,7 @@
 <div class="modal" id="passwordModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title"><i class="fas fa-key"></i> পাসওয়ার্ড পরিবর্তন</h3>
+            <h3 class="modal-title">পাসওয়ার্ড পরিবর্তন</h3>
             <button class="modal-close" onclick="closeModal('passwordModal')">&times;</button>
         </div>
         <form id="passwordForm">
@@ -1562,79 +830,29 @@
                 <label>নতুন পাসওয়ার্ড</label>
                 <input type="password" class="form-control" id="newPassword" minlength="6" required>
             </div>
-            <div class="form-group">
-                <label>নতুন পাসওয়ার্ড (আবার)</label>
-                <input type="password" class="form-control" id="confirmPassword" minlength="6" required>
-            </div>
-            <button type="submit" class="btn btn-primary">পাসওয়ার্ড পরিবর্তন করুন</button>
+            <button type="submit" class="btn btn-primary">পরিবর্তন করুন</button>
         </form>
     </div>
 </div>
 
-<div class="modal" id="addUserModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title"><i class="fas fa-user-plus"></i> নতুন ইউজার</h3>
-            <button class="modal-close" onclick="closeModal('addUserModal')">&times;</button>
-        </div>
-        <form id="addUserForm">
-            <div class="form-group">
-                <label>নাম</label>
-                <input type="text" class="form-control" id="addUserName" required>
-            </div>
-            <div class="form-group">
-                <label>ইমেইল</label>
-                <input type="email" class="form-control" id="addUserEmail" required>
-            </div>
-            <div class="form-group">
-                <label>ফোন</label>
-                <input type="tel" class="form-control" id="addUserPhone" required>
-            </div>
-            <div class="form-group">
-                <label>পাসওয়ার্ড</label>
-                <input type="password" class="form-control" id="addUserPassword" minlength="6" required>
-            </div>
-            <div class="form-group">
-                <label>রোল</label>
-                <select class="form-control" id="addUserRole">
-                    <option value="user">ইউজার</option>
-                    <option value="admin">অ্যাডমিন</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">ইউজার যোগ করুন</button>
-        </form>
-    </div>
-</div>
-
-<!-- ====== TOAST ====== -->
+<!-- TOAST -->
 <div class="toast" id="toast"></div>
-
-<!-- ====== LOADING ====== -->
-<div class="loading" id="loading">
-    <div class="loading-spinner">
-        <div class="spinner"></div>
-        <p class="loading-text">লোড হচ্ছে...</p>
-    </div>
-</div>
 
 <script>
 // ============================================================
 // CONFIGURATION
 // ============================================================
 const SHEET_CONFIG = {
-    sheetId: 'AKfycbwNdyqqWf8tgV5c2sR-mm5b6NFcBl8K1k7Y5Cgr_O5IiuRnZ5dsQaLMFgOhktGbQUfaJw',
-    apiUrl: 'https://script.google.com/macros/s/AKfycbwTmfCTNWNVZm_ifINYTwaP7UgYSWdYHXP24yMhFzPuOh2Si5XLx12RDeiSJWdsfz7u/exec'
+    sheetId: 'AKfycbwM9f-gmph2EaJs73nZVp0KWvPGImox3VKtdzUXYbJ1auWHh4fmJ18kUzO-h0rpvVkGog',
+    apiUrl: 'https://script.google.com/macros/s/AKfycbwM9f-gmph2EaJs73nZVp0KWvPGImox3VKtdzUXYbJ1auWHh4fmJ18kUzO-h0rpvVkGog/exec'
 };
 
 // ============================================================
 // GLOBAL STATE
 // ============================================================
 let currentUser = null;
-let allData = { sales: [], inventory: [], customers: [], expenses: [], purchases: [], notifications: [], users: [] };
+let allData = { sales: [], inventory: [], customers: [], expenses: [], purchases: [] };
 let currentPage = 'dashboard';
-let salesChartInstance = null;
-let categoryChartInstance = null;
-let updateInterval = null;
 
 // ============================================================
 // API FUNCTIONS
@@ -1680,16 +898,12 @@ function showLogin() {
     document.getElementById('loginForm').style.display = 'block';
     document.getElementById('registerForm').style.display = 'none';
     document.getElementById('resetPasswordForm').style.display = 'none';
-    document.querySelectorAll('.auth-tab')[0].classList.add('active');
-    document.querySelectorAll('.auth-tab')[1].classList.remove('active');
 }
 
 function showRegister() {
     document.getElementById('loginForm').style.display = 'none';
     document.getElementById('registerForm').style.display = 'block';
     document.getElementById('resetPasswordForm').style.display = 'none';
-    document.querySelectorAll('.auth-tab')[1].classList.add('active');
-    document.querySelectorAll('.auth-tab')[0].classList.remove('active');
 }
 
 function showResetPassword() {
@@ -1700,12 +914,11 @@ function showResetPassword() {
 
 async function handleLogin(e) {
     e.preventDefault();
-    showLoading(true);
     
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    
-    const result = await apiRequest('authenticate', { email, password });
+    const result = await apiRequest('authenticate', {
+        email: document.getElementById('loginEmail').value,
+        password: document.getElementById('loginPassword').value
+    });
     
     if (result.success && result.user) {
         currentUser = result.user;
@@ -1720,13 +933,10 @@ async function handleLogin(e) {
     } else {
         showToast(result.message || 'ইমেইল বা পাসওয়ার্ড ভুল!', 'error');
     }
-    
-    showLoading(false);
 }
 
 async function handleRegister(e) {
     e.preventDefault();
-    showLoading(true);
     
     const userData = {
         name: document.getElementById('regName').value,
@@ -1744,35 +954,27 @@ async function handleRegister(e) {
     } else {
         showToast(result.message || 'রেজিস্ট্রেশন ব্যর্থ!', 'error');
     }
-    
-    showLoading(false);
 }
 
 async function handleResetPassword(e) {
     e.preventDefault();
-    showLoading(true);
     
-    const email = document.getElementById('resetEmail').value;
-    const newPassword = document.getElementById('resetPassword').value;
-    
-    const result = await apiRequest('resetPassword', { email, newPassword });
+    const result = await apiRequest('resetPassword', {
+        email: document.getElementById('resetEmail').value,
+        newPassword: document.getElementById('resetPassword').value
+    });
     
     if (result.success) {
-        showToast('পাসওয়ার্ড রিসেট হয়েছে! এখন লগইন করুন।', 'success');
+        showToast('পাসওয়ার্ড রিসেট হয়েছে!', 'success');
         showLogin();
-        document.getElementById('loginEmail').value = email;
-        document.getElementById('loginPassword').value = newPassword;
     } else {
         showToast(result.message || 'পাসওয়ার্ড রিসেট ব্যর্থ!', 'error');
     }
-    
-    showLoading(false);
 }
 
 function logout() {
-    if (confirm('আপনি কি লগআউট করতে চান?')) {
+    if (confirm('লগআউট করবেন?')) {
         localStorage.removeItem('shopManager_user');
-        currentUser = null;
         location.reload();
     }
 }
@@ -1782,30 +984,9 @@ function showApp() {
     document.getElementById('appContainer').style.display = 'block';
     document.getElementById('dashboardDate').textContent = new Date().toLocaleDateString('bn-BD', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     
-    // Show admin nav if admin
     if (currentUser.role === 'admin') {
         document.getElementById('adminNav').style.display = 'flex';
     }
-    
-    // Start auto-update
-    startAutoUpdate();
-}
-
-// ============================================================
-// AUTO UPDATE
-// ============================================================
-
-function startAutoUpdate() {
-    // Clear existing interval
-    if (updateInterval) {
-        clearInterval(updateInterval);
-    }
-    
-    // Update every 30 seconds
-    updateInterval = setInterval(() => {
-        loadAllData();
-        loadNotifications();
-    }, 30000);
 }
 
 // ============================================================
@@ -1830,7 +1011,6 @@ function showPage(page) {
         case 'sales': loadSales(); break;
         case 'inventory': loadInventory(); break;
         case 'customers': loadCustomers(); break;
-        case 'reports': loadReports(); break;
         case 'admin': loadAdminUsers(); break;
     }
 }
@@ -1840,8 +1020,6 @@ function showPage(page) {
 // ============================================================
 
 async function loadAllData() {
-    showLoading(true);
-    
     let result;
     if (currentUser.role === 'admin') {
         result = await apiGet('loadAll');
@@ -1853,8 +1031,6 @@ async function loadAllData() {
         allData = result.data;
         loadDashboard();
     }
-    
-    showLoading(false);
 }
 
 // ============================================================
@@ -1870,20 +1046,13 @@ function loadDashboard() {
     document.getElementById('totalCustomers').textContent = stats.totalCustomers;
     document.getElementById('totalDue').textContent = `৳${formatNumber(stats.totalDue)}`;
     document.getElementById('totalProfit').textContent = `৳${formatNumber(stats.totalProfit)}`;
-    
-    loadSalesChart();
-    loadCategoryChart();
-    loadRecentTransactions();
 }
 
 function calculateStats() {
     const stats = {
-        totalSales: 0,
-        totalPurchases: 0,
-        totalStock: 0,
+        totalSales: 0, totalPurchases: 0, totalStock: 0,
         totalCustomers: allData.customers ? allData.customers.length : 0,
-        totalDue: 0,
-        totalProfit: 0
+        totalDue: 0, totalProfit: 0
     };
     
     if (allData.sales) {
@@ -1906,125 +1075,20 @@ function calculateStats() {
     return stats;
 }
 
-function loadSalesChart() {
-    const ctx = document.getElementById('salesChart').getContext('2d');
-    
-    if (salesChartInstance) salesChartInstance.destroy();
-    
-    const salesByDate = {};
-    if (allData.sales) {
-        allData.sales.forEach(sale => {
-            const date = new Date(sale.date).toLocaleDateString('bn-BD');
-            if (!salesByDate[date]) salesByDate[date] = 0;
-            salesByDate[date] += Number(sale.total) || 0;
-        });
-    }
-    
-    salesChartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: Object.keys(salesByDate),
-            datasets: [{
-                label: 'বিক্রয়',
-                data: Object.values(salesByDate),
-                borderColor: '#667eea',
-                backgroundColor: 'rgba(102,126,234,0.1)',
-                borderWidth: 3,
-                tension: 0.4,
-                fill: true,
-                pointBackgroundColor: '#667eea',
-                pointBorderColor: '#fff',
-                pointBorderWidth: 2,
-                pointRadius: 5
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        color: '#e2e8f0'
-                    }
-                },
-                x: {
-                    grid: {
-                        display: false
-                    }
-                }
-            }
-        }
-    });
-}
+// ============================================================
+// SALES
+// ============================================================
 
-function loadCategoryChart() {
-    const ctx = document.getElementById('categoryChart').getContext('2d');
+function loadSales() {
+    const tbody = document.getElementById('salesTableBody');
     
-    if (categoryChartInstance) categoryChartInstance.destroy();
-    
-    const salesByCategory = {};
-    if (allData.sales) {
-        allData.sales.forEach(sale => {
-            const product = allData.inventory ? allData.inventory.find(p => p.id === sale.productId) : null;
-            const category = product ? product.category : 'অন্যান্য';
-            
-            if (!salesByCategory[category]) salesByCategory[category] = 0;
-            salesByCategory[category] += Number(sale.total) || 0;
-        });
-    }
-    
-    const categories = Object.keys(salesByCategory);
-    const values = Object.values(salesByCategory);
-    
-    if (categories.length === 0) {
-        categories.push('নো ডেটা');
-        values.push(1);
-    }
-    
-    categoryChartInstance = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: categories,
-            datasets: [{
-                data: values,
-                backgroundColor: [
-                    '#667eea', '#f093fb', '#48bb78', '#f56565',
-                    '#ed8936', '#4299e1', '#38b2ac', '#ed64a6'
-                ],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }
-    });
-}
-
-function loadRecentTransactions() {
-    const container = document.getElementById('recentTransactions');
-    
-    const recent = allData.sales ? allData.sales.slice(-5).reverse() : [];
-    
-    if (recent.length === 0) {
-        container.innerHTML = '<p style="text-align:center; color:#718096; padding:20px;">কোনো লেনদেন নেই</p>';
+    if (!allData.sales || allData.sales.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px;">কোনো বিক্রয় নেই</td></tr>';
         return;
     }
     
-    let html = '<div class="table-wrapper"><table><thead><tr><th>ইনভয়েস</th><th>তারিখ</th><th>কাস্টমার</th><th>মোট</th><th>স্ট্যাটাস</th></tr></thead><tbody>';
-    
-    recent.forEach(sale => {
+    let html = '';
+    allData.sales.forEach(sale => {
         const customer = allData.customers ? allData.customers.find(c => c.id === sale.customerId) : null;
         const customerName = customer ? customer.name : 'N/A';
         const statusClass = sale.status === 'paid' ? 'success' : 'warning';
@@ -2036,46 +1100,9 @@ function loadRecentTransactions() {
             <td>${customerName}</td>
             <td>৳${formatNumber(sale.total)}</td>
             <td><span class="badge badge-${statusClass}">${statusText}</span></td>
-        </tr>`;
-    });
-    
-    html += '</tbody></table></div>';
-    container.innerHTML = html;
-}
-
-// ============================================================
-// SALES MANAGEMENT
-// ============================================================
-
-function loadSales() {
-    const tbody = document.getElementById('salesTableBody');
-    
-    if (!allData.sales || allData.sales.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:20px;">কোনো বিক্রয় নেই</td></tr>';
-        return;
-    }
-    
-    let html = '';
-    allData.sales.forEach(sale => {
-        const customer = allData.customers ? allData.customers.find(c => c.id === sale.customerId) : null;
-        const customerName = customer ? customer.name : 'N/A';
-        const product = allData.inventory ? allData.inventory.find(p => p.id === sale.productId) : null;
-        const productName = product ? product.name : 'N/A';
-        
-        const statusClass = sale.status === 'paid' ? 'success' : sale.status === 'partial' ? 'warning' : 'danger';
-        const statusText = sale.status === 'paid' ? 'পরিশোধিত' : sale.status === 'partial' ? 'আংশিক' : 'বাকি';
-        
-        html += `<tr>
-            <td>#${sale.invoiceNo}</td>
-            <td>${new Date(sale.date).toLocaleDateString('bn-BD')}</td>
-            <td>${customerName}</td>
-            <td>${productName}</td>
-            <td>৳${formatNumber(sale.total)}</td>
-            <td>৳${formatNumber(sale.due)}</td>
-            <td><span class="badge badge-${statusClass}">${statusText}</span></td>
             <td>
-                <button class="action-btn action-btn-info" onclick="printInvoice('${sale.id}')"><i class="fas fa-print"></i></button>
-                <button class="action-btn action-btn-danger" onclick="deleteSale('${sale.id}')"><i class="fas fa-trash"></i></button>
+                <button style="padding:5px 10px; border:none; border-radius:5px; cursor:pointer; background:#bee3f8; color:#2c5282;" onclick="printInvoice('${sale.id}')"><i class="fas fa-print"></i></button>
+                <button style="padding:5px 10px; border:none; border-radius:5px; cursor:pointer; background:#fed7d7; color:#742a2a;" onclick="deleteSale('${sale.id}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>`;
     });
@@ -2085,16 +1112,16 @@ function loadSales() {
 
 function openSalesModal() {
     const customerSelect = document.getElementById('saleCustomer');
-    customerSelect.innerHTML = '<option value="">কাস্টমার নির্বাচন করুন</option>';
+    customerSelect.innerHTML = '<option value="">নির্বাচন করুন</option>';
     if (allData.customers) {
-        allData.customers.forEach(c => customerSelect.innerHTML += `<option value="${c.id}">${c.name} (${c.phone})</option>`);
+        allData.customers.forEach(c => customerSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`);
     }
     
     const productSelect = document.getElementById('saleProduct');
-    productSelect.innerHTML = '<option value="">পণ্য নির্বাচন করুন</option>';
+    productSelect.innerHTML = '<option value="">নির্বাচন করুন</option>';
     if (allData.inventory) {
         allData.inventory.filter(p => Number(p.stock) > 0).forEach(p => {
-            productSelect.innerHTML += `<option value="${p.id}" data-price="${p.salePrice}" data-stock="${p.stock}">${p.name} (স্টক: ${p.stock})</option>`;
+            productSelect.innerHTML += `<option value="${p.id}" data-price="${p.salePrice}">${p.name} (${p.stock})</option>`;
         });
     }
     
@@ -2158,13 +1185,12 @@ async function saveSale(e) {
 }
 
 async function deleteSale(saleId) {
-    if (confirm('বিক্রয়টি ডিলিট করতে চান?')) {
+    if (confirm('বিক্রয়টি ডিলিট করবেন?')) {
         const sale = allData.sales.find(s => s.id === saleId);
         if (sale) {
             sale.isDeleted = true;
             await apiRequest('save', { sheet: 'sales', data: sale });
             await loadAllData();
-            showToast('বিক্রয় ডিলিট হয়েছে', 'success');
         }
     }
 }
@@ -2172,16 +1198,15 @@ async function deleteSale(saleId) {
 function printInvoice(saleId) {
     const sale = allData.sales.find(s => s.id === saleId);
     const customer = allData.customers.find(c => c.id === sale.customerId);
-    const product = allData.inventory.find(p => p.id === sale.productId);
     
     const printWindow = window.open('', '_blank');
     printWindow.document.write(`
         <html><head><title>Invoice ${sale.invoiceNo}</title>
         <style>
             body { font-family: Arial, sans-serif; padding: 20px; }
-            .header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #667eea; }
+            .header { text-align: center; border-bottom: 2px solid #667eea; margin-bottom: 20px; padding-bottom: 10px; }
             table { width: 100%; border-collapse: collapse; }
-            th, td { padding: 10px; border: 1px solid #ddd; }
+            th, td { padding: 8px; border: 1px solid #ddd; }
             th { background: #667eea; color: white; }
         </style>
         </head><body>
@@ -2190,17 +1215,16 @@ function printInvoice(saleId) {
             <p>${new Date(sale.date).toLocaleString('bn-BD')}</p>
         </div>
         <p><strong>কাস্টমার:</strong> ${customer ? customer.name : 'N/A'}</p>
-        <p><strong>ফোন:</strong> ${customer ? customer.phone : 'N/A'}</p>
         <table>
-            <tr><th>পণ্য</th><th>পরিমাণ</th><th>দাম</th><th>মোট</th></tr>
-            <tr><td>${product ? product.name : 'N/A'}</td><td>${sale.quantity}</td><td>৳${formatNumber(sale.price)}</td><td>৳${formatNumber(sale.total)}</td></tr>
+            <tr><th>পরিমাণ</th><th>দাম</th><th>মোট</th></tr>
+            <tr><td>${sale.quantity}</td><td>৳${formatNumber(sale.price)}</td><td>৳${formatNumber(sale.total)}</td></tr>
         </table>
         <div style="margin-top:20px; text-align:right;">
             <p><strong>মোট:</strong> ৳${formatNumber(sale.total)}</p>
             <p><strong>পরিশোধ:</strong> ৳${formatNumber(sale.paid)}</p>
             <p><strong>বাকি:</strong> ৳${formatNumber(sale.due)}</p>
         </div>
-        <button onclick="window.print()" style="padding:12px 24px; background:#667eea; color:white; border:none; border-radius:8px;">প্রিন্ট করুন</button>
+        <button onclick="window.print()" style="padding:10px 20px; background:#667eea; color:white; border:none; border-radius:5px;">প্রিন্ট</button>
         </body></html>
     `);
     printWindow.document.close();
@@ -2208,33 +1232,31 @@ function printInvoice(saleId) {
 }
 
 // ============================================================
-// INVENTORY MANAGEMENT
+// INVENTORY
 // ============================================================
 
 function loadInventory() {
     const tbody = document.getElementById('inventoryTableBody');
     
     if (!allData.inventory || allData.inventory.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px;">কোনো পণ্য নেই</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px;">কোনো পণ্য নেই</td></tr>';
         return;
     }
     
     let html = '';
     allData.inventory.forEach(product => {
         const stock = Number(product.stock);
-        const minStock = Number(product.minStock) || 10;
-        const statusClass = stock <= 0 ? 'danger' : stock <= minStock ? 'warning' : 'success';
-        const statusText = stock <= 0 ? 'স্টক নেই' : stock <= minStock ? 'কম স্টক' : 'স্টকে আছে';
+        const statusClass = stock <= 0 ? 'danger' : stock <= 10 ? 'warning' : 'success';
+        const statusText = stock <= 0 ? 'স্টক নেই' : stock <= 10 ? 'কম স্টক' : 'স্টকে আছে';
         
         html += `<tr>
             <td>${product.name}</td>
-            <td>${product.category || '-'}</td>
             <td>${stock}</td>
             <td>৳${formatNumber(product.salePrice)}</td>
             <td><span class="badge badge-${statusClass}">${statusText}</span></td>
             <td>
-                <button class="action-btn action-btn-warning" onclick="editProduct('${product.id}')"><i class="fas fa-edit"></i></button>
-                <button class="action-btn action-btn-danger" onclick="deleteProduct('${product.id}')"><i class="fas fa-trash"></i></button>
+                <button style="padding:5px 10px; border:none; border-radius:5px; cursor:pointer; background:#fefcbf; color:#744210;" onclick="editProduct('${product.id}')"><i class="fas fa-edit"></i></button>
+                <button style="padding:5px 10px; border:none; border-radius:5px; cursor:pointer; background:#fed7d7; color:#742a2a;" onclick="deleteProduct('${product.id}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>`;
     });
@@ -2257,7 +1279,6 @@ async function saveProduct(e) {
         buyPrice: Number(document.getElementById('productBuyPrice').value),
         salePrice: Number(document.getElementById('productSalePrice').value),
         stock: Number(document.getElementById('productStock').value),
-        minStock: Number(document.getElementById('productMinStock').value) || 10,
         userId: currentUser.id
     };
     
@@ -2278,13 +1299,12 @@ function editProduct(productId) {
         document.getElementById('productBuyPrice').value = product.buyPrice;
         document.getElementById('productSalePrice').value = product.salePrice;
         document.getElementById('productStock').value = product.stock;
-        document.getElementById('productMinStock').value = product.minStock || 10;
         document.getElementById('productModal').classList.add('active');
     }
 }
 
 async function deleteProduct(productId) {
-    if (confirm('পণ্যটি ডিলিট করতে চান?')) {
+    if (confirm('পণ্যটি ডিলিট করবেন?')) {
         const product = allData.inventory.find(p => p.id === productId);
         if (product) {
             product.isDeleted = true;
@@ -2295,30 +1315,28 @@ async function deleteProduct(productId) {
 }
 
 // ============================================================
-// CUSTOMER MANAGEMENT
+// CUSTOMERS
 // ============================================================
 
 function loadCustomers() {
     const tbody = document.getElementById('customerTableBody');
     
     if (!allData.customers || allData.customers.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px;">কোনো কাস্টমার নেই</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:20px;">কোনো কাস্টমার নেই</td></tr>';
         return;
     }
     
     let html = '';
     allData.customers.forEach(customer => {
         const due = Number(customer.due || 0);
-        const totalPurchased = Number(customer.totalPurchased || 0);
         
         html += `<tr>
             <td>${customer.name}</td>
             <td>${customer.phone}</td>
-            <td>৳${formatNumber(totalPurchased)}</td>
             <td style="color:${due > 0 ? '#f56565' : '#48bb78'}">৳${formatNumber(due)}</td>
             <td>
-                <button class="action-btn action-btn-warning" onclick="editCustomer('${customer.id}')"><i class="fas fa-edit"></i></button>
-                <button class="action-btn action-btn-danger" onclick="deleteCustomer('${customer.id}')"><i class="fas fa-trash"></i></button>
+                <button style="padding:5px 10px; border:none; border-radius:5px; cursor:pointer; background:#fefcbf; color:#744210;" onclick="editCustomer('${customer.id}')"><i class="fas fa-edit"></i></button>
+                <button style="padding:5px 10px; border:none; border-radius:5px; cursor:pointer; background:#fed7d7; color:#742a2a;" onclick="deleteCustomer('${customer.id}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>`;
     });
@@ -2338,10 +1356,6 @@ async function saveCustomer(e) {
         id: 'customer_' + Date.now(),
         name: document.getElementById('customerName').value,
         phone: document.getElementById('customerPhone').value,
-        email: document.getElementById('customerEmail').value,
-        address: document.getElementById('customerAddress').value,
-        totalPurchased: 0,
-        due: 0,
         userId: currentUser.id
     };
     
@@ -2359,14 +1373,12 @@ function editCustomer(customerId) {
     if (customer) {
         document.getElementById('customerName').value = customer.name;
         document.getElementById('customerPhone').value = customer.phone;
-        document.getElementById('customerEmail').value = customer.email || '';
-        document.getElementById('customerAddress').value = customer.address || '';
         document.getElementById('customerModal').classList.add('active');
     }
 }
 
 async function deleteCustomer(customerId) {
-    if (confirm('কাস্টমারটিকে ডিলিট করতে চান?')) {
+    if (confirm('কাস্টমার ডিলিট করবেন?')) {
         const customer = allData.customers.find(c => c.id === customerId);
         if (customer) {
             customer.isDeleted = true;
@@ -2387,19 +1399,10 @@ function changePassword() {
 async function changePasswordForm(e) {
     e.preventDefault();
     
-    const oldPassword = document.getElementById('oldPassword').value;
-    const newPassword = document.getElementById('newPassword').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-    
-    if (newPassword !== confirmPassword) {
-        showToast('নতুন পাসওয়ার্ড মিলছে না!', 'error');
-        return;
-    }
-    
     const result = await apiRequest('changePassword', {
         userId: currentUser.id,
-        oldPassword: oldPassword,
-        newPassword: newPassword
+        oldPassword: document.getElementById('oldPassword').value,
+        newPassword: document.getElementById('newPassword').value
     });
     
     if (result.success) {
@@ -2411,65 +1414,7 @@ async function changePasswordForm(e) {
 }
 
 // ============================================================
-// NOTIFICATIONS
-// ============================================================
-
-async function loadNotifications() {
-    if (!currentUser) return;
-    
-    const result = await apiGet(`getNotifications&userId=${currentUser.id}`);
-    
-    if (result.success && result.notifications) {
-        const unread = result.notifications.filter(n => !n.read).length;
-        document.getElementById('notificationBadge').textContent = unread;
-        document.getElementById('notificationBadge').style.display = unread > 0 ? 'flex' : 'none';
-        
-        const list = document.getElementById('notificationList');
-        if (result.notifications.length === 0) {
-            list.innerHTML = '<p style="text-align:center; color:#718096; padding:20px;">কোনো নোটিফিকেশন নেই</p>';
-            return;
-        }
-        
-        let html = '';
-        result.notifications.forEach(notif => {
-            const typeClass = notif.type || 'info';
-            const iconMap = {
-                success: 'fa-check-circle',
-                error: 'fa-times-circle',
-                warning: 'fa-exclamation-triangle',
-                info: 'fa-info-circle',
-                welcome: 'fa-star',
-                security: 'fa-shield-alt'
-            };
-            
-            html += `<div class="notification-item">
-                <div class="notification-icon ${typeClass}">
-                    <i class="fas ${iconMap[typeClass] || 'fa-info-circle'}"></i>
-                </div>
-                <div class="notification-content">
-                    <div class="notification-title">${notif.title}</div>
-                    <div class="notification-message">${notif.message}</div>
-                    <div class="notification-time">${new Date(notif.created_at).toLocaleString('bn-BD')}</div>
-                </div>
-            </div>`;
-        });
-        
-        list.innerHTML = html;
-    }
-}
-
-function toggleNotifications() {
-    const panel = document.getElementById('notificationPanel');
-    if (panel.style.display === 'none') {
-        panel.style.display = 'block';
-        loadNotifications();
-    } else {
-        panel.style.display = 'none';
-    }
-}
-
-// ============================================================
-// ADMIN PANEL
+// ADMIN
 // ============================================================
 
 async function loadAdminUsers() {
@@ -2481,27 +1426,25 @@ async function loadAdminUsers() {
         const tbody = document.getElementById('userTableBody');
         
         if (result.users.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px;">কোনো ইউজার নেই</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px;">কোনো ইউজার নেই</td></tr>';
             return;
         }
         
         let html = '';
         result.users.forEach(user => {
             const statusClass = user.blocked ? 'danger' : user.active ? 'success' : 'warning';
-            const statusText = user.blocked ? 'ব্লক করা' : user.active ? 'সক্রিয়' : 'নিষ্ক্রিয়';
+            const statusText = user.blocked ? 'ব্লক' : user.active ? 'সক্রিয়' : 'নিষ্ক্রিয়';
             
             html += `<tr>
                 <td>${user.name}</td>
                 <td>${user.email}</td>
-                <td>${user.phone}</td>
-                <td><span class="badge badge-info">${user.role}</span></td>
                 <td><span class="badge badge-${statusClass}">${statusText}</span></td>
                 <td>
                     ${user.blocked ? 
-                        `<button class="action-btn action-btn-info" onclick="unblockUser('${user.id}')"><i class="fas fa-unlock"></i></button>` :
-                        `<button class="action-btn action-btn-warning" onclick="blockUser('${user.id}')"><i class="fas fa-ban"></i></button>`
+                        `<button style="padding:5px 10px; border:none; border-radius:5px; cursor:pointer; background:#bee3f8; color:#2c5282;" onclick="unblockUser('${user.id}')"><i class="fas fa-unlock"></i></button>` :
+                        `<button style="padding:5px 10px; border:none; border-radius:5px; cursor:pointer; background:#fefcbf; color:#744210;" onclick="blockUser('${user.id}')"><i class="fas fa-ban"></i></button>`
                     }
-                    <button class="action-btn action-btn-danger" onclick="deleteUser('${user.id}')"><i class="fas fa-trash"></i></button>
+                    <button style="padding:5px 10px; border:none; border-radius:5px; cursor:pointer; background:#fed7d7; color:#742a2a;" onclick="deleteUser('${user.id}')"><i class="fas fa-trash"></i></button>
                 </td>
             </tr>`;
         });
@@ -2511,86 +1454,33 @@ async function loadAdminUsers() {
 }
 
 async function blockUser(userId) {
-    if (confirm('ইউজারকে ব্লক করতে চান?')) {
-        const result = await apiRequest('blockUser', { userId });
-        if (result.success) {
-            showToast('ইউজার ব্লক করা হয়েছে!', 'success');
-            loadAdminUsers();
-        }
+    const result = await apiRequest('blockUser', { userId });
+    if (result.success) {
+        showToast('ইউজার ব্লক হয়েছে!', 'success');
+        loadAdminUsers();
     }
 }
 
 async function unblockUser(userId) {
     const result = await apiRequest('unblockUser', { userId });
     if (result.success) {
-        showToast('ইউজার আনব্লক করা হয়েছে!', 'success');
+        showToast('ইউজার আনব্লক হয়েছে!', 'success');
         loadAdminUsers();
     }
 }
 
 async function deleteUser(userId) {
-    if (confirm('ইউজারকে ডিলিট করতে চান?')) {
+    if (confirm('ইউজার ডিলিট করবেন?')) {
         const result = await apiRequest('deleteUser', { userId });
         if (result.success) {
-            showToast('ইউজার ডিলিট করা হয়েছে!', 'success');
+            showToast('ইউজার ডিলিট হয়েছে!', 'success');
             loadAdminUsers();
         }
     }
 }
 
-function openAddUserModal() {
-    document.getElementById('addUserForm').reset();
-    document.getElementById('addUserModal').classList.add('active');
-}
-
-async function addUser(e) {
-    e.preventDefault();
-    
-    const userData = {
-        name: document.getElementById('addUserName').value,
-        email: document.getElementById('addUserEmail').value,
-        phone: document.getElementById('addUserPhone').value,
-        password: document.getElementById('addUserPassword').value,
-        role: document.getElementById('addUserRole').value
-    };
-    
-    const result = await apiRequest('register', { data: userData });
-    
-    if (result.success) {
-        closeModal('addUserModal');
-        showToast('ইউজার যোগ হয়েছে!', 'success');
-        loadAdminUsers();
-    } else {
-        showToast(result.message || 'ইউজার যোগ ব্যর্থ!', 'error');
-    }
-}
-
 // ============================================================
-// REPORTS
-// ============================================================
-
-function loadReports() {
-    const stats = calculateStats();
-    
-    document.getElementById('reportSales').textContent = `৳${formatNumber(stats.totalSales)}`;
-    document.getElementById('reportExpenses').textContent = `৳${formatNumber(stats.totalPurchases)}`;
-    document.getElementById('reportProfit').textContent = `৳${formatNumber(stats.totalProfit)}`;
-}
-
-function downloadReport() {
-    const stats = calculateStats();
-    const report = `দোকানের রিপোর্ট\n====================\nমোট বিক্রয়: ৳${formatNumber(stats.totalSales)}\nমোট ক্রয়: ৳${formatNumber(stats.totalPurchases)}\nমোট লাভ: ৳${formatNumber(stats.totalProfit)}\nমোট কাস্টমার: ${stats.totalCustomers}\nমোট স্টক: ${stats.totalStock}\nমোট বাকি: ৳${formatNumber(stats.totalDue)}\n\nতারিখ: ${new Date().toLocaleDateString('bn-BD')}`;
-    
-    const blob = new Blob([report], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `shop_report_${Date.now()}.txt`;
-    a.click();
-}
-
-// ============================================================
-// UTILITY FUNCTIONS
+// UTILITY
 // ============================================================
 
 function formatNumber(num) {
@@ -2599,10 +1489,6 @@ function formatNumber(num) {
 
 function closeModal(modalId) {
     document.getElementById(modalId).classList.remove('active');
-}
-
-function showLoading(show) {
-    document.getElementById('loading').classList.toggle('active', show);
 }
 
 function showToast(message, type = 'info') {
@@ -2617,7 +1503,6 @@ function showToast(message, type = 'info') {
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Load saved user
     const savedUser = localStorage.getItem('shopManager_user');
     if (savedUser) {
         currentUser = JSON.parse(savedUser);
@@ -2625,10 +1510,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('userName').textContent = currentUser.name;
         showApp();
         loadAllData();
-        loadNotifications();
     }
     
-    // Setup forms
     document.getElementById('loginForm').addEventListener('submit', handleLogin);
     document.getElementById('registerForm').addEventListener('submit', handleRegister);
     document.getElementById('resetPasswordForm').addEventListener('submit', handleResetPassword);
@@ -2636,30 +1519,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('productForm').addEventListener('submit', saveProduct);
     document.getElementById('customerForm').addEventListener('submit', saveCustomer);
     document.getElementById('passwordForm').addEventListener('submit', changePasswordForm);
-    document.getElementById('addUserForm').addEventListener('submit', addUser);
-    
-    // Search functionality
-    const searches = {
-        salesSearch: 'salesTableBody',
-        inventorySearch: 'inventoryTableBody',
-        customerSearch: 'customerTableBody',
-        userSearch: 'userTableBody'
-    };
-    
-    Object.keys(searches).forEach(searchId => {
-        const search = document.getElementById(searchId);
-        if (search) {
-            search.addEventListener('input', function() {
-                const term = this.value.toLowerCase();
-                const tbody = document.getElementById(searches[searchId]);
-                if (tbody) {
-                    tbody.querySelectorAll('tr').forEach(row => {
-                        row.style.display = row.textContent.toLowerCase().includes(term) ? '' : 'none';
-                    });
-                }
-            });
-        }
-    });
 });
 </script>
 
