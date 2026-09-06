@@ -3,26 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>প্রফেশনাল শপ ম্যানেজার</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
+    <title>শপ ম্যানেজার</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-        /* ====== GLOBAL STYLES ====== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Hind Siliguri', 'Roboto', sans-serif;
+            font-family: 'Hind Siliguri', sans-serif;
         }
         
         :root {
             --primary: #667eea;
-            --primary-dark: #5a67d8;
             --secondary: #f093fb;
             --success: #48bb78;
             --danger: #f56565;
@@ -30,9 +25,7 @@
             --info: #4299e1;
             --dark: #2d3748;
             --light: #f7fafc;
-            --white: #ffffff;
-            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            --border-radius: 12px;
+            --white: #fff;
         }
         
         body {
@@ -40,319 +33,338 @@
             min-height: 100vh;
         }
         
-        /* ====== NAVBAR ====== */
+        /* ====== LOGIN SCREEN ====== */
+        .login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .login-box {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-logo i {
+            font-size: 60px;
+            color: #667eea;
+        }
+        
+        .login-logo h1 {
+            font-size: 28px;
+            color: #2d3748;
+            margin-top: 10px;
+        }
+        
+        .login-logo p {
+            color: #718096;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2d3748;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            background: #f7fafc;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #f093fb);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.3);
+        }
+        
+        .btn-success {
+            background: #48bb78;
+        }
+        
+        .btn-danger {
+            background: #f56565;
+        }
+        
+        .btn-info {
+            background: #4299e1;
+        }
+        
+        .btn-warning {
+            background: #ed8936;
+        }
+        
+        .login-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .login-links a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        /* ====== APP ====== */
+        .app-container {
+            display: none;
+        }
+        
         .navbar {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            padding: 1rem 2rem;
-            box-shadow: var(--shadow);
-            position: sticky;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            padding: 15px 20px;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
-        .logo {
-            color: var(--white);
-            font-size: 1.8rem;
+        .navbar-brand {
+            color: white;
+            font-size: 20px;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
-        .logo i {
-            font-size: 2rem;
-        }
-        
-        .nav-links {
+        .navbar-user {
             display: flex;
-            gap: 1.5rem;
             align-items: center;
-            flex-wrap: wrap;
+            gap: 10px;
+            color: white;
         }
         
-        .nav-link {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .nav-link:hover {
+        .navbar-user button {
             background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-        
-        .nav-link.active {
-            background: rgba(255,255,255,0.3);
-            border-bottom: 3px solid var(--white);
-        }
-        
-        .lang-btn {
-            background: rgba(255,255,255,0.2);
-            color: var(--white);
-            border: 1px solid rgba(255,255,255,0.5);
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 13px;
         }
         
-        /* ====== CONTAINER ====== */
-        .container {
+        .main-content {
+            padding: 80px 20px 80px 20px;
             max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 20px;
+            margin: 0 auto;
         }
         
+        /* ====== DASHBOARD ====== */
         .dashboard-title {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--dark);
-            font-size: 2rem;
-            font-weight: 700;
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        /* ====== STATS CARDS ====== */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
         }
         
         .stat-card {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        }
-        
-        .stat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--white);
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .stat-value {
-            font-size: 2rem;
+            font-size: 28px;
             font-weight: 800;
-            color: var(--dark);
+            color: #2d3748;
         }
         
         .stat-label {
+            font-size: 12px;
             color: #718096;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-        
-        /* ====== CHARTS ====== */
-        .charts-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
+            margin-top: 5px;
         }
         
         .chart-card {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            min-height: 350px;
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
         
         .chart-card h3 {
-            color: var(--dark);
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
+            font-size: 16px;
+            margin-bottom: 15px;
         }
         
         /* ====== SECTION CARD ====== */
         .section-card {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            margin-bottom: 2rem;
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
         
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
+            margin-bottom: 15px;
         }
         
         .section-title {
-            font-size: 1.3rem;
-            color: var(--dark);
+            font-size: 18px;
+            color: #2d3748;
             font-weight: 600;
         }
         
-        /* ====== BUTTONS ====== */
-        .btn {
-            padding: 0.7rem 1.2rem;
+        .add-btn {
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            color: white;
             border: none;
-            border-radius: var(--border-radius);
+            padding: 10px 16px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: inline-flex;
+            font-size: 13px;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            color: var(--white);
+            gap: 6px;
         }
         
-        .btn-primary { background: var(--primary); }
-        .btn-primary:hover { background: var(--primary-dark); }
-        .btn-success { background: var(--success); }
-        .btn-success:hover { background: #38a169; }
-        .btn-danger { background: var(--danger); }
-        .btn-danger:hover { background: #e53e3e; }
-        .btn-warning { background: var(--warning); }
-        .btn-warning:hover { background: #dd6b20; }
-        .btn-info { background: var(--info); }
-        .btn-info:hover { background: #3182ce; }
-        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
-        
-        /* ====== SEARCH ====== */
         .search-box {
             display: flex;
             align-items: center;
             gap: 10px;
-            background: var(--light);
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
+            background: white;
             border: 2px solid #e2e8f0;
-            margin-bottom: 1rem;
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin-bottom: 15px;
         }
         
-        .search-box:focus-within {
-            border-color: var(--primary);
+        .search-box i {
+            color: #718096;
         }
         
         .search-box input {
             border: none;
             background: transparent;
             outline: none;
-            font-size: 0.9rem;
-            color: var(--dark);
             width: 100%;
+            font-size: 14px;
         }
         
-        /* ====== TABLES ====== */
         .table-wrapper {
             overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
         }
         
         table th {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 0.8rem;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            color: white;
+            padding: 12px;
             text-align: left;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 12px;
         }
         
         table td {
-            padding: 0.8rem;
+            padding: 12px;
             border-bottom: 1px solid #e2e8f0;
-            color: var(--dark);
-            font-size: 0.9rem;
+            font-size: 13px;
         }
         
         table tr:hover {
-            background: var(--light);
+            background: #f7fafc;
         }
         
-        /* ====== TIME FILTER ====== */
-        .time-filter {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-        
-        .time-btn {
-            padding: 0.5rem 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: var(--border-radius);
-            background: var(--white);
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.3s;
-            color: var(--dark);
-        }
-        
-        .time-btn:hover {
-            border-color: var(--primary);
-        }
-        
-        .time-btn.active {
-            background: var(--primary);
-            color: var(--white);
-            border-color: var(--primary);
-        }
-        
-        /* ====== BADGE ====== */
         .badge {
             display: inline-block;
-            padding: 0.3rem 0.6rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
             font-weight: 600;
         }
         
-        .badge.success { background: #c6f6d5; color: #22543d; }
-        .badge.danger { background: #fed7d7; color: #742a2a; }
-        .badge.warning { background: #fefcbf; color: #744210; }
-        .badge.info { background: #bee3f8; color: #2c5282; }
+        .badge-success { background: #c6f6d5; color: #22543d; }
+        .badge-danger { background: #fed7d7; color: #742a2a; }
+        .badge-warning { background: #fefcbf; color: #744210; }
         
-        /* ====== MODAL ====== */
+        /* ====== MODALS ====== */
         .modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            right: 0;
+            bottom: 0;
             background: rgba(0,0,0,0.5);
             z-index: 10000;
             align-items: center;
@@ -364,595 +376,414 @@
         }
         
         .modal-content {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
             width: 90%;
+            max-width: 500px;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
         
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
         }
         
         .modal-title {
-            font-size: 1.3rem;
+            font-size: 18px;
             font-weight: 600;
-            color: var(--dark);
         }
         
         .modal-close {
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 20px;
             cursor: pointer;
-            color: var(--dark);
-        }
-        
-        /* ====== FORMS ====== */
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-            font-weight: 500;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #e2e8f0;
-            border-radius: var(--border-radius);
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
+            color: #718096;
         }
         
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 12px;
         }
         
         /* ====== TOAST ====== */
         .toast {
             position: fixed;
-            bottom: 20px;
+            top: 80px;
             right: 20px;
-            background: var(--dark);
-            color: var(--white);
-            padding: 1rem 1.5rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
+            background: #2d3748;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
             z-index: 10001;
             display: none;
+            font-size: 14px;
         }
         
         .toast.show {
             display: block;
         }
         
-        .toast.success { background: var(--success); }
-        .toast.error { background: var(--danger); }
-        .toast.warning { background: var(--warning); }
+        .toast-success { background: #48bb78; }
+        .toast-error { background: #f56565; }
+        .toast-warning { background: #ed8936; }
         
         /* ====== LOADING ====== */
         .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.8);
             display: none;
-            text-align: center;
-            padding: 2rem;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
         }
         
         .loading.active {
-            display: block;
+            display: flex;
         }
         
         .spinner {
             width: 50px;
             height: 50px;
             border: 4px solid #e2e8f0;
-            border-top: 4px solid var(--primary);
+            border-top-color: #667eea;
             border-radius: 50%;
-            margin: 0 auto;
             animation: spin 1s linear infinite;
         }
         
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ====== BOTTOM NAV ====== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #718096;
+            font-size: 11px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .bottom-nav-item.active {
+            color: #667eea;
+            background: rgba(102,126,234,0.1);
+        }
+        
+        .bottom-nav-item i {
+            font-size: 20px;
         }
         
         /* ====== RESPONSIVE ====== */
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                padding: 1rem;
-            }
-            
-            .nav-links {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .charts-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            
+        @media (min-width: 768px) {
             .stats-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .bottom-nav {
+                max-width: 500px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 20px 20px 0 0;
             }
         }
         
         @media (max-width: 480px) {
             .stats-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
             
             table {
-                font-size: 0.8rem;
+                font-size: 11px;
             }
         }
     </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-    <div class="logo">
-        <i class="fas fa-store"></i>
-        <span id="shopNameDisplay">শপ ম্যানেজার</span>
-    </div>
-    <div class="nav-links">
-        <a class="nav-link active" data-page="dashboard"><i class="fas fa-chart-line"></i> ড্যাশবোর্ড</a>
-        <a class="nav-link" data-page="sales"><i class="fas fa-shopping-cart"></i> বিক্রয়</a>
-        <a class="nav-link" data-page="purchase"><i class="fas fa-shopping-bag"></i> ক্রয়</a>
-        <a class="nav-link" data-page="inventory"><i class="fas fa-boxes"></i> ইনভেন্টরি</a>
-        <a class="nav-link" data-page="customers"><i class="fas fa-users"></i> কাস্টমার</a>
-        <a class="nav-link" data-page="expenses"><i class="fas fa-money-bill-wave"></i> খরচ</a>
-        <a class="nav-link" data-page="reports"><i class="fas fa-file-alt"></i> রিপোর্ট</a>
-        <a class="nav-link" data-page="settings"><i class="fas fa-cog"></i> সেটিংস</a>
-        <button class="lang-btn" id="langToggle"><i class="fas fa-globe"></i> EN</button>
-        <a class="nav-link" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> লগআউট</a>
-    </div>
-</nav>
-
-<!-- MAIN CONTAINER -->
-<div class="container">
-
-    <!-- DASHBOARD PAGE -->
-    <div class="page" id="dashboard">
-        <h1 class="dashboard-title">📊 ড্যাশবোর্ড</h1>
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+    <div class="login-box">
+        <div class="login-logo">
+            <i class="fas fa-store"></i>
+            <h1>শপ ম্যানেজার</h1>
+            <p>প্রফেশনাল শপ ম্যানেজমেন্ট</p>
+        </div>
         
-        <!-- Time Filters -->
-        <div class="time-filter">
-            <button class="time-btn active" data-time="today">আজ</button>
-            <button class="time-btn" data-time="yesterday">গতকাল</button>
-            <button class="time-btn" data-time="week">এই সপ্তাহ</button>
-            <button class="time-btn" data-time="month">এই মাস</button>
-            <button class="time-btn" data-time="year">এই বছর</button>
-            <button class="time-btn" data-time="lastyear">গত বছর</button>
-            <button class="time-btn" data-time="all">সব</button>
+        <form id="loginForm">
+            <div class="form-group">
+                <label>ইমেইল</label>
+                <input type="email" class="form-control" id="loginEmail" placeholder="admin@shop.com" required>
+            </div>
+            <div class="form-group">
+                <label>পাসওয়ার্ড</label>
+                <input type="password" class="form-control" id="loginPassword" placeholder="Admin123!" required>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-sign-in-alt"></i> লগইন করুন
+            </button>
+        </form>
+        
+        <div class="login-links">
+            <a onclick="showRegisterForm()">রেজিস্ট্রেশন করুন</a>
         </div>
-
-        <!-- Stats Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-icon" style="background: var(--success)"><i class="fas fa-dollar-sign"></i></div>
-                </div>
-                <div class="stat-value" id="totalSales">৳০</div>
-                <div class="stat-label">মোট বিক্রয়</div>
+        
+        <form id="registerForm" style="display:none;">
+            <div class="form-group">
+                <label>নাম</label>
+                <input type="text" class="form-control" id="regName" required>
             </div>
-            
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-icon" style="background: var(--danger)"><i class="fas fa-shopping-cart"></i></div>
-                </div>
-                <div class="stat-value" id="totalPurchases">৳০</div>
-                <div class="stat-label">মোট ক্রয়</div>
+            <div class="form-group">
+                <label>ইমেইল</label>
+                <input type="email" class="form-control" id="regEmail" required>
             </div>
-            
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-icon" style="background: var(--warning)"><i class="fas fa-boxes"></i></div>
-                </div>
-                <div class="stat-value" id="totalStock">০</div>
-                <div class="stat-label">মোট স্টক</div>
+            <div class="form-group">
+                <label>পাসওয়ার্ড</label>
+                <input type="password" class="form-control" id="regPassword" minlength="6" required>
             </div>
-            
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-icon" style="background: var(--info)"><i class="fas fa-users"></i></div>
-                </div>
-                <div class="stat-value" id="totalCustomers">০</div>
-                <div class="stat-label">মোট কাস্টমার</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-icon" style="background: var(--danger)"><i class="fas fa-money-bill-wave"></i></div>
-                </div>
-                <div class="stat-value" id="totalDue">৳০</div>
-                <div class="stat-label">মোট বাকি</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-icon" style="background: var(--success)"><i class="fas fa-chart-line"></i></div>
-                </div>
-                <div class="stat-value" id="totalProfit">৳০</div>
-                <div class="stat-label">মোট লাভ</div>
-            </div>
-        </div>
-
-        <!-- Charts -->
-        <div class="charts-grid">
-            <div class="chart-card">
-                <h3><i class="fas fa-chart-line"></i> বিক্রয় ট্রেন্ড</h3>
-                <canvas id="salesChart"></canvas>
-            </div>
-            <div class="chart-card">
-                <h3><i class="fas fa-chart-pie"></i> ক্যাটাগরি ভিত্তিক বিক্রয়</h3>
-                <canvas id="categoryChart"></canvas>
-            </div>
-        </div>
-
-        <!-- Recent Transactions -->
-        <div class="section-card">
-            <div class="section-header">
-                <div class="section-title"><i class="fas fa-clock"></i> সাম্প্রতিক লেনদেন</div>
-            </div>
-            <div id="recentTransactions"></div>
-        </div>
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-user-plus"></i> রেজিস্ট্রেশন করুন
+            </button>
+            <button type="button" class="btn btn-warning" style="margin-top:10px;" onclick="showLoginForm()">
+                লগইনে ফিরে যান
+            </button>
+        </form>
     </div>
+</div>
 
-    <!-- SALES PAGE -->
-    <div class="page" id="sales" style="display:none;">
-        <div class="section-card">
-            <div class="section-header">
-                <div class="section-title"><i class="fas fa-shopping-cart"></i> বিক্রয় ম্যানেজমেন্ট</div>
-                <button class="btn btn-primary" onclick="openSalesModal()"><i class="fas fa-plus"></i> নতুন বিক্রয়</button>
+<!-- APP CONTAINER -->
+<div class="app-container" id="appContainer">
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">
+                <i class="fas fa-store"></i>
+                <span id="shopName">শপ ম্যানেজার</span>
             </div>
-            
-            <div class="time-filter">
-                <button class="time-btn active" data-time="today">আজ</button>
-                <button class="time-btn" data-time="yesterday">গতকাল</button>
-                <button class="time-btn" data-time="week">এই সপ্তাহ</button>
-                <button class="time-btn" data-time="month">এই মাস</button>
-                <button class="time-btn" data-time="year">এই বছর</button>
-                <button class="time-btn" data-time="lastyear">গত বছর</button>
-                <button class="time-btn" data-time="all">সব</button>
-            </div>
-            
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="salesSearch" placeholder="বিক্রয় খুঁজুন...">
-            </div>
-            
-            <div class="table-wrapper">
-                <table id="salesTable">
-                    <thead>
-                        <tr>
-                            <th>ইনভয়েস #</th>
-                            <th>তারিখ</th>
-                            <th>কাস্টমার</th>
-                            <th>পণ্য</th>
-                            <th>মোট</th>
-                            <th>পরিশোধ</th>
-                            <th>বাকি</th>
-                            <th>স্ট্যাটাস</th>
-                            <th>অ্যাকশন</th>
-                        </tr>
-                    </thead>
-                    <tbody id="salesTableBody"></tbody>
-                </table>
-            </div>
-            
-            <div style="text-align: center; margin-top: 1rem;">
-                <button class="btn btn-info" onclick="printTable('salesTable')"><i class="fas fa-print"></i> প্রিন্ট</button>
-                <button class="btn btn-success" onclick="downloadCSV('salesTable')"><i class="fas fa-download"></i> ডাউনলোড</button>
+            <div class="navbar-user">
+                <span id="userName"><i class="fas fa-user"></i></span>
+                <button onclick="changePassword()"><i class="fas fa-key"></i></button>
+                <button onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
             </div>
         </div>
-    </div>
-
-    <!-- PURCHASE PAGE -->
-    <div class="page" id="purchase" style="display:none;">
-        <div class="section-card">
-            <div class="section-header">
-                <div class="section-title"><i class="fas fa-shopping-bag"></i> ক্রয় ম্যানেজমেন্ট</div>
-                <button class="btn btn-primary" onclick="openPurchaseModal()"><i class="fas fa-plus"></i> নতুন ক্রয়</button>
-            </div>
-            
-            <div class="time-filter">
-                <button class="time-btn active" data-time="today">আজ</button>
-                <button class="time-btn" data-time="yesterday">গতকাল</button>
-                <button class="time-btn" data-time="week">এই সপ্তাহ</button>
-                <button class="time-btn" data-time="month">এই মাস</button>
-                <button class="time-btn" data-time="year">এই বছর</button>
-                <button class="time-btn" data-time="lastyear">গত বছর</button>
-                <button class="time-btn" data-time="all">সব</button>
-            </div>
-            
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="purchaseSearch" placeholder="ক্রয় খুঁজুন...">
-            </div>
-            
-            <div class="table-wrapper">
-                <table id="purchaseTable">
-                    <thead>
-                        <tr>
-                            <th>ইনভয়েস #</th>
-                            <th>তারিখ</th>
-                            <th>সাপ্লায়ার</th>
-                            <th>পণ্য</th>
-                            <th>মোট</th>
-                            <th>পরিশোধ</th>
-                            <th>বাকি</th>
-                            <th>স্ট্যাটাস</th>
-                            <th>অ্যাকশন</th>
-                        </tr>
-                    </thead>
-                    <tbody id="purchaseTableBody"></tbody>
-                </table>
-            </div>
-            
-            <div style="text-align: center; margin-top: 1rem;">
-                <button class="btn btn-info" onclick="printTable('purchaseTable')"><i class="fas fa-print"></i> প্রিন্ট</button>
-                <button class="btn btn-success" onclick="downloadCSV('purchaseTable')"><i class="fas fa-download"></i> ডাউনলোড</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- INVENTORY PAGE -->
-    <div class="page" id="inventory" style="display:none;">
-        <div class="section-card">
-            <div class="section-header">
-                <div class="section-title"><i class="fas fa-boxes"></i> ইনভেন্টরি ম্যানেজমেন্ট</div>
-                <button class="btn btn-primary" onclick="openProductModal()"><i class="fas fa-plus"></i> নতুন পণ্য</button>
-            </div>
-            
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="inventorySearch" placeholder="পণ্য খুঁজুন...">
-            </div>
-            
-            <div class="table-wrapper">
-                <table id="inventoryTable">
-                    <thead>
-                        <tr>
-                            <th>পণ্য নাম</th>
-                            <th>ক্যাটাগরি</th>
-                            <th>ক্রয় মূল্য</th>
-                            <th>বিক্রয় মূল্য</th>
-                            <th>স্টক</th>
-                            <th>স্ট্যাটাস</th>
-                            <th>অ্যাকশন</th>
-                        </tr>
-                    </thead>
-                    <tbody id="inventoryTableBody"></tbody>
-                </table>
-            </div>
-            
-            <div style="text-align: center; margin-top: 1rem;">
-                <button class="btn btn-info" onclick="printTable('inventoryTable')"><i class="fas fa-print"></i> প্রিন্ট</button>
-                <button class="btn btn-success" onclick="downloadCSV('inventoryTable')"><i class="fas fa-download"></i> ডাউনলোড</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- CUSTOMERS PAGE -->
-    <div class="page" id="customers" style="display:none;">
-        <div class="section-card">
-            <div class="section-header">
-                <div class="section-title"><i class="fas fa-users"></i> কাস্টমার ম্যানেজমেন্ট</div>
-                <button class="btn btn-primary" onclick="openCustomerModal()"><i class="fas fa-user-plus"></i> নতুন কাস্টমার</button>
-            </div>
-            
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="customerSearch" placeholder="কাস্টমার খুঁজুন...">
-            </div>
-            
-            <div class="table-wrapper">
-                <table id="customerTable">
-                    <thead>
-                        <tr>
-                            <th>নাম</th>
-                            <th>ফোন</th>
-                            <th>ঠিকানা</th>
-                            <th>মোট কেনা</th>
-                            <th>বাকি</th>
-                            <th>স্ট্যাটাস</th>
-                            <th>অ্যাকশন</th>
-                        </tr>
-                    </thead>
-                    <tbody id="customerTableBody"></tbody>
-                </table>
-            </div>
-            
-            <div style="text-align: center; margin-top: 1rem;">
-                <button class="btn btn-info" onclick="printTable('customerTable')"><i class="fas fa-print"></i> প্রিন্ট</button>
-                <button class="btn btn-success" onclick="downloadCSV('customerTable')"><i class="fas fa-download"></i> ডাউনলোড</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- EXPENSES PAGE -->
-    <div class="page" id="expenses" style="display:none;">
-        <div class="section-card">
-            <div class="section-header">
-                <div class="section-title"><i class="fas fa-money-bill-wave"></i> খরচ ম্যানেজমেন্ট</div>
-                <button class="btn btn-primary" onclick="openExpenseModal()"><i class="fas fa-plus"></i> নতুন খরচ</button>
-            </div>
-            
-            <div class="time-filter">
-                <button class="time-btn active" data-time="today">আজ</button>
-                <button class="time-btn" data-time="yesterday">গতকাল</button>
-                <button class="time-btn" data-time="week">এই সপ্তাহ</button>
-                <button class="time-btn" data-time="month">এই মাস</button>
-                <button class="time-btn" data-time="year">এই বছর</button>
-                <button class="time-btn" data-time="lastyear">গত বছর</button>
-                <button class="time-btn" data-time="all">সব</button>
-            </div>
-            
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="expenseSearch" placeholder="খরচ খুঁজুন...">
-            </div>
-            
-            <div class="table-wrapper">
-                <table id="expenseTable">
-                    <thead>
-                        <tr>
-                            <th>তারিখ</th>
-                            <th>বিবরণ</th>
-                            <th>ক্যাটাগরি</th>
-                            <th>পরিমাণ</th>
-                            <th>অ্যাকশন</th>
-                        </tr>
-                    </thead>
-                    <tbody id="expenseTableBody"></tbody>
-                </table>
-            </div>
-            
-            <div style="text-align: center; margin-top: 1rem;">
-                <button class="btn btn-info" onclick="printTable('expenseTable')"><i class="fas fa-print"></i> প্রিন্ট</button>
-                <button class="btn btn-success" onclick="downloadCSV('expenseTable')"><i class="fas fa-download"></i> ডাউনলোড</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- REPORTS PAGE -->
-    <div class="page" id="reports" style="display:none;">
-        <div class="section-card">
-            <div class="section-header">
-                <div class="section-title"><i class="fas fa-file-alt"></i> রিপোর্ট</div>
-            </div>
-            
-            <div class="time-filter">
-                <button class="time-btn active" data-time="today">আজ</button>
-                <button class="time-btn" data-time="yesterday">গতকাল</button>
-                <button class="time-btn" data-time="week">এই সপ্তাহ</button>
-                <button class="time-btn" data-time="month">এই মাস</button>
-                <button class="time-btn" data-time="year">এই বছর</button>
-                <button class="time-btn" data-time="lastyear">গত বছর</button>
-                <button class="time-btn" data-time="all">সব</button>
-            </div>
+    </nav>
+    
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- Dashboard -->
+        <div class="page" id="dashboard">
+            <h2 class="dashboard-title"><i class="fas fa-chart-line"></i> ড্যাশবোর্ড</h2>
             
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-value" id="reportTotalSales">৳০</div>
+                    <div class="stat-value" id="totalSales">৳0</div>
                     <div class="stat-label">মোট বিক্রয়</div>
                 </div>
-                
                 <div class="stat-card">
-                    <div class="stat-value" id="reportTotalPurchases">৳০</div>
+                    <div class="stat-value" id="totalPurchases">৳0</div>
                     <div class="stat-label">মোট ক্রয়</div>
                 </div>
-                
                 <div class="stat-card">
-                    <div class="stat-value" id="reportTotalExpenses">৳০</div>
-                    <div class="stat-label">মোট খরচ</div>
+                    <div class="stat-value" id="totalStock">0</div>
+                    <div class="stat-label">মোট স্টক</div>
                 </div>
-                
                 <div class="stat-card">
-                    <div class="stat-value" id="reportProfit">৳০</div>
+                    <div class="stat-value" id="totalCustomers">0</div>
+                    <div class="stat-label">মোট কাস্টমার</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalDue">৳0</div>
+                    <div class="stat-label">মোট বাকি</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalProfit">৳0</div>
                     <div class="stat-label">মোট লাভ</div>
                 </div>
             </div>
             
-            <div style="text-align: center; margin-top: 2rem;">
-                <button class="btn btn-primary" onclick="generateFullReport()"><i class="fas fa-file-pdf"></i> সম্পূর্ণ রিপোর্ট তৈরি</button>
+            <div class="chart-card">
+                <h3><i class="fas fa-chart-line"></i> বিক্রয় ট্রেন্ড</h3>
+                <canvas id="salesChart"></canvas>
             </div>
-        </div>
-    </div>
-
-    <!-- SETTINGS PAGE -->
-    <div class="page" id="settings" style="display:none;">
-        <div class="section-card">
-            <div class="section-header">
-                <div class="section-title"><i class="fas fa-cog"></i> সেটিংস</div>
-            </div>
-            
-            <div class="form-group">
-                <label>দোকানের নাম</label>
-                <input type="text" class="form-control" id="shopName" placeholder="আপনার দোকানের নাম">
-            </div>
-            
-            <div class="form-group">
-                <label>মালিকের নাম</label>
-                <input type="text" class="form-control" id="ownerName" placeholder="মালিকের নাম">
-            </div>
-            
-            <div class="form-group">
-                <label>ফোন নম্বর</label>
-                <input type="tel" class="form-control" id="shopPhone" placeholder="ফোন নম্বর">
-            </div>
-            
-            <div class="form-group">
-                <label>ঠিকানা</label>
-                <textarea class="form-control" id="shopAddress" placeholder="ঠিকানা"></textarea>
-            </div>
-            
-            <button class="btn btn-primary" onclick="saveSettings()"><i class="fas fa-save"></i> সেটিংস সেভ করুন</button>
         </div>
         
-        <!-- Admin Section -->
-        <div class="section-card" id="adminSection" style="display:none;">
-            <div class="section-header">
-                <div class="section-title"><i class="fas fa-user-shield"></i> অ্যাডমিন প্যানেল</div>
+        <!-- Sales -->
+        <div class="page" id="sales" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title"><i class="fas fa-shopping-cart"></i> বিক্রয়</div>
+                    <button class="add-btn" onclick="openSalesModal()"><i class="fas fa-plus"></i> নতুন</button>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="salesSearch" placeholder="বিক্রয় খুঁজুন...">
+                </div>
+                
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ইনভয়েস</th>
+                                <th>তারিখ</th>
+                                <th>কাস্টমার</th>
+                                <th>মোট</th>
+                                <th>স্ট্যাটাস</th>
+                                <th>অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="salesTableBody"></tbody>
+                    </table>
+                </div>
             </div>
-            
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="userSearch" placeholder="ইউজার খুঁজুন...">
+        </div>
+        
+        <!-- Inventory -->
+        <div class="page" id="inventory" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title"><i class="fas fa-boxes"></i> ইনভেন্টরি</div>
+                    <button class="add-btn" onclick="openProductModal()"><i class="fas fa-plus"></i> নতুন</button>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="inventorySearch" placeholder="পণ্য খুঁজুন...">
+                </div>
+                
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>পণ্য</th>
+                                <th>স্টক</th>
+                                <th>বিক্রয় মূল্য</th>
+                                <th>স্ট্যাটাস</th>
+                                <th>অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryTableBody"></tbody>
+                    </table>
+                </div>
             </div>
-            
-            <div class="table-wrapper">
-                <table id="userTable">
-                    <thead>
-                        <tr>
-                            <th>ইউজার নাম</th>
-                            <th>ইমেইল</th>
-                            <th>স্ট্যাটাস</th>
-                            <th>অ্যাকশন</th>
-                        </tr>
-                    </thead>
-                    <tbody id="userTableBody"></tbody>
-                </table>
+        </div>
+        
+        <!-- Customers -->
+        <div class="page" id="customers" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title"><i class="fas fa-users"></i> কাস্টমার</div>
+                    <button class="add-btn" onclick="openCustomerModal()"><i class="fas fa-plus"></i> নতুন</button>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="customerSearch" placeholder="কাস্টমার খুঁজুন...">
+                </div>
+                
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>নাম</th>
+                                <th>ফোন</th>
+                                <th>বাকি</th>
+                                <th>অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customerTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Reports -->
+        <div class="page" id="reports" style="display:none;">
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title"><i class="fas fa-file-alt"></i> রিপোর্ট</div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="reportSales">৳0</div>
+                        <div class="stat-label">বিক্রয়</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="reportExpenses">৳0</div>
+                        <div class="stat-label">খরচ</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="reportProfit">৳0</div>
+                        <div class="stat-label">লাভ</div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="downloadReport()">
+                    <i class="fas fa-download"></i> ডাউনলোড
+                </button>
             </div>
         </div>
     </div>
+    
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+        <a class="bottom-nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
+            <i class="fas fa-home"></i>
+            <span>হোম</span>
+        </a>
+        <a class="bottom-nav-item" data-page="sales" onclick="showPage('sales')">
+            <i class="fas fa-shopping-cart"></i>
+            <span>বিক্রয়</span>
+        </a>
+        <a class="bottom-nav-item" data-page="inventory" onclick="showPage('inventory')">
+            <i class="fas fa-boxes"></i>
+            <span>স্টক</span>
+        </a>
+        <a class="bottom-nav-item" data-page="customers" onclick="showPage('customers')">
+            <i class="fas fa-users"></i>
+            <span>কাস্টমার</span>
+        </a>
+        <a class="bottom-nav-item" data-page="reports" onclick="showPage('reports')">
+            <i class="fas fa-chart-bar"></i>
+            <span>রিপোর্ট</span>
+        </a>
+    </nav>
 </div>
 
 <!-- MODALS -->
-
-<!-- SALES MODAL -->
 <div class="modal" id="salesModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title"><i class="fas fa-shopping-cart"></i> নতুন বিক্রয়</h3>
+            <h3 class="modal-title">নতুন বিক্রয়</h3>
             <button class="modal-close" onclick="closeModal('salesModal')">&times;</button>
         </div>
-        
         <form id="salesForm">
             <div class="form-group">
                 <label>কাস্টমার</label>
@@ -960,134 +791,56 @@
                     <option value="">কাস্টমার নির্বাচন করুন</option>
                 </select>
             </div>
-            
             <div class="form-group">
                 <label>পণ্য</label>
                 <select class="form-control" id="saleProduct" onchange="updateProductPrice()" required>
                     <option value="">পণ্য নির্বাচন করুন</option>
                 </select>
             </div>
-            
             <div class="form-row">
                 <div class="form-group">
                     <label>পরিমাণ</label>
-                    <input type="number" class="form-control" id="saleQuantity" oninput="calculateSaleTotal()" min="1" required>
+                    <input type="number" class="form-control" id="saleQuantity" min="1" oninput="calculateTotal()" required>
                 </div>
                 <div class="form-group">
-                    <label>দাম (প্রতি)</label>
-                    <input type="number" class="form-control" id="salePrice" oninput="calculateSaleTotal()" required>
+                    <label>দাম</label>
+                    <input type="number" class="form-control" id="salePrice" oninput="calculateTotal()" required>
                 </div>
             </div>
-            
             <div class="form-group">
                 <label>মোট</label>
                 <input type="text" class="form-control" id="saleTotal" readonly>
             </div>
-            
-            <div class="form-group">
-                <label>পরিশোধ</label>
-                <input type="number" class="form-control" id="salePaid" oninput="calculateSaleDue()" required>
-            </div>
-            
-            <div class="form-group">
-                <label>বাকি</label>
-                <input type="text" class="form-control" id="saleDue" readonly>
-            </div>
-            
-            <div class="form-group">
-                <label>পেমেন্ট স্ট্যাটাস</label>
-                <select class="form-control" id="saleStatus">
-                    <option value="paid">পরিশোধিত</option>
-                    <option value="due">বাকি</option>
-                    <option value="partial">আংশিক</option>
-                </select>
-            </div>
-            
-            <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-check"></i> বিক্রয় সম্পন্ন করুন</button>
-        </form>
-    </div>
-</div>
-
-<!-- PURCHASE MODAL -->
-<div class="modal" id="purchaseModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title"><i class="fas fa-shopping-bag"></i> নতুন ক্রয়</h3>
-            <button class="modal-close" onclick="closeModal('purchaseModal')">&times;</button>
-        </div>
-        
-        <form id="purchaseForm">
-            <div class="form-group">
-                <label>সাপ্লায়ার</label>
-                <input type="text" class="form-control" id="purchaseSupplier" placeholder="সাপ্লায়ারের নাম" required>
-            </div>
-            
-            <div class="form-group">
-                <label>পণ্য</label>
-                <select class="form-control" id="purchaseProduct" required>
-                    <option value="">পণ্য নির্বাচন করুন</option>
-                </select>
-            </div>
-            
             <div class="form-row">
                 <div class="form-group">
-                    <label>পরিমাণ</label>
-                    <input type="number" class="form-control" id="purchaseQuantity" min="1" required>
+                    <label>পরিশোধ</label>
+                    <input type="number" class="form-control" id="salePaid" oninput="calculateDue()" required>
                 </div>
                 <div class="form-group">
-                    <label>দাম (প্রতি)</label>
-                    <input type="number" class="form-control" id="purchasePrice" required>
+                    <label>বাকি</label>
+                    <input type="text" class="form-control" id="saleDue" readonly>
                 </div>
             </div>
-            
-            <div class="form-group">
-                <label>মোট</label>
-                <input type="text" class="form-control" id="purchaseTotal" readonly>
-            </div>
-            
-            <div class="form-group">
-                <label>পরিশোধ</label>
-                <input type="number" class="form-control" id="purchasePaid" required>
-            </div>
-            
-            <div class="form-group">
-                <label>বাকি</label>
-                <input type="text" class="form-control" id="purchaseDue" readonly>
-            </div>
-            
-            <div class="form-group">
-                <label>পেমেন্ট স্ট্যাটাস</label>
-                <select class="form-control" id="purchaseStatus">
-                    <option value="paid">পরিশোধিত</option>
-                    <option value="due">বাকি</option>
-                    <option value="partial">আংশিক</option>
-                </select>
-            </div>
-            
-            <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-check"></i> ক্রয় সম্পন্ন করুন</button>
+            <button type="submit" class="btn btn-primary">বিক্রয় সম্পন্ন করুন</button>
         </form>
     </div>
 </div>
 
-<!-- PRODUCT MODAL -->
 <div class="modal" id="productModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title"><i class="fas fa-box"></i> নতুন পণ্য</h3>
+            <h3 class="modal-title">নতুন পণ্য</h3>
             <button class="modal-close" onclick="closeModal('productModal')">&times;</button>
         </div>
-        
         <form id="productForm">
             <div class="form-group">
                 <label>পণ্যের নাম</label>
                 <input type="text" class="form-control" id="productName" required>
             </div>
-            
             <div class="form-group">
                 <label>ক্যাটাগরি</label>
-                <input type="text" class="form-control" id="productCategory" placeholder="যেমন: ইলেকট্রনিক্স">
+                <input type="text" class="form-control" id="productCategory">
             </div>
-            
             <div class="form-row">
                 <div class="form-group">
                     <label>ক্রয় মূল্য</label>
@@ -1098,272 +851,187 @@
                     <input type="number" class="form-control" id="productSalePrice" required>
                 </div>
             </div>
-            
             <div class="form-group">
-                <label>প্রাথমিক স্টক</label>
+                <label>স্টক</label>
                 <input type="number" class="form-control" id="productStock" min="0" required>
             </div>
-            
-            <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-check"></i> পণ্য যোগ করুন</button>
+            <button type="submit" class="btn btn-primary">পণ্য যোগ করুন</button>
         </form>
     </div>
 </div>
 
-<!-- CUSTOMER MODAL -->
 <div class="modal" id="customerModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title"><i class="fas fa-user"></i> নতুন কাস্টমার</h3>
+            <h3 class="modal-title">নতুন কাস্টমার</h3>
             <button class="modal-close" onclick="closeModal('customerModal')">&times;</button>
         </div>
-        
         <form id="customerForm">
             <div class="form-group">
                 <label>নাম</label>
                 <input type="text" class="form-control" id="customerName" required>
             </div>
-            
             <div class="form-group">
-                <label>ফোন নম্বর</label>
+                <label>ফোন</label>
                 <input type="tel" class="form-control" id="customerPhone" required>
             </div>
-            
             <div class="form-group">
                 <label>ঠিকানা</label>
                 <textarea class="form-control" id="customerAddress"></textarea>
             </div>
-            
-            <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-check"></i> কাস্টমার যোগ করুন</button>
+            <button type="submit" class="btn btn-primary">কাস্টমার যোগ করুন</button>
         </form>
     </div>
 </div>
 
-<!-- EXPENSE MODAL -->
-<div class="modal" id="expenseModal">
+<div class="modal" id="passwordModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title"><i class="fas fa-money-bill-wave"></i> নতুন খরচ</h3>
-            <button class="modal-close" onclick="closeModal('expenseModal')">&times;</button>
+            <h3 class="modal-title">পাসওয়ার্ড পরিবর্তন</h3>
+            <button class="modal-close" onclick="closeModal('passwordModal')">&times;</button>
         </div>
-        
-        <form id="expenseForm">
+        <form id="passwordForm">
             <div class="form-group">
-                <label>বিবরণ</label>
-                <input type="text" class="form-control" id="expenseDescription" required>
+                <label>নতুন পাসওয়ার্ড</label>
+                <input type="password" class="form-control" id="newPassword" minlength="6" required>
             </div>
-            
             <div class="form-group">
-                <label>ক্যাটাগরি</label>
-                <select class="form-control" id="expenseCategory">
-                    <option value="rent">ভাড়া</option>
-                    <option value="salary">বেতন</option>
-                    <option value="utility">ইউটিলিটি</option>
-                    <option value="transport">পরিবহন</option>
-                    <option value="other">অন্যান্য</option>
-                </select>
+                <label>নতুন পাসওয়ার্ড (আবার)</label>
+                <input type="password" class="form-control" id="confirmPassword" minlength="6" required>
             </div>
-            
-            <div class="form-group">
-                <label>পরিমাণ</label>
-                <input type="number" class="form-control" id="expenseAmount" required>
-            </div>
-            
-            <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-check"></i> খরচ যোগ করুন</button>
+            <button type="submit" class="btn btn-primary">পাসওয়ার্ড পরিবর্তন করুন</button>
         </form>
     </div>
 </div>
 
-<!-- LOGIN MODAL -->
-<div class="modal" id="loginModal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h3 class="modal-title"><i class="fas fa-user"></i> লগইন করুন</h3>
-            <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
-        </div>
-        
-        <form id="loginForm">
-            <div class="form-group">
-                <label>ইমেইল</label>
-                <input type="email" class="form-control" id="loginEmail" required>
-            </div>
-            
-            <div class="form-group">
-                <label>পাসওয়ার্ড</label>
-                <input type="password" class="form-control" id="loginPassword" required>
-            </div>
-            
-            <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-sign-in-alt"></i> লগইন করুন</button>
-        </form>
-    </div>
-</div>
-
-<!-- TOAST NOTIFICATION -->
-<div class="toast" id="toast">
-    <span id="toastMessage"></span>
-</div>
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <!-- LOADING -->
 <div class="loading" id="loading">
     <div class="spinner"></div>
-    <p style="margin-top: 1rem; color: var(--dark);">লোড হচ্ছে...</p>
 </div>
 
 <script>
 // ============================================================
-// GOOGLE SHEETS API CONFIGURATION
+// CONFIGURATION
 // ============================================================
 const SHEET_CONFIG = {
-    // এখানে আপনার Google Sheets ID বসান
-    sheetId: '1nbB8PDW7NAiojHiXFwowLu0fWTzAywePaRr7WecsUVA',
-    // এখানে আপনার Apps Script Web App URL বসান
-    apiUrl: 'https://script.google.com/macros/s/AKfycbyjSxUDvxSdVvDDQ2qxN13CBGVMxujI5IrMbEwsxApNQMMIljnYZJnWWApHdfFetg4r/exec'
+    sheetId: '16xF4q0_F37LKDaEkRPk62o6j5AS3w5jPFDFpUn69dPM',
+    apiUrl: 'https://script.google.com/macros/s/AKfycbxGG-7640vjD3zinVQYzCchCTagBAVJma86cHGFMtfDAuzO8r7tcvJ8BZHpbqbS-ugVVA/exec'
 };
 
 // ============================================================
 // GLOBAL STATE
 // ============================================================
-let currentLanguage = 'bn';
 let currentUser = null;
-let allData = {
-    settings: [],
-    users: [],
-    sales: [],
-    purchases: [],
-    inventory: [],
-    customers: [],
-    expenses: []
-};
-let currentTimeFilter = 'today';
+let allData = { sales: [], inventory: [], customers: [], expenses: [], purchases: [] };
 let currentPage = 'dashboard';
 let salesChartInstance = null;
-let categoryChartInstance = null;
 
 // ============================================================
 // INITIALIZATION
 // ============================================================
 document.addEventListener('DOMContentLoaded', function() {
-    // Load settings
-    loadSettings();
+    // Load saved user
+    const savedUser = localStorage.getItem('shopManager_user');
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        showApp();
+        loadAllData();
+    }
     
-    // Check login status
-    checkLogin();
-    
-    // Setup navigation
-    setupNavigation();
-    
-    // Setup time filters
-    setupTimeFilters();
-    
-    // Setup form submissions
+    // Setup forms
     setupForms();
-    
-    // Load initial data
-    loadAllData();
-    
-    // Setup search
-    setupSearch();
-    
-    // Load settings page
-    loadSettingsPage();
-    
-    // Start real-time updates
-    startRealTimeUpdates();
 });
 
 // ============================================================
-// CONFIGURATION SETUP
+// API REQUEST FUNCTION (CORS Friendly)
 // ============================================================
-function loadSettings() {
-    const savedLang = localStorage.getItem('shopManager_lang');
-    if (savedLang) {
-        currentLanguage = savedLang;
-    }
-    updateLanguage();
-}
 
-function saveSettings() {
-    const settings = {
-        shopName: document.getElementById('shopName').value,
-        ownerName: document.getElementById('ownerName').value,
-        shopPhone: document.getElementById('shopPhone').value,
-        shopAddress: document.getElementById('shopAddress').value,
-        updatedAt: new Date().toISOString()
-    };
-    
-    // Save to Google Sheets
-    saveToSheet('settings', settings);
-    
-    // Update local
-    localStorage.setItem('shopManager_settings', JSON.stringify(settings));
-    document.getElementById('shopNameDisplay').textContent = settings.shopName || 'শপ ম্যানেজার';
-    
-    showToast('সেটিংস সফলভাবে সেভ হয়েছে!', 'success');
-}
-
-// ============================================================
-// LOGIN MANAGEMENT
-// ============================================================
-function checkLogin() {
-    const user = localStorage.getItem('shopManager_user');
-    
-    if (!user) {
-        // Show login modal
-        document.getElementById('loginModal').classList.add('active');
-    } else {
-        currentUser = JSON.parse(user);
-        updateUserUI();
-    }
-}
-
-async function handleLogin(e) {
-    e.preventDefault();
-    
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    
+async function apiRequest(action, data = {}) {
     try {
         const response = await fetch(SHEET_CONFIG.apiUrl, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'text/plain;charset=utf-8'
             },
             body: JSON.stringify({
-                action: 'authenticate',
-                email: email,
-                password: password
+                action: action,
+                ...data
             })
         });
         
-        const data = await response.json();
-        
-        if (data.success && data.user) {
-            currentUser = data.user;
-            localStorage.setItem('shopManager_user', JSON.stringify(currentUser));
-            updateUserUI();
-            closeModal('loginModal');
-            showToast('লগইন সফল হয়েছে!', 'success');
-            
-            // If admin, show admin section
-            if (currentUser.role === 'admin') {
-                document.getElementById('adminSection').style.display = 'block';
-            }
-        } else {
-            showToast('ইমেইল বা পাসওয়ার্ড ভুল!', 'error');
-        }
+        const result = await response.json();
+        return result;
     } catch (error) {
-        console.error('Login error:', error);
-        showToast('লগইন করতে সমস্যা হচ্ছে!', 'error');
+        console.error('API Error:', error);
+        return { success: false, error: error.toString() };
     }
 }
 
-function updateUserUI() {
-    if (currentUser) {
-        document.getElementById('logoutBtn').innerHTML = `<i class="fas fa-sign-out-alt"></i> ${currentUser.name}`;
+async function apiGet(action) {
+    try {
+        const response = await fetch(`${SHEET_CONFIG.apiUrl}?action=${action}`);
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error('API Error:', error);
+        return { success: false, error: error.toString() };
     }
+}
+
+// ============================================================
+// AUTHENTICATION
+// ============================================================
+
+async function handleLogin(e) {
+    e.preventDefault();
+    showLoading(true);
+    
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    const result = await apiRequest('authenticate', { email, password });
+    
+    if (result.success && result.user) {
+        currentUser = result.user;
+        localStorage.setItem('shopManager_user', JSON.stringify(currentUser));
+        document.getElementById('userName').innerHTML = `<i class="fas fa-user"></i> ${currentUser.name}`;
+        showApp();
+        await loadAllData();
+        showToast('লগইন সফল!', 'success');
+    } else {
+        showToast(result.message || 'ইমেইল বা পাসওয়ার্ড ভুল!', 'error');
+    }
+    
+    showLoading(false);
+}
+
+async function handleRegister(e) {
+    e.preventDefault();
+    showLoading(true);
+    
+    const userData = {
+        name: document.getElementById('regName').value,
+        email: document.getElementById('regEmail').value,
+        password: document.getElementById('regPassword').value
+    };
+    
+    const result = await apiRequest('register', { data: userData });
+    
+    if (result.success) {
+        showToast('রেজিস্ট্রেশন সফল! এখন লগইন করুন।', 'success');
+        showLoginForm();
+    } else {
+        showToast(result.message || 'রেজিস্ট্রেশন ব্যর্থ!', 'error');
+    }
+    
+    showLoading(false);
 }
 
 function logout() {
-    if (confirm('আপনি কি নিশ্চিতভাবে লগআউট করতে চান?')) {
+    if (confirm('আপনি কি লগআউট করতে চান?')) {
         localStorage.removeItem('shopManager_user');
         currentUser = null;
         location.reload();
@@ -1371,337 +1039,126 @@ function logout() {
 }
 
 // ============================================================
-// NAVIGATION SETUP
+// SHOW/HIDE FORMS
 // ============================================================
-function setupNavigation() {
-    const navLinks = document.querySelectorAll('.nav-link[data-page]');
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const page = this.getAttribute('data-page');
-            showPage(page);
-        });
-    });
-    
-    document.getElementById('logoutBtn').addEventListener('click', logout);
-    document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+
+function showRegisterForm() {
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('registerForm').style.display = 'block';
 }
 
+function showLoginForm() {
+    document.getElementById('loginForm').style.display = 'block';
+    document.getElementById('registerForm').style.display = 'none';
+}
+
+function showApp() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appContainer').style.display = 'block';
+}
+
+// ============================================================
+// PAGE NAVIGATION
+// ============================================================
+
 function showPage(page) {
-    // Hide all pages
-    document.querySelectorAll('.page').forEach(p => {
-        p.style.display = 'none';
-    });
+    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
     
-    // Show selected page
     const targetPage = document.getElementById(page);
-    if (targetPage) {
-        targetPage.style.display = 'block';
-    }
+    if (targetPage) targetPage.style.display = 'block';
     
-    // Update active nav
-    document.querySelectorAll('.nav-link[data-page]').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('data-page') === page) {
-            link.classList.add('active');
-        }
+    document.querySelectorAll('.bottom-nav-item').forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('data-page') === page) item.classList.add('active');
     });
     
     currentPage = page;
     
-    // Load page specific data
     switch(page) {
-        case 'dashboard':
-            loadDashboard();
-            break;
-        case 'sales':
-            loadSales();
-            break;
-        case 'purchase':
-            loadPurchases();
-            break;
-        case 'inventory':
-            loadInventory();
-            break;
-        case 'customers':
-            loadCustomers();
-            break;
-        case 'expenses':
-            loadExpenses();
-            break;
-        case 'reports':
-            loadReports();
-            break;
-        case 'settings':
-            loadSettingsPage();
-            break;
+        case 'dashboard': loadDashboard(); break;
+        case 'sales': loadSales(); break;
+        case 'inventory': loadInventory(); break;
+        case 'customers': loadCustomers(); break;
+        case 'reports': loadReports(); break;
     }
 }
 
 // ============================================================
-// TIME FILTERS
+// DATA LOADING
 // ============================================================
-function setupTimeFilters() {
-    document.querySelectorAll('.time-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const parent = this.parentElement;
-            parent.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            currentTimeFilter = this.getAttribute('data-time');
-            
-            // Refresh current page data
-            showPage(currentPage);
-        });
-    });
-}
 
-function getDateRangeFromFilter(filter) {
-    const now = new Date();
-    let startDate, endDate;
-    
-    switch(filter) {
-        case 'today':
-            startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
-            endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
-            break;
-        case 'yesterday':
-            startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1, 0, 0, 0);
-            endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1, 23, 59, 59);
-            break;
-        case 'week':
-            const dayOfWeek = now.getDay();
-            const diff = now.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
-            startDate = new Date(now.getFullYear(), now.getMonth(), diff, 0, 0, 0);
-            endDate = now;
-            break;
-        case 'month':
-            startDate = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0);
-            endDate = now;
-            break;
-        case 'year':
-            startDate = new Date(now.getFullYear(), 0, 1, 0, 0, 0);
-            endDate = now;
-            break;
-        case 'lastyear':
-            startDate = new Date(now.getFullYear() - 1, 0, 1, 0, 0, 0);
-            endDate = new Date(now.getFullYear() - 1, 11, 31, 23, 59, 59);
-            break;
-        case 'all':
-        default:
-            startDate = new Date(2020, 0, 1);
-            endDate = now;
-            break;
-    }
-    
-    return { startDate, endDate };
-}
-
-// ============================================================
-// DATA LOADING FROM GOOGLE SHEETS
-// ============================================================
 async function loadAllData() {
     showLoading(true);
     
-    try {
-        const response = await fetch(`${SHEET_CONFIG.apiUrl}?action=loadAll`);
-        
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        
-        const data = await response.json();
-        
-        if (data.success) {
-            allData = data.data || allData;
-            loadDashboard();
-            return;
-        }
-        
-        throw new Error(data.message || 'Failed to load data');
-    } catch (error) {
-        console.error('Error loading data:', error);
-        showToast('ডেটা লোড করতে সমস্যা হচ্ছে!', 'error');
-    } finally {
-        showLoading(false);
+    const result = await apiGet('loadAll');
+    
+    if (result.success) {
+        allData = result.data;
+        loadDashboard();
     }
-}
-
-async function saveToSheet(sheetName, data) {
-    try {
-        const response = await fetch(SHEET_CONFIG.apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                action: 'save',
-                sheet: sheetName,
-                data: data
-            })
-        });
-        
-        const result = await response.json();
-        
-        if (!result.success) {
-            throw new Error(result.message || 'Save failed');
-        }
-        
-        return result;
-    } catch (error) {
-        console.error('Error saving to sheet:', error);
-        throw error;
-    }
+    
+    showLoading(false);
 }
 
 // ============================================================
-// DASHBOARD LOADING
+// DASHBOARD
 // ============================================================
+
 function loadDashboard() {
-    const { startDate, endDate } = getDateRangeFromFilter(currentTimeFilter);
+    const stats = calculateStats();
     
-    // Filter data by date range
-    const filteredSales = allData.sales.filter(sale => {
-        const saleDate = new Date(sale.date);
-        return saleDate >= startDate && saleDate <= endDate;
-    });
+    document.getElementById('totalSales').textContent = `৳${formatNumber(stats.totalSales)}`;
+    document.getElementById('totalPurchases').textContent = `৳${formatNumber(stats.totalPurchases)}`;
+    document.getElementById('totalStock').textContent = stats.totalStock;
+    document.getElementById('totalCustomers').textContent = stats.totalCustomers;
+    document.getElementById('totalDue').textContent = `৳${formatNumber(stats.totalDue)}`;
+    document.getElementById('totalProfit').textContent = `৳${formatNumber(stats.totalProfit)}`;
     
-    const filteredPurchases = allData.purchases.filter(purchase => {
-        const purchaseDate = new Date(purchase.date);
-        return purchaseDate >= startDate && purchaseDate <= endDate;
-    });
-    
-    const filteredExpenses = allData.expenses.filter(expense => {
-        const expenseDate = new Date(expense.date);
-        return expenseDate >= startDate && expenseDate <= endDate;
-    });
-    
-    // Calculate totals
-    const totalSales = filteredSales.reduce((sum, sale) => sum + Number(sale.total || 0), 0);
-    const totalPurchases = filteredPurchases.reduce((sum, purchase) => sum + Number(purchase.total || 0), 0);
-    const totalExpenses = filteredExpenses.reduce((sum, expense) => sum + Number(expense.amount || 0), 0);
-    const totalProfit = totalSales - totalPurchases - totalExpenses;
-    
-    // Update dashboard stats
-    document.getElementById('totalSales').textContent = `৳${formatNumber(totalSales)}`;
-    document.getElementById('totalPurchases').textContent = `৳${formatNumber(totalPurchases)}`;
-    document.getElementById('totalStock').textContent = allData.inventory.reduce((sum, item) => sum + Number(item.stock || 0), 0);
-    document.getElementById('totalCustomers').textContent = allData.customers.length;
-    document.getElementById('totalDue').textContent = `৳${formatNumber(calculateTotalDue())}`;
-    document.getElementById('totalProfit').textContent = `৳${formatNumber(totalProfit)}`;
-    
-    // Load charts
-    loadSalesChart(filteredSales);
-    loadCategoryChart(filteredSales);
-    
-    // Load recent transactions
-    loadRecentTransactions(filteredSales.slice(0, 10));
+    loadSalesChart();
 }
 
-function loadSalesChart(salesData) {
+function calculateStats() {
+    const stats = {
+        totalSales: 0, totalPurchases: 0, totalStock: 0,
+        totalCustomers: allData.customers.length, totalDue: 0, totalProfit: 0
+    };
+    
+    allData.sales.forEach(sale => {
+        stats.totalSales += Number(sale.total) || 0;
+        stats.totalDue += Number(sale.due) || 0;
+    });
+    
+    allData.purchases.forEach(p => stats.totalPurchases += Number(p.total) || 0);
+    allData.inventory.forEach(p => stats.totalStock += Number(p.stock) || 0);
+    stats.totalProfit = stats.totalSales - stats.totalPurchases;
+    
+    return stats;
+}
+
+function loadSalesChart() {
     const ctx = document.getElementById('salesChart').getContext('2d');
     
-    // Destroy existing chart
-    if (salesChartInstance) {
-        salesChartInstance.destroy();
-    }
+    if (salesChartInstance) salesChartInstance.destroy();
     
-    // Prepare data for chart
-    const labels = [];
-    const data = [];
-    
-    // Group by date
     const salesByDate = {};
-    salesData.forEach(sale => {
+    allData.sales.forEach(sale => {
         const date = new Date(sale.date).toLocaleDateString('bn-BD');
-        if (!salesByDate[date]) {
-            salesByDate[date] = 0;
-        }
-        salesByDate[date] += Number(sale.total || 0);
+        if (!salesByDate[date]) salesByDate[date] = 0;
+        salesByDate[date] += Number(sale.total) || 0;
     });
-    
-    Object.keys(salesByDate).forEach(date => {
-        labels.push(date);
-        data.push(salesByDate[date]);
-    });
-    
-    // If no data, show placeholder
-    if (labels.length === 0) {
-        labels.push('নো ডেটা');
-        data.push(0);
-    }
     
     salesChartInstance = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: Object.keys(salesByDate),
             datasets: [{
                 label: 'বিক্রয়',
-                data: data,
+                data: Object.values(salesByDate),
                 borderColor: '#667eea',
                 backgroundColor: 'rgba(102,126,234,0.1)',
-                borderWidth: 3,
+                borderWidth: 2,
                 tension: 0.4,
                 fill: true
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'top'
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-}
-
-function loadCategoryChart(salesData) {
-    const ctx = document.getElementById('categoryChart').getContext('2d');
-    
-    // Destroy existing chart
-    if (categoryChartInstance) {
-        categoryChartInstance.destroy();
-    }
-    
-    // Group by category
-    const salesByCategory = {};
-    salesData.forEach(sale => {
-        const product = allData.inventory.find(item => item.id === sale.productId);
-        const category = product ? product.category : 'অন্যান্য';
-        
-        if (!salesByCategory[category]) {
-            salesByCategory[category] = 0;
-        }
-        salesByCategory[category] += Number(sale.total || 0);
-    });
-    
-    const categories = Object.keys(salesByCategory);
-    const data = Object.values(salesByCategory);
-    
-    // If no data, show placeholder
-    if (categories.length === 0) {
-        categories.push('নো ডেটা');
-        data.push(1);
-    }
-    
-    categoryChartInstance = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: categories,
-            datasets: [{
-                data: data,
-                backgroundColor: [
-                    '#667eea', '#f093fb', '#48bb78', '#f56565',
-                    '#ed8936', '#4299e1', '#38b2ac', '#ed64a6'
-                ]
             }]
         },
         options: {
@@ -1711,96 +1168,50 @@ function loadCategoryChart(salesData) {
     });
 }
 
-function loadRecentTransactions(transactions) {
-    const container = document.getElementById('recentTransactions');
+// ============================================================
+// SALES MANAGEMENT
+// ============================================================
+
+function loadSales() {
+    const tbody = document.getElementById('salesTableBody');
     
-    if (transactions.length === 0) {
-        container.innerHTML = '<p style="text-align:center; color:#718096;">কোনো লেনদেন নেই</p>';
+    if (allData.sales.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:20px;">কোনো বিক্রয় নেই</td></tr>';
         return;
     }
     
-    let html = '<div class="table-wrapper"><table><thead><tr><th>ইনভয়েস</th><th>তারিখ</th><th>কাস্টমার</th><th>মোট</th></tr></thead><tbody>';
-    
-    transactions.forEach(sale => {
+    let html = '';
+    allData.sales.forEach(sale => {
         const customer = allData.customers.find(c => c.id === sale.customerId);
         const customerName = customer ? customer.name : 'N/A';
+        const statusClass = sale.status === 'paid' ? 'success' : sale.status === 'partial' ? 'warning' : 'danger';
+        const statusText = sale.status === 'paid' ? 'পরিশোধিত' : sale.status === 'partial' ? 'আংশিক' : 'বাকি';
         
         html += `<tr>
             <td>#${sale.invoiceNo}</td>
             <td>${new Date(sale.date).toLocaleDateString('bn-BD')}</td>
             <td>${customerName}</td>
             <td>৳${formatNumber(sale.total)}</td>
-        </tr>`;
-    });
-    
-    html += '</tbody></table></div>';
-    container.innerHTML = html;
-}
-
-// ============================================================
-// SALES MANAGEMENT
-// ============================================================
-function loadSales() {
-    const { startDate, endDate } = getDateRangeFromFilter(currentTimeFilter);
-    
-    const filteredSales = allData.sales.filter(sale => {
-        const saleDate = new Date(sale.date);
-        return saleDate >= startDate && saleDate <= endDate;
-    });
-    
-    const tableBody = document.getElementById('salesTableBody');
-    
-    if (filteredSales.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="9" style="text-align:center;">কোনো বিক্রয় নেই</td></tr>';
-        return;
-    }
-    
-    let html = '';
-    
-    filteredSales.forEach(sale => {
-        const customer = allData.customers.find(c => c.id === sale.customerId);
-        const customerName = customer ? customer.name : 'N/A';
-        const product = allData.inventory.find(p => p.id === sale.productId);
-        const productName = product ? product.name : 'N/A';
-        
-        const statusClass = sale.status === 'paid' ? 'success' : sale.status === 'partial' ? 'warning' : 'danger';
-        const statusText = sale.status === 'paid' ? 'পরিশোধিত' : sale.status === 'partial' ? 'আংশিক' : 'বাকি';
-        
-        html += `<tr>
-            <td>#${sale.invoiceNo}</td>
-            <td>${new Date(sale.date).toLocaleString('bn-BD')}</td>
-            <td>${customerName}</td>
-            <td>${productName}</td>
-            <td>৳${formatNumber(sale.total)}</td>
-            <td>৳${formatNumber(sale.paid)}</td>
-            <td>৳${formatNumber(sale.due)}</td>
-            <td><span class="badge ${statusClass}">${statusText}</span></td>
+            <td><span class="badge badge-${statusClass}">${statusText}</span></td>
             <td>
                 <button class="btn btn-info btn-sm" onclick="printInvoice('${sale.id}')"><i class="fas fa-print"></i></button>
-                <button class="btn btn-danger btn-sm" onclick="recycleSale('${sale.id}')"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-danger btn-sm" onclick="deleteSale('${sale.id}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>`;
     });
     
-    tableBody.innerHTML = html;
+    tbody.innerHTML = html;
 }
 
 function openSalesModal() {
-    // Load customers in select
     const customerSelect = document.getElementById('saleCustomer');
     customerSelect.innerHTML = '<option value="">কাস্টমার নির্বাচন করুন</option>';
+    allData.customers.forEach(c => customerSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`);
     
-    allData.customers.forEach(customer => {
-        customerSelect.innerHTML += `<option value="${customer.id}">${customer.name}</option>`;
-    });
-    
-    // Load products in select
     const productSelect = document.getElementById('saleProduct');
     productSelect.innerHTML = '<option value="">পণ্য নির্বাচন করুন</option>';
-    
-    // Only show products with stock
-    allData.inventory.filter(product => Number(product.stock) > 0).forEach(product => {
-        productSelect.innerHTML += `<option value="${product.id}" data-price="${product.salePrice}" data-stock="${product.stock}">${product.name} (স্টক: ${product.stock})</option>`;
+    allData.inventory.filter(p => Number(p.stock) > 0).forEach(p => {
+        productSelect.innerHTML += `<option value="${p.id}" data-price="${p.salePrice}" data-stock="${p.stock}">${p.name} (${p.stock})</option>`;
     });
     
     document.getElementById('salesModal').classList.add('active');
@@ -1808,235 +1219,122 @@ function openSalesModal() {
 
 function updateProductPrice() {
     const select = document.getElementById('saleProduct');
-    const selectedOption = select.options[select.selectedIndex];
-    
-    if (selectedOption.value) {
-        document.getElementById('salePrice').value = selectedOption.getAttribute('data-price');
-    }
+    const selected = select.options[select.selectedIndex];
+    if (selected.value) document.getElementById('salePrice').value = selected.getAttribute('data-price');
 }
 
-function calculateSaleTotal() {
-    const quantity = parseFloat(document.getElementById('saleQuantity').value) || 0;
-    const price = parseFloat(document.getElementById('salePrice').value) || 0;
-    
-    const total = quantity * price;
-    document.getElementById('saleTotal').value = total;
-    
-    calculateSaleDue();
+function calculateTotal() {
+    const qty = Number(document.getElementById('saleQuantity').value) || 0;
+    const price = Number(document.getElementById('salePrice').value) || 0;
+    document.getElementById('saleTotal').value = qty * price;
+    calculateDue();
 }
 
-function calculateSaleDue() {
-    const total = parseFloat(document.getElementById('saleTotal').value) || 0;
-    const paid = parseFloat(document.getElementById('salePaid').value) || 0;
-    
-    const due = total - paid;
-    document.getElementById('saleDue').value = due;
+function calculateDue() {
+    const total = Number(document.getElementById('saleTotal').value) || 0;
+    const paid = Number(document.getElementById('salePaid').value) || 0;
+    document.getElementById('saleDue').value = total - paid;
 }
 
 async function saveSale(e) {
     e.preventDefault();
     
-    const customerId = document.getElementById('saleCustomer').value;
-    const productId = document.getElementById('saleProduct').value;
-    const quantity = parseFloat(document.getElementById('saleQuantity').value);
-    const price = parseFloat(document.getElementById('salePrice').value);
-    const total = parseFloat(document.getElementById('saleTotal').value);
-    const paid = parseFloat(document.getElementById('salePaid').value);
-    const due = parseFloat(document.getElementById('saleDue').value);
-    const status = document.getElementById('saleStatus').value;
+    const saleData = {
+        id: 'sale_' + Date.now(),
+        invoiceNo: 'INV-' + Date.now().toString().slice(-6),
+        date: new Date().toISOString(),
+        customerId: document.getElementById('saleCustomer').value,
+        productId: document.getElementById('saleProduct').value,
+        quantity: Number(document.getElementById('saleQuantity').value),
+        price: Number(document.getElementById('salePrice').value),
+        total: Number(document.getElementById('saleTotal').value),
+        paid: Number(document.getElementById('salePaid').value),
+        due: Number(document.getElementById('saleDue').value),
+        status: Number(document.getElementById('saleDue').value) > 0 ? 'due' : 'paid',
+        userId: currentUser ? currentUser.id : 'user'
+    };
     
-    // Check stock availability
-    const product = allData.inventory.find(p => p.id === productId);
-    if (Number(product.stock) < quantity) {
+    const product = allData.inventory.find(p => p.id === saleData.productId);
+    if (Number(product.stock) < saleData.quantity) {
         showToast('পর্যাপ্ত স্টক নেই!', 'error');
         return;
     }
     
-    const sale = {
-        id: 'sale_' + Date.now(),
-        invoiceNo: generateInvoiceNo('S'),
-        date: new Date().toISOString(),
-        customerId: customerId,
-        productId: productId,
-        quantity: quantity,
-        price: price,
-        total: total,
-        paid: paid,
-        due: due,
-        status: status,
-        userId: currentUser ? currentUser.id : 'unknown'
-    };
+    const result = await apiRequest('save', { sheet: 'sales', data: saleData });
     
-    try {
-        // Save to Google Sheets
-        await saveToSheet('sales', sale);
-        
-        // Update local data
-        allData.sales.push(sale);
-        
-        // Update product stock
-        product.stock = Number(product.stock) - quantity;
-        await saveToSheet('inventory', product);
-        
-        // Update customer due
-        if (due > 0) {
-            const customer = allData.customers.find(c => c.id === customerId);
-            if (customer) {
-                customer.due = Number(customer.due || 0) + due;
-                await saveToSheet('customers', customer);
-            }
-        }
+    if (result.success) {
+        product.stock = Number(product.stock) - saleData.quantity;
+        await apiRequest('save', { sheet: 'inventory', data: product });
         
         closeModal('salesModal');
+        await loadAllData();
         loadSales();
-        loadDashboard();
-        showToast('বিক্রয় সফলভাবে সম্পন্ন হয়েছে!', 'success');
-    } catch (error) {
-        console.error('Error saving sale:', error);
-        showToast('বিক্রয় সেভ করতে সমস্যা হচ্ছে!', 'error');
+        showToast('বিক্রয় সফল!', 'success');
     }
 }
 
-// ============================================================
-// PURCHASE MANAGEMENT
-// ============================================================
-function loadPurchases() {
-    const { startDate, endDate } = getDateRangeFromFilter(currentTimeFilter);
-    
-    const filteredPurchases = allData.purchases.filter(purchase => {
-        const purchaseDate = new Date(purchase.date);
-        return purchaseDate >= startDate && purchaseDate <= endDate;
-    });
-    
-    const tableBody = document.getElementById('purchaseTableBody');
-    
-    if (filteredPurchases.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="9" style="text-align:center;">কোনো ক্রয় নেই</td></tr>';
-        return;
+async function deleteSale(saleId) {
+    if (confirm('বিক্রয়টি ডিলিট করতে চান?')) {
+        const sale = allData.sales.find(s => s.id === saleId);
+        if (sale) {
+            sale.isDeleted = true;
+            await apiRequest('save', { sheet: 'sales', data: sale });
+            await loadAllData();
+        }
     }
-    
-    let html = '';
-    
-    filteredPurchases.forEach(purchase => {
-        const product = allData.inventory.find(p => p.id === purchase.productId);
-        const productName = product ? product.name : 'N/A';
-        
-        const statusClass = purchase.status === 'paid' ? 'success' : purchase.status === 'partial' ? 'warning' : 'danger';
-        const statusText = purchase.status === 'paid' ? 'পরিশোধিত' : purchase.status === 'partial' ? 'আংশিক' : 'বাকি';
-        
-        html += `<tr>
-            <td>#${purchase.invoiceNo}</td>
-            <td>${new Date(purchase.date).toLocaleString('bn-BD')}</td>
-            <td>${purchase.supplier}</td>
-            <td>${productName}</td>
-            <td>৳${formatNumber(purchase.total)}</td>
-            <td>৳${formatNumber(purchase.paid)}</td>
-            <td>৳${formatNumber(purchase.due)}</td>
-            <td><span class="badge ${statusClass}">${statusText}</span></td>
-            <td>
-                <button class="btn btn-danger btn-sm" onclick="recyclePurchase('${purchase.id}')"><i class="fas fa-trash"></i></button>
-            </td>
-        </tr>`;
-    });
-    
-    tableBody.innerHTML = html;
 }
 
-function openPurchaseModal() {
-    const productSelect = document.getElementById('purchaseProduct');
-    productSelect.innerHTML = '<option value="">পণ্য নির্বাচন করুন</option>';
+function printInvoice(saleId) {
+    const sale = allData.sales.find(s => s.id === saleId);
+    const customer = allData.customers.find(c => c.id === sale.customerId);
+    const product = allData.inventory.find(p => p.id === sale.productId);
     
-    allData.inventory.forEach(product => {
-        productSelect.innerHTML += `<option value="${product.id}" data-buy-price="${product.buyPrice}">${product.name}</option>`;
-    });
-    
-    document.getElementById('purchaseModal').classList.add('active');
-}
-
-async function savePurchase(e) {
-    e.preventDefault();
-    
-    const supplier = document.getElementById('purchaseSupplier').value;
-    const productId = document.getElementById('purchaseProduct').value;
-    const quantity = parseFloat(document.getElementById('purchaseQuantity').value);
-    const price = parseFloat(document.getElementById('purchasePrice').value);
-    const total = quantity * price;
-    const paid = parseFloat(document.getElementById('purchasePaid').value);
-    const due = total - paid;
-    const status = document.getElementById('purchaseStatus').value;
-    
-    const purchase = {
-        id: 'purchase_' + Date.now(),
-        invoiceNo: generateInvoiceNo('P'),
-        date: new Date().toISOString(),
-        supplier: supplier,
-        productId: productId,
-        quantity: quantity,
-        price: price,
-        total: total,
-        paid: paid,
-        due: due,
-        status: status,
-        userId: currentUser ? currentUser.id : 'unknown'
-    };
-    
-    try {
-        // Save to Google Sheets
-        await saveToSheet('purchases', purchase);
-        
-        // Update local data
-        allData.purchases.push(purchase);
-        
-        // Update product stock
-        const product = allData.inventory.find(p => p.id === productId);
-        product.stock = Number(product.stock || 0) + quantity;
-        product.buyPrice = price;
-        await saveToSheet('inventory', product);
-        
-        closeModal('purchaseModal');
-        loadPurchases();
-        loadInventory();
-        showToast('ক্রয় সফলভাবে সম্পন্ন হয়েছে!', 'success');
-    } catch (error) {
-        console.error('Error saving purchase:', error);
-        showToast('ক্রয় সেভ করতে সমস্যা হচ্ছে!', 'error');
-    }
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <html><head><title>Invoice ${sale.invoiceNo}</title>
+        <style>body{font-family:Arial,sans-serif;padding:20px}.header{text-align:center;margin-bottom:20px}table{width:100%;border-collapse:collapse}th,td{padding:10px;border:1px solid #ddd}</style>
+        </head><body>
+        <div class="header"><h2>Invoice ${sale.invoiceNo}</h2><p>${new Date(sale.date).toLocaleString('bn-BD')}</p></div>
+        <p><strong>কাস্টমার:</strong> ${customer ? customer.name : 'N/A'}</p>
+        <p><strong>ফোন:</strong> ${customer ? customer.phone : 'N/A'}</p>
+        <table><tr><th>পণ্য</th><th>পরিমাণ</th><th>দাম</th><th>মোট</th></tr>
+        <tr><td>${product ? product.name : 'N/A'}</td><td>${sale.quantity}</td><td>৳${formatNumber(sale.price)}</td><td>৳${formatNumber(sale.total)}</td></tr></table>
+        <div style="margin-top:20px;text-align:right"><p><strong>মোট:</strong> ৳${formatNumber(sale.total)}</p><p><strong>পরিশোধ:</strong> ৳${formatNumber(sale.paid)}</p><p><strong>বাকি:</strong> ৳${formatNumber(sale.due)}</p></div>
+        </body></html>
+    `);
+    printWindow.document.close();
+    printWindow.focus();
 }
 
 // ============================================================
 // INVENTORY MANAGEMENT
 // ============================================================
+
 function loadInventory() {
-    const tableBody = document.getElementById('inventoryTableBody');
+    const tbody = document.getElementById('inventoryTableBody');
     
     if (allData.inventory.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;">কোনো পণ্য নেই</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;">কোনো পণ্য নেই</td></tr>';
         return;
     }
     
     let html = '';
-    
     allData.inventory.forEach(product => {
-        const stock = Number(product.stock || 0);
-        const stockStatus = stock <= 0 ? 'out' : stock <= 10 ? 'low' : 'in';
-        const statusClass = stockStatus === 'out' ? 'danger' : stockStatus === 'low' ? 'warning' : 'success';
-        const statusText = stockStatus === 'out' ? 'স্টক নেই' : stockStatus === 'low' ? 'কম স্টক' : 'স্টকে আছে';
+        const stock = Number(product.stock);
+        const statusClass = stock <= 0 ? 'danger' : stock <= 10 ? 'warning' : 'success';
+        const statusText = stock <= 0 ? 'স্টক নেই' : stock <= 10 ? 'কম স্টক' : 'স্টকে আছে';
         
         html += `<tr>
-            <td>${product.name}</td>
-            <td>${product.category || '-'}</td>
-            <td>৳${formatNumber(product.buyPrice)}</td>
-            <td>৳${formatNumber(product.salePrice)}</td>
-            <td>${stock}</td>
-            <td><span class="badge ${statusClass}">${statusText}</span></td>
+            <td>${product.name}</td><td>${stock}</td><td>৳${formatNumber(product.salePrice)}</td>
+            <td><span class="badge badge-${statusClass}">${statusText}</span></td>
             <td>
                 <button class="btn btn-warning btn-sm" onclick="editProduct('${product.id}')"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger btn-sm" onclick="recycleProduct('${product.id}')"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-danger btn-sm" onclick="deleteProduct('${product.id}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>`;
     });
     
-    tableBody.innerHTML = html;
+    tbody.innerHTML = html;
 }
 
 function openProductModal() {
@@ -2047,78 +1345,74 @@ function openProductModal() {
 async function saveProduct(e) {
     e.preventDefault();
     
-    const product = {
+    const productData = {
         id: 'product_' + Date.now(),
         name: document.getElementById('productName').value,
         category: document.getElementById('productCategory').value,
-        buyPrice: parseFloat(document.getElementById('productBuyPrice').value),
-        salePrice: parseFloat(document.getElementById('productSalePrice').value),
-        stock: parseFloat(document.getElementById('productStock').value),
-        userId: currentUser ? currentUser.id : 'unknown'
+        buyPrice: Number(document.getElementById('productBuyPrice').value),
+        salePrice: Number(document.getElementById('productSalePrice').value),
+        stock: Number(document.getElementById('productStock').value),
+        userId: currentUser ? currentUser.id : 'user'
     };
     
-    try {
-        // Save to Google Sheets
-        await saveToSheet('inventory', product);
-        
-        // Update local data
-        allData.inventory.push(product);
-        
+    const result = await apiRequest('save', { sheet: 'inventory', data: productData });
+    
+    if (result.success) {
         closeModal('productModal');
-        loadInventory();
-        loadDashboard();
-        showToast('পণ্য সফলভাবে যোগ হয়েছে!', 'success');
-    } catch (error) {
-        console.error('Error saving product:', error);
-        showToast('পণ্য সেভ করতে সমস্যা হচ্ছে!', 'error');
+        await loadAllData();
+        showToast('পণ্য যোগ হয়েছে!', 'success');
     }
 }
 
 function editProduct(productId) {
     const product = allData.inventory.find(p => p.id === productId);
-    
     if (product) {
         document.getElementById('productName').value = product.name;
-        document.getElementById('productCategory').value = product.category;
+        document.getElementById('productCategory').value = product.category || '';
         document.getElementById('productBuyPrice').value = product.buyPrice;
         document.getElementById('productSalePrice').value = product.salePrice;
         document.getElementById('productStock').value = product.stock;
-        
         document.getElementById('productModal').classList.add('active');
+    }
+}
+
+async function deleteProduct(productId) {
+    if (confirm('পণ্যটি ডিলিট করতে চান?')) {
+        const product = allData.inventory.find(p => p.id === productId);
+        if (product) {
+            product.isDeleted = true;
+            await apiRequest('save', { sheet: 'inventory', data: product });
+            await loadAllData();
+        }
     }
 }
 
 // ============================================================
 // CUSTOMER MANAGEMENT
 // ============================================================
+
 function loadCustomers() {
-    const tableBody = document.getElementById('customerTableBody');
+    const tbody = document.getElementById('customerTableBody');
     
     if (allData.customers.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center;">কোনো কাস্টমার নেই</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:20px;">কোনো কাস্টমার নেই</td></tr>';
         return;
     }
     
     let html = '';
-    
     allData.customers.forEach(customer => {
         const due = Number(customer.due || 0);
-        
         html += `<tr>
-            <td>${customer.name}</td>
-            <td>${customer.phone}</td>
-            <td>${customer.address || '-'}</td>
-            <td>৳${formatNumber(customer.totalPurchased || 0)}</td>
-            <td style="color: ${due > 0 ? '#f56565' : '#48bb78'}">৳${formatNumber(due)}</td>
-            <td><span class="badge ${due > 0 ? 'danger' : 'success'}">${due > 0 ? 'বাকি আছে' : 'পরিশোধিত'}</span></td>
+            <td>${customer.name}</td><td>${customer.phone}</td>
+            <td style="color:${due > 0 ? '#f56565' : '#48bb78'}">৳${formatNumber(due)}</td>
             <td>
                 <button class="btn btn-warning btn-sm" onclick="editCustomer('${customer.id}')"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger btn-sm" onclick="recycleCustomer('${customer.id}')"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-danger btn-sm" onclick="deleteCustomer('${customer.id}')"><i class="fas fa-trash"></i></button>
             </td>
         </tr>`;
     });
     
-    tableBody.innerHTML = html;
+    tbody.innerHTML = html;
 }
 
 function openCustomerModal() {
@@ -2129,288 +1423,107 @@ function openCustomerModal() {
 async function saveCustomer(e) {
     e.preventDefault();
     
-    const customer = {
+    const customerData = {
         id: 'customer_' + Date.now(),
         name: document.getElementById('customerName').value,
         phone: document.getElementById('customerPhone').value,
         address: document.getElementById('customerAddress').value,
         totalPurchased: 0,
         due: 0,
-        userId: currentUser ? currentUser.id : 'unknown'
+        userId: currentUser ? currentUser.id : 'user'
     };
     
-    try {
-        // Save to Google Sheets
-        await saveToSheet('customers', customer);
-        
-        // Update local data
-        allData.customers.push(customer);
-        
+    const result = await apiRequest('save', { sheet: 'customers', data: customerData });
+    
+    if (result.success) {
         closeModal('customerModal');
-        loadCustomers();
-        showToast('কাস্টমার সফলভাবে যোগ হয়েছে!', 'success');
-    } catch (error) {
-        console.error('Error saving customer:', error);
-        showToast('কাস্টমার সেভ করতে সমস্যা হচ্ছে!', 'error');
+        await loadAllData();
+        showToast('কাস্টমার যোগ হয়েছে!', 'success');
     }
 }
 
 function editCustomer(customerId) {
     const customer = allData.customers.find(c => c.id === customerId);
-    
     if (customer) {
         document.getElementById('customerName').value = customer.name;
         document.getElementById('customerPhone').value = customer.phone;
         document.getElementById('customerAddress').value = customer.address || '';
-        
         document.getElementById('customerModal').classList.add('active');
     }
 }
 
+async function deleteCustomer(customerId) {
+    if (confirm('কাস্টমারটিকে ডিলিট করতে চান?')) {
+        const customer = allData.customers.find(c => c.id === customerId);
+        if (customer) {
+            customer.isDeleted = true;
+            await apiRequest('save', { sheet: 'customers', data: customer });
+            await loadAllData();
+        }
+    }
+}
+
 // ============================================================
-// EXPENSE MANAGEMENT
+// PASSWORD CHANGE
 // ============================================================
-function loadExpenses() {
-    const { startDate, endDate } = getDateRangeFromFilter(currentTimeFilter);
+
+function changePassword() {
+    document.getElementById('passwordModal').classList.add('active');
+}
+
+async function changePasswordForm(e) {
+    e.preventDefault();
     
-    const filteredExpenses = allData.expenses.filter(expense => {
-        const expenseDate = new Date(expense.date);
-        return expenseDate >= startDate && expenseDate <= endDate;
-    });
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
     
-    const tableBody = document.getElementById('expenseTableBody');
-    
-    if (filteredExpenses.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">কোনো খরচ নেই</td></tr>';
+    if (newPassword !== confirmPassword) {
+        showToast('পাসওয়ার্ড মিলছে না!', 'error');
         return;
     }
     
-    let html = '';
-    
-    filteredExpenses.forEach(expense => {
-        html += `<tr>
-            <td>${new Date(expense.date).toLocaleString('bn-BD')}</td>
-            <td>${expense.description}</td>
-            <td>${expense.category}</td>
-            <td>৳${formatNumber(expense.amount)}</td>
-            <td>
-                <button class="btn btn-danger btn-sm" onclick="recycleExpense('${expense.id}')"><i class="fas fa-trash"></i></button>
-            </td>
-        </tr>`;
+    const result = await apiRequest('changePassword', {
+        userId: currentUser.id,
+        newPassword: newPassword
     });
     
-    tableBody.innerHTML = html;
-}
-
-function openExpenseModal() {
-    document.getElementById('expenseForm').reset();
-    document.getElementById('expenseModal').classList.add('active');
-}
-
-async function saveExpense(e) {
-    e.preventDefault();
-    
-    const expense = {
-        id: 'expense_' + Date.now(),
-        date: new Date().toISOString(),
-        description: document.getElementById('expenseDescription').value,
-        category: document.getElementById('expenseCategory').value,
-        amount: parseFloat(document.getElementById('expenseAmount').value),
-        userId: currentUser ? currentUser.id : 'unknown'
-    };
-    
-    try {
-        // Save to Google Sheets
-        await saveToSheet('expenses', expense);
-        
-        // Update local data
-        allData.expenses.push(expense);
-        
-        closeModal('expenseModal');
-        loadExpenses();
-        loadDashboard();
-        showToast('খরচ সফলভাবে যোগ হয়েছে!', 'success');
-    } catch (error) {
-        console.error('Error saving expense:', error);
-        showToast('খরচ সেভ করতে সমস্যা হচ্ছে!', 'error');
+    if (result.success) {
+        showToast('পাসওয়ার্ড পরিবর্তন হয়েছে!', 'success');
+        closeModal('passwordModal');
+    } else {
+        showToast(result.message || 'পাসওয়ার্ড পরিবর্তন ব্যর্থ!', 'error');
     }
 }
 
 // ============================================================
 // REPORTS
 // ============================================================
+
 function loadReports() {
-    const { startDate, endDate } = getDateRangeFromFilter(currentTimeFilter);
-    
-    const filteredSales = allData.sales.filter(sale => {
-        const saleDate = new Date(sale.date);
-        return saleDate >= startDate && saleDate <= endDate;
-    });
-    
-    const filteredPurchases = allData.purchases.filter(purchase => {
-        const purchaseDate = new Date(purchase.date);
-        return purchaseDate >= startDate && purchaseDate <= endDate;
-    });
-    
-    const filteredExpenses = allData.expenses.filter(expense => {
-        const expenseDate = new Date(expense.date);
-        return expenseDate >= startDate && expenseDate <= endDate;
-    });
-    
-    const totalSales = filteredSales.reduce((sum, sale) => sum + Number(sale.total || 0), 0);
-    const totalPurchases = filteredPurchases.reduce((sum, purchase) => sum + Number(purchase.total || 0), 0);
-    const totalExpenses = filteredExpenses.reduce((sum, expense) => sum + Number(expense.amount || 0), 0);
-    
-    document.getElementById('reportTotalSales').textContent = `৳${formatNumber(totalSales)}`;
-    document.getElementById('reportTotalPurchases').textContent = `৳${formatNumber(totalPurchases)}`;
-    document.getElementById('reportTotalExpenses').textContent = `৳${formatNumber(totalExpenses)}`;
-    document.getElementById('reportProfit').textContent = `৳${formatNumber(totalSales - totalPurchases - totalExpenses)}`;
+    const stats = calculateStats();
+    document.getElementById('reportSales').textContent = `৳${formatNumber(stats.totalSales)}`;
+    document.getElementById('reportExpenses').textContent = `৳${formatNumber(stats.totalPurchases)}`;
+    document.getElementById('reportProfit').textContent = `৳${formatNumber(stats.totalProfit)}`;
 }
 
-function generateFullReport() {
-    const { startDate, endDate } = getDateRangeFromFilter(currentTimeFilter);
+function downloadReport() {
+    const stats = calculateStats();
+    const report = `দোকানের রিপোর্ট\n====================\nমোট বিক্রয়: ৳${formatNumber(stats.totalSales)}\nমোট ক্রয়: ৳${formatNumber(stats.totalPurchases)}\nমোট লাভ: ৳${formatNumber(stats.totalProfit)}\nমোট কাস্টমার: ${stats.totalCustomers}\nমোট স্টক: ${stats.totalStock}\nমোট বাকি: ৳${formatNumber(stats.totalDue)}\n\nতারিখ: ${new Date().toLocaleDateString('bn-BD')}`;
     
-    const filteredSales = allData.sales.filter(sale => {
-        const saleDate = new Date(sale.date);
-        return saleDate >= startDate && saleDate <= endDate;
-    });
-    
-    const filteredPurchases = allData.purchases.filter(purchase => {
-        const purchaseDate = new Date(purchase.date);
-        return purchaseDate >= startDate && purchaseDate <= endDate;
-    });
-    
-    const filteredExpenses = allData.expenses.filter(expense => {
-        const expenseDate = new Date(expense.date);
-        return expenseDate >= startDate && expenseDate <= endDate;
-    });
-    
-    const totalSales = filteredSales.reduce((sum, sale) => sum + Number(sale.total || 0), 0);
-    const totalPurchases = filteredPurchases.reduce((sum, purchase) => sum + Number(purchase.total || 0), 0);
-    const totalExpenses = filteredExpenses.reduce((sum, expense) => sum + Number(expense.amount || 0), 0);
-    
-    const report = `
-        <html>
-            <head>
-                <title>দোকানের রিপোর্ট</title>
-                <style>
-                    body { font-family: Arial, sans-serif; padding: 20px; }
-                    h1 { text-align: center; color: #667eea; }
-                    .summary { margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 8px; }
-                    .summary div { margin: 10px 0; font-size: 16px; }
-                    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-                    th, td { padding: 8px; border: 1px solid #ddd; }
-                    th { background: #667eea; color: white; }
-                    button { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; }
-                </style>
-            </head>
-            <body>
-                <h1>দোকানের রিপোর্ট</h1>
-                <div class="summary">
-                    <div><strong>মোট বিক্রয়:</strong> ৳${formatNumber(totalSales)}</div>
-                    <div><strong>মোট ক্রয়:</strong> ৳${formatNumber(totalPurchases)}</div>
-                    <div><strong>মোট খরচ:</strong> ৳${formatNumber(totalExpenses)}</div>
-                    <div><strong>মোট লাভ:</strong> ৳${formatNumber(totalSales - totalPurchases - totalExpenses)}</div>
-                </div>
-                <h2>বিক্রয় রিপোর্ট</h2>
-                <table>
-                    <tr><th>ইনভয়েস</th><th>তারিখ</th><th>কাস্টমার</th><th>মোট</th></tr>
-                    ${filteredSales.map(sale => {
-                        const customer = allData.customers.find(c => c.id === sale.customerId);
-                        return `<tr><td>#${sale.invoiceNo}</td><td>${new Date(sale.date).toLocaleDateString()}</td><td>${customer ? customer.name : 'N/A'}</td><td>৳${formatNumber(sale.total)}</td></tr>`;
-                    }).join('')}
-                </table>
-                <button onclick="window.print()">প্রিন্ট করুন</button>
-            </body>
-        </html>
-    `;
-    
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(report);
-    printWindow.document.close();
-    printWindow.focus();
-    printWindow.print();
-}
-
-// ============================================================
-// RECYCLE BIN MANAGEMENT (Soft Delete)
-// ============================================================
-function recycleItem(sheetName, itemId) {
-    const items = allData[sheetName];
-    const item = items.find(i => i.id === itemId);
-    
-    if (item) {
-        item.isDeleted = true;
-        item.deletedAt = new Date().toISOString();
-        
-        // Save to Google Sheets (will still keep data, just mark as deleted)
-        saveToSheet(sheetName, item);
-        
-        // Update local data
-        allData[sheetName] = items.filter(i => i.id !== itemId);
-        
-        // Refresh UI
-        showPage(currentPage);
-        showToast('আইটেম রিসাইকেলে সরানো হয়েছে!', 'warning');
-    }
-}
-
-function recycleSale(saleId) {
-    if (confirm('বিক্রয়টি রিসাইকেলে সরাতে চান?')) {
-        recycleItem('sales', saleId);
-    }
-}
-
-function recyclePurchase(purchaseId) {
-    if (confirm('ক্রয়টি রিসাইকেলে সরাতে চান?')) {
-        recycleItem('purchases', purchaseId);
-    }
-}
-
-function recycleProduct(productId) {
-    if (confirm('পণ্যটি রিসাইকেলে সরাতে চান?')) {
-        recycleItem('inventory', productId);
-    }
-}
-
-function recycleCustomer(customerId) {
-    if (confirm('কাস্টমারটিকে রিসাইকেলে সরাতে চান?')) {
-        recycleItem('customers', customerId);
-    }
-}
-
-function recycleExpense(expenseId) {
-    if (confirm('খরচটি রিসাইকেলে সরাতে চান?')) {
-        recycleItem('expenses', expenseId);
-    }
+    const blob = new Blob([report], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `shop_report_${Date.now()}.txt`;
+    a.click();
 }
 
 // ============================================================
 // UTILITY FUNCTIONS
 // ============================================================
+
 function formatNumber(num) {
-    num = Number(num) || 0;
-    return num.toLocaleString('bn-BD', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-
-function generateInvoiceNo(prefix) {
-    return `${prefix}-${Date.now().toString().slice(-6)}`;
-}
-
-function calculateTotalDue() {
-    let totalDue = 0;
-    
-    // Calculate due from sales
-    allData.sales.forEach(sale => {
-        totalDue += Number(sale.due || 0);
-    });
-    
-    // Add customer due
-    allData.customers.forEach(customer => {
-        totalDue += Number(customer.due || 0);
-    });
-    
-    return totalDue;
+    return Number(num || 0).toLocaleString('bn-BD', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function closeModal(modalId) {
@@ -2423,415 +1536,45 @@ function showLoading(show) {
 
 function showToast(message, type = 'info') {
     const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toastMessage');
-    
-    toastMessage.textContent = message;
-    toast.className = `toast show ${type}`;
-    
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 3000);
+    toast.textContent = message;
+    toast.className = `toast show toast-${type}`;
+    setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
 // ============================================================
-// PRINT AND DOWNLOAD FUNCTIONS
+// SETUP FORMS
 // ============================================================
-function printTable(tableId) {
-    const table = document.getElementById(tableId);
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(`
-        <html>
-            <head>
-                <title>প্রিন্ট</title>
-                <style>
-                    body { font-family: Arial, sans-serif; }
-                    table { width: 100%; border-collapse: collapse; }
-                    th, td { padding: 8px; border: 1px solid #ddd; }
-                    th { background: #667eea; color: white; }
-                </style>
-            </head>
-            <body>
-                ${table.outerHTML}
-                <button onclick="window.print()">প্রিন্ট করুন</button>
-            </body>
-        </html>
-    `);
-    printWindow.document.close();
-    printWindow.focus();
-}
 
-function downloadCSV(tableId) {
-    const table = document.getElementById(tableId);
-    const rows = table.querySelectorAll('tr');
-    const csv = [];
-    
-    rows.forEach(row => {
-        const cols = row.querySelectorAll('td, th');
-        const rowData = [];
-        cols.forEach(col => {
-            rowData.push('"' + col.textContent.replace(/"/g, '""') + '"');
-        });
-        csv.push(rowData.join(','));
-    });
-    
-    const csvContent = csv.join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', `${tableId}_${new Date().toISOString()}.csv`);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-function printInvoice(saleId) {
-    const sale = allData.sales.find(s => s.id === saleId);
-    
-    if (sale) {
-        const customer = allData.customers.find(c => c.id === sale.customerId);
-        const product = allData.inventory.find(p => p.id === sale.productId);
-        
-        const printWindow = window.open('', '_blank');
-        printWindow.document.write(`
-            <html>
-                <head>
-                    <title>ইনভয়েস</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; padding: 20px; }
-                        .invoice-header { text-align: center; margin-bottom: 20px; }
-                        .invoice-info { margin: 20px 0; }
-                        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-                        th, td { padding: 8px; border: 1px solid #ddd; }
-                        .total { font-weight: bold; font-size: 18px; }
-                        button { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; }
-                    </style>
-                </head>
-                <body>
-                    <div class="invoice-header">
-                        <h1>${currentUser ? currentUser.name : 'দোকান'} এর দোকান</h1>
-                        <p>ইনভয়েস #${sale.invoiceNo}</p>
-                        <p>${new Date(sale.date).toLocaleString('bn-BD')}</p>
-                    </div>
-                    
-                    <div class="invoice-info">
-                        <strong>কাস্টমার:</strong> ${customer ? customer.name : 'N/A'} <br>
-                        <strong>ফোন:</strong> ${customer ? customer.phone : 'N/A'} <br>
-                        <strong>ঠিকানা:</strong> ${customer ? customer.address : 'N/A'}
-                    </div>
-                    
-                    <table>
-                        <tr>
-                            <th>পণ্য</th>
-                            <th>পরিমাণ</th>
-                            <th>দাম</th>
-                            <th>মোট</th>
-                        </tr>
-                        <tr>
-                            <td>${product ? product.name : 'N/A'}</td>
-                            <td>${sale.quantity}</td>
-                            <td>৳${formatNumber(sale.price)}</td>
-                            <td>৳${formatNumber(sale.total)}</td>
-                        </tr>
-                    </table>
-                    
-                    <div class="total">
-                        <p>মোট: ৳${formatNumber(sale.total)}</p>
-                        <p>পরিশোধ: ৳${formatNumber(sale.paid)}</p>
-                        <p>বাকি: ৳${formatNumber(sale.due)}</p>
-                    </div>
-                    
-                    <button onclick="window.print()">প্রিন্ট করুন</button>
-                </body>
-            </html>
-        `);
-        printWindow.document.close();
-        printWindow.focus();
-    }
-}
-
-// ============================================================
-// LANGUAGE TOGGLING
-// ============================================================
-function toggleLanguage() {
-    currentLanguage = currentLanguage === 'bn' ? 'en' : 'bn';
-    localStorage.setItem('shopManager_lang', currentLanguage);
-    updateLanguage();
-}
-
-function updateLanguage() {
-    document.getElementById('langToggle').innerHTML = currentLanguage === 'bn' ? '<i class="fas fa-globe"></i> EN' : '<i class="fas fa-globe"></i> বাংলা';
-    
-    // Update nav links
-    if (currentLanguage === 'en') {
-        document.querySelectorAll('.nav-link[data-page]').forEach(link => {
-            const page = link.getAttribute('data-page');
-            const englishNames = {
-                dashboard: 'Dashboard',
-                sales: 'Sales',
-                purchase: 'Purchase',
-                inventory: 'Inventory',
-                customers: 'Customers',
-                expenses: 'Expenses',
-                reports: 'Reports',
-                settings: 'Settings'
-            };
-            const icons = {
-                dashboard: 'fa-chart-line',
-                sales: 'fa-shopping-cart',
-                purchase: 'fa-shopping-bag',
-                inventory: 'fa-boxes',
-                customers: 'fa-users',
-                expenses: 'fa-money-bill-wave',
-                reports: 'fa-file-alt',
-                settings: 'fa-cog'
-            };
-            link.innerHTML = `<i class="fas ${icons[page]}"></i> ${englishNames[page]}`;
-        });
-    } else {
-        document.querySelectorAll('.nav-link[data-page]').forEach(link => {
-            const page = link.getAttribute('data-page');
-            const bengaliNames = {
-                dashboard: 'ড্যাশবোর্ড',
-                sales: 'বিক্রয়',
-                purchase: 'ক্রয়',
-                inventory: 'ইনভেন্টরি',
-                customers: 'কাস্টমার',
-                expenses: 'খরচ',
-                reports: 'রিপোর্ট',
-                settings: 'সেটিংস'
-            };
-            const icons = {
-                dashboard: 'fa-chart-line',
-                sales: 'fa-shopping-cart',
-                purchase: 'fa-shopping-bag',
-                inventory: 'fa-boxes',
-                customers: 'fa-users',
-                expenses: 'fa-money-bill-wave',
-                reports: 'fa-file-alt',
-                settings: 'fa-cog'
-            };
-            link.innerHTML = `<i class="fas ${icons[page]}"></i> ${bengaliNames[page]}`;
-        });
-    }
-}
-
-// ============================================================
-// SEARCH FUNCTIONALITY
-// ============================================================
-function setupSearch() {
-    // Sales search
-    const salesSearch = document.getElementById('salesSearch');
-    if (salesSearch) {
-        salesSearch.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const tableBody = document.getElementById('salesTableBody');
-            
-            if (tableBody) {
-                const rows = tableBody.querySelectorAll('tr');
-                rows.forEach(row => {
-                    const text = row.textContent.toLowerCase();
-                    row.style.display = text.includes(searchTerm) ? '' : 'none';
-                });
-            }
-        });
-    }
-    
-    // Purchase search
-    const purchaseSearch = document.getElementById('purchaseSearch');
-    if (purchaseSearch) {
-        purchaseSearch.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const tableBody = document.getElementById('purchaseTableBody');
-            
-            if (tableBody) {
-                const rows = tableBody.querySelectorAll('tr');
-                rows.forEach(row => {
-                    const text = row.textContent.toLowerCase();
-                    row.style.display = text.includes(searchTerm) ? '' : 'none';
-                });
-            }
-        });
-    }
-    
-    // Inventory search
-    const inventorySearch = document.getElementById('inventorySearch');
-    if (inventorySearch) {
-        inventorySearch.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const tableBody = document.getElementById('inventoryTableBody');
-            
-            if (tableBody) {
-                const rows = tableBody.querySelectorAll('tr');
-                rows.forEach(row => {
-                    const text = row.textContent.toLowerCase();
-                    row.style.display = text.includes(searchTerm) ? '' : 'none';
-                });
-            }
-        });
-    }
-    
-    // Customer search
-    const customerSearch = document.getElementById('customerSearch');
-    if (customerSearch) {
-        customerSearch.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const tableBody = document.getElementById('customerTableBody');
-            
-            if (tableBody) {
-                const rows = tableBody.querySelectorAll('tr');
-                rows.forEach(row => {
-                    const text = row.textContent.toLowerCase();
-                    row.style.display = text.includes(searchTerm) ? '' : 'none';
-                });
-            }
-        });
-    }
-}
-
-// ============================================================
-// FORM SUBMISSIONS
-// ============================================================
 function setupForms() {
-    // Sales form
-    document.getElementById('salesForm').addEventListener('submit', saveSale);
-    
-    // Purchase form
-    document.getElementById('purchaseForm').addEventListener('submit', savePurchase);
-    
-    // Product form
-    document.getElementById('productForm').addEventListener('submit', saveProduct);
-    
-    // Customer form
-    document.getElementById('customerForm').addEventListener('submit', saveCustomer);
-    
-    // Expense form
-    document.getElementById('expenseForm').addEventListener('submit', saveExpense);
-    
-    // Login form
     document.getElementById('loginForm').addEventListener('submit', handleLogin);
-}
-
-// ============================================================
-// SETTINGS PAGE
-// ============================================================
-function loadSettingsPage() {
-    const settings = localStorage.getItem('shopManager_settings');
+    document.getElementById('registerForm').addEventListener('submit', handleRegister);
+    document.getElementById('salesForm').addEventListener('submit', saveSale);
+    document.getElementById('productForm').addEventListener('submit', saveProduct);
+    document.getElementById('customerForm').addEventListener('submit', saveCustomer);
+    document.getElementById('passwordForm').addEventListener('submit', changePasswordForm);
     
-    if (settings) {
-        const parsed = JSON.parse(settings);
-        document.getElementById('shopName').value = parsed.shopName || '';
-        document.getElementById('ownerName').value = parsed.ownerName || '';
-        document.getElementById('shopPhone').value = parsed.shopPhone || '';
-        document.getElementById('shopAddress').value = parsed.shopAddress || '';
-        
-        document.getElementById('shopNameDisplay').textContent = parsed.shopName || 'শপ ম্যানেজার';
-    }
+    // Search functionality
+    const searches = {
+        salesSearch: 'salesTableBody',
+        inventorySearch: 'inventoryTableBody',
+        customerSearch: 'customerTableBody'
+    };
     
-    // Load users if admin
-    if (currentUser && currentUser.role === 'admin') {
-        document.getElementById('adminSection').style.display = 'block';
-        loadUsers();
-    } else {
-        document.getElementById('adminSection').style.display = 'none';
-    }
-}
-
-function loadUsers() {
-    if (currentUser && currentUser.role === 'admin') {
-        const tableBody = document.getElementById('userTableBody');
-        
-        if (allData.users.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">কোনো ইউজার নেই</td></tr>';
-            return;
+    Object.keys(searches).forEach(searchId => {
+        const search = document.getElementById(searchId);
+        if (search) {
+            search.addEventListener('input', function() {
+                const term = this.value.toLowerCase();
+                const tbody = document.getElementById(searches[searchId]);
+                if (tbody) {
+                    tbody.querySelectorAll('tr').forEach(row => {
+                        row.style.display = row.textContent.toLowerCase().includes(term) ? '' : 'none';
+                    });
+                }
+            });
         }
-        
-        let html = '';
-        
-        allData.users.forEach(user => {
-            html += `<tr>
-                <td>${user.name}</td>
-                <td>${user.email}</td>
-                <td><span class="badge ${user.active ? 'success' : 'danger'}">${user.active ? 'সক্রিয়' : 'ব্লক করা'}</span></td>
-                <td>
-                    <button class="btn btn-warning btn-sm" onclick="toggleUserStatus('${user.id}')"><i class="fas fa-ban"></i></button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteUser('${user.id}')"><i class="fas fa-trash"></i></button>
-                </td>
-            </tr>`;
-        });
-        
-        tableBody.innerHTML = html;
-    }
+    });
 }
-
-function toggleUserStatus(userId) {
-    const user = allData.users.find(u => u.id === userId);
-    
-    if (user) {
-        user.active = !user.active;
-        saveToSheet('users', user);
-        loadUsers();
-        showToast(user.active ? 'ইউজার সক্রিয় করা হয়েছে!' : 'ইউজার ব্লক করা হয়েছে!', 'success');
-    }
-}
-
-function deleteUser(userId) {
-    if (confirm('ইউজারকে ডিলিট করতে চান?')) {
-        const user = allData.users.find(u => u.id === userId);
-        if (user) {
-            user.isDeleted = true;
-            saveToSheet('users', user);
-            allData.users = allData.users.filter(u => u.id !== userId);
-            loadUsers();
-            showToast('ইউজার ডিলিট করা হয়েছে!', 'success');
-        }
-    }
-}
-
-// ============================================================
-// REAL-TIME UPDATES
-// ============================================================
-let updateInterval;
-
-function startRealTimeUpdates() {
-    // Refresh data every 30 seconds
-    updateInterval = setInterval(() => {
-        loadAllData();
-    }, 30000);
-}
-
-// ============================================================
-// INITIAL SETUP
-// ============================================================
-document.addEventListener('DOMContentLoaded', function() {
-    // Set initial page to dashboard
-    showPage('dashboard');
-    
-    // Load settings
-    loadSettings();
-    
-    // Setup navigation
-    setupNavigation();
-    
-    // Setup time filters
-    setupTimeFilters();
-    
-    // Setup forms
-    setupForms();
-    
-    // Load all data
-    loadAllData();
-    
-    // Setup search
-    setupSearch();
-    
-    // Load settings page
-    loadSettingsPage();
-    
-    // Start real-time updates
-    startRealTimeUpdates();
-});
 </script>
 
 </body>
