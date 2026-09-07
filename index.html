@@ -3,130 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Enterprise BizPro | Dual Sync</title>
+    <title>Enterprise BizPro | Dual Sync ERP</title>
+    <!-- Tailwind + Alpine + Lucide + Chart + SweetAlert + Font -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ----- premium universal reset & base ----- */
         [x-cloak] { display: none !important; }
-        body { font-family: 'Hind Siliguri', sans-serif; background: #f4f7fe; }
-        .tab-active { background: #4f46e5; color: white; border-radius: 1rem; box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4); }
-        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+        * { -webkit-tap-highlight-color: transparent; }
+        body { 
+            font-family: 'Hind Siliguri', sans-serif; 
+            background: #f1f5f9; 
+            background-image: radial-gradient(circle at 20% 20%, rgba(79,70,229,0.04) 0%, transparent 30%),
+                              radial-gradient(circle at 80% 0%, rgba(16,185,129,0.05) 0%, transparent 30%);
+            min-height: 100vh;
+        }
+        .tab-active { 
+            background: #4f46e5; 
+            color: white; 
+            border-radius: 1.75rem; 
+            box-shadow: 0 15px 30px -8px rgba(79, 70, 229, 0.45); 
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,0.7);
+        }
+        .smooth-transition { transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1); }
+        .card-hover { transition: all 0.25s ease; }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 25px 35px -12px rgba(0,0,0,0.15); }
+        .chip {
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+        /* bottom nav safe area */
+        .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+        /* scrollbar refined */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 20px; }
     </style>
 </head>
 <body class="h-screen flex flex-col overflow-hidden">
 
-    <!-- Navbar -->
-    <nav class="h-20 shrink-0 bg-white border-b px-6 flex items-center justify-between sticky top-0 z-50">
+    <!-- refined navbar glass, elegant -->
+    <nav class="h-20 shrink-0 glass sticky top-0 z-50 px-5 md:px-8 flex items-center justify-between border-b border-slate-200/60 shadow-sm">
         <div class="flex items-center gap-3">
-            <div class="bg-indigo-600 p-2.5 rounded-2xl text-white"><i data-lucide="zap"></i></div>
-            <h1 class="text-2xl font-black text-slate-800 tracking-tight">BizPro <span class="text-indigo-600">Enterprise</span></h1>
+            <div class="w-11 h-11 bg-gradient-to-br from-indigo-600 to-violet-600 rounded-2xl text-white flex items-center justify-center shadow-lg shadow-indigo-200">
+                <i data-lucide="zap" class="w-6 h-6"></i>
+            </div>
+            <h1 class="text-2xl md:text-3xl font-black text-slate-800 tracking-tight">BizPro <span class="text-indigo-600">Enterprise</span></h1>
         </div>
-        <div class="flex gap-4">
-            <button @click="sync()" class="p-3 bg-indigo-50 rounded-2xl text-indigo-600 hover:bg-indigo-100"><i data-lucide="refresh-ccw" :class="loading && 'animate-spin'"></i></button>
+        <div class="flex items-center gap-3">
+            <span class="hidden sm:inline-flex items-center gap-2 text-xs font-bold text-slate-500 bg-white/80 px-4 py-2 rounded-full shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> ডুয়াল সিঙ্ক
+            </span>
+            <button @click="sync()" class="p-3 bg-white text-indigo-600 rounded-2xl shadow-md hover:shadow-lg hover:bg-indigo-50 transition-all active:scale-95" title="সিঙ্ক করুন">
+                <i data-lucide="refresh-ccw" :class="loading && 'animate-spin'"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto p-4 md:p-8 pb-32">
+    <!-- Main content area -->
+    <main class="flex-1 overflow-y-auto px-4 md:px-8 py-6 pb-32" x-data>
         
-        <!-- Dashboard -->
+        <!-- DASHBOARD TAB -->
         <div x-show="tab === 'dashboard'" x-transition x-cloak>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white p-6 rounded-[2rem] border shadow-sm border-indigo-100">
-                    <p class="text-xs font-bold text-slate-400 uppercase">আজকের মোট বিক্রি</p>
-                    <h2 class="text-3xl font-bold mt-2">৳<span x-text="stats.dayTotal">0</span></h2>
+            <!-- top metrics refined -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+                <div class="bg-white rounded-[2rem] p-6 border border-slate-100 shadow-sm card-hover">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">আজকের বিক্রি</p>
+                        <span class="w-8 h-8 bg-indigo-50 rounded-xl flex items-center justify-center"><i data-lucide="banknote" class="w-4 h-4 text-indigo-600"></i></span>
+                    </div>
+                    <h2 class="text-3xl font-extrabold mt-2 text-slate-800">৳<span x-text="stats.dayTotal">0</span></h2>
                 </div>
-                <div class="bg-white p-6 rounded-[2rem] border shadow-sm border-indigo-100">
-                    <p class="text-xs font-bold text-emerald-500 uppercase">আজকের নীট লাভ</p>
-                    <h2 class="text-3xl font-bold mt-2 text-emerald-600">৳<span x-text="stats.dayProfit">0</span></h2>
+                <div class="bg-white rounded-[2rem] p-6 border border-slate-100 shadow-sm card-hover">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-bold text-emerald-500 uppercase tracking-wider">নীট লাভ</p>
+                        <span class="w-8 h-8 bg-emerald-50 rounded-xl flex items-center justify-center"><i data-lucide="trending-up" class="w-4 h-4 text-emerald-600"></i></span>
+                    </div>
+                    <h2 class="text-3xl font-extrabold mt-2 text-emerald-600">৳<span x-text="stats.dayProfit">0</span></h2>
                 </div>
-                <div class="bg-white p-6 rounded-[2rem] border shadow-sm border-indigo-100">
-                    <p class="text-xs font-bold text-rose-500 uppercase">মোট বাকি (Due)</p>
-                    <h2 class="text-3xl font-bold mt-2 text-rose-600">৳<span x-text="stats.totalDue">0</span></h2>
+                <div class="bg-white rounded-[2rem] p-6 border border-slate-100 shadow-sm card-hover">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-bold text-rose-500 uppercase tracking-wider">মোট বাকি</p>
+                        <span class="w-8 h-8 bg-rose-50 rounded-xl flex items-center justify-center"><i data-lucide="alert-circle" class="w-4 h-4 text-rose-600"></i></span>
+                    </div>
+                    <h2 class="text-3xl font-extrabold mt-2 text-rose-600">৳<span x-text="stats.totalDue">0</span></h2>
                 </div>
-                <div class="bg-white p-6 rounded-[2rem] border shadow-sm border-indigo-100">
-                    <p class="text-xs font-bold text-amber-500 uppercase">আজকের খরচ</p>
-                    <h2 class="text-3xl font-bold mt-2 text-amber-600">৳<span x-text="stats.dayExp">0</span></h2>
+                <div class="bg-white rounded-[2rem] p-6 border border-slate-100 shadow-sm card-hover">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs font-bold text-amber-500 uppercase tracking-wider">আজকের খরচ</p>
+                        <span class="w-8 h-8 bg-amber-50 rounded-xl flex items-center justify-center"><i data-lucide="wallet" class="w-4 h-4 text-amber-600"></i></span>
+                    </div>
+                    <h2 class="text-3xl font-extrabold mt-2 text-amber-600">৳<span x-text="stats.dayExp">0</span></h2>
                 </div>
             </div>
 
-            <!-- Visual Analytics (Demo) -->
-            <div class="bg-white p-8 rounded-[2.5rem] border shadow-sm mb-8">
-                <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="bar-chart-3"></i> বিক্রয় রিপোর্ট</h3>
-                <canvas id="salesChart" height="100"></canvas>
+            <!-- Chart panel with improved design -->
+            <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm card-hover">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="font-bold text-xl text-slate-800 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-6 h-6 text-indigo-500"></i> বিক্রয় প্রবণতা</h3>
+                    <span class="chip">সাপ্তাহিক</span>
+                </div>
+                <canvas id="salesChart" height="120"></canvas>
             </div>
         </div>
 
-        <!-- POS System -->
+        <!-- POS SYSTEM (improved cards & search) -->
         <div x-show="tab === 'pos'" x-transition x-cloak class="space-y-6">
-            <div class="relative group">
-                <i data-lucide="search" class="absolute left-5 top-5 text-slate-400 group-focus-within:text-indigo-500 transition"></i>
-                <input type="text" x-model="search" placeholder="পণ্যের নাম দিয়ে সার্চ করুন..." 
-                    class="w-full pl-14 pr-6 py-5 bg-white border-none rounded-3xl shadow-lg focus:ring-4 focus:ring-indigo-100 transition outline-none text-lg">
+            <div class="relative group max-w-3xl mx-auto">
+                <i data-lucide="search" class="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition"></i>
+                <input type="text" x-model="search" placeholder="পণ্য খুঁজুন..." 
+                    class="w-full pl-16 pr-6 py-5 bg-white border border-slate-200 rounded-3xl shadow-md focus:ring-4 focus:ring-indigo-200 outline-none transition text-lg placeholder-slate-400">
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 <template x-for="p in filtered()">
-                    <div @click="addToCart(p)" class="bg-white p-5 rounded-[2rem] border border-slate-100 hover:border-indigo-500 hover:shadow-xl cursor-pointer transition active:scale-95 text-center relative overflow-hidden group">
-                        <div class="w-12 h-12 bg-indigo-50 rounded-2xl mx-auto mb-3 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all"><i data-lucide="package"></i></div>
-                        <h4 class="font-bold text-sm text-slate-700 truncate" x-text="p.Name"></h4>
-                        <p class="text-indigo-600 font-black mt-2 text-lg">৳<span x-text="p.SellPrice"></span></p>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase mt-1">স্টক: <span x-text="p.Stock"></span></p>
+                    <div @click="addToCart(p)" class="bg-white p-5 rounded-[2rem] border border-slate-100 hover:border-indigo-400 hover:shadow-2xl cursor-pointer transition active:scale-95 text-center relative overflow-hidden group shadow-sm">
+                        <div class="w-14 h-14 bg-indigo-50 rounded-2xl mx-auto mb-3 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+                            <i data-lucide="package" class="w-7 h-7"></i>
+                        </div>
+                        <h4 class="font-bold text-sm text-slate-800 truncate" x-text="p.Name"></h4>
+                        <p class="text-indigo-600 font-black mt-2 text-xl">৳<span x-text="p.SellPrice"></span></p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase mt-1">স্টক: <span x-text="p.Stock" class="text-slate-600"></span></p>
                     </div>
                 </template>
+                <!-- empty state if no product -->
+                <div x-show="filtered().length === 0" class="col-span-full text-center py-16 text-slate-400">
+                    <i data-lucide="search-x" class="w-12 h-12 mx-auto mb-3 text-slate-300"></i>
+                    <p>কোনো পণ্য পাওয়া যায়নি</p>
+                </div>
             </div>
         </div>
 
-        <!-- Expense Management -->
-        <div x-show="tab === 'expense'" x-transition x-cloak class="space-y-6">
-            <button @click="showModal('expense')" class="w-full bg-slate-900 text-white py-5 rounded-3xl font-bold text-lg">+ নতুন খরচ যোগ করুন</button>
+        <!-- EXPENSE MANAGEMENT refined -->
+        <div x-show="tab === 'expense'" x-transition x-cloak class="space-y-6 max-w-3xl mx-auto">
+            <button @click="showModal('expense')" class="w-full bg-gradient-to-r from-slate-900 to-slate-800 text-white py-5 rounded-3xl font-bold text-lg shadow-lg hover:shadow-xl active:scale-[0.99] transition flex items-center justify-center gap-2">
+                <i data-lucide="plus-circle" class="w-5 h-5"></i> নতুন খরচ যোগ করুন
+            </button>
             <div class="space-y-3">
                 <template x-for="e in expenses">
-                    <div class="bg-white p-5 rounded-2xl border flex justify-between items-center shadow-sm">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-100 flex justify-between items-center shadow-sm card-hover">
                         <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center font-bold">৳</div>
+                            <div class="w-11 h-11 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-black">৳</div>
                             <div>
-                                <p class="font-bold text-slate-700" x-text="e.Reason"></p>
-                                <p class="text-[10px] text-slate-400 uppercase tracking-widest" x-text="e.Category"></p>
+                                <p class="font-bold text-slate-800" x-text="e.Reason"></p>
+                                <p class="text-xs text-slate-500 uppercase tracking-wider" x-text="e.Category"></p>
                             </div>
                         </div>
-                        <p class="font-black text-rose-500">৳<span x-text="e.Amount"></span></p>
+                        <div class="text-right">
+                            <p class="font-black text-rose-500 text-lg">৳<span x-text="e.Amount"></span></p>
+                        </div>
                     </div>
                 </template>
+                <p x-show="expenses.length === 0" class="text-center py-10 text-slate-400">কোনো খরচ পাওয়া যায়নি</p>
             </div>
         </div>
 
+        <!-- INVENTORY / CUSTOMERS placeholder sections for completeness (hidden but better UX) -->
+        <div x-show="tab === 'inventory'" x-transition x-cloak class="text-center py-16 text-slate-500">
+            <i data-lucide="package" class="w-16 h-16 mx-auto mb-4 text-indigo-300"></i>
+            <p class="font-bold text-lg">স্টক ম্যানেজমেন্ট</p>
+            <p class="text-sm mt-1">শীঘ্রই আরও উন্নত ফিচার আসছে</p>
+        </div>
+        <div x-show="tab === 'customers'" x-transition x-cloak class="text-center py-16 text-slate-500">
+            <i data-lucide="users" class="w-16 h-16 mx-auto mb-4 text-emerald-300"></i>
+            <p class="font-bold text-lg">ক্রেতা তালিকা</p>
+        </div>
     </main>
 
-    <!-- Cart Floating Bar (POS Only) -->
-    <div x-show="tab === 'pos' && cart.length > 0" class="fixed bottom-32 left-6 right-6 z-50">
-        <button @click="openCheckout()" class="w-full bg-slate-900 text-white p-6 rounded-[2rem] shadow-2xl flex justify-between items-center animate-bounce">
+    <!-- Cart Floating Bar (POS Only, polished) -->
+    <div x-show="tab === 'pos' && cart.length > 0" class="fixed bottom-32 left-4 right-4 md:left-8 md:right-8 z-50" style="transition: all 0.2s;">
+        <button @click="openCheckout()" class="w-full bg-slate-900 text-white p-5 md:p-6 rounded-[2.5rem] shadow-2xl flex justify-between items-center hover:bg-slate-800 transition-all active:scale-95 border border-slate-700">
             <div class="flex items-center gap-4">
-                <div class="bg-indigo-500 w-10 h-10 rounded-full flex items-center justify-center font-black" x-text="cart.length"></div>
-                <span class="font-bold text-lg">পণ্য যোগ করা হয়েছে</span>
+                <div class="bg-indigo-500 w-10 h-10 rounded-full flex items-center justify-center font-black text-lg shadow-inner" x-text="cart.length"></div>
+                <span class="font-bold text-lg md:text-xl">চেকআউট</span>
             </div>
-            <span class="text-2xl font-black italic">মোট: ৳<span x-text="total()"></span> →</span>
+            <span class="text-xl md:text-2xl font-black italic flex items-center gap-2">৳<span x-text="total()"></span> <i data-lucide="arrow-right" class="w-6 h-6"></i></span>
         </button>
     </div>
 
-    <!-- Bottom Navigation -->
-    <nav class="fixed bottom-0 inset-x-0 h-24 glass border-t flex justify-around items-center px-6 z-50 safe-bottom">
+    <!-- Bottom Navigation (upgraded glass & modern) -->
+    <nav class="fixed bottom-0 inset-x-0 h-24 glass border-t border-slate-200/70 flex justify-around items-center px-4 md:px-8 z-50 safe-bottom shadow-[0_-5px_30px_rgba(0,0,0,0.05)]">
         <template x-for="m in menu">
-            <button @click="tab = m.id" :class="tab === m.id && 'tab-active'" class="flex flex-col items-center gap-1.5 p-4 transition-all duration-300">
+            <button @click="tab = m.id" :class="tab === m.id ? 'tab-active' : 'text-slate-500 hover:text-slate-800'" 
+                class="flex flex-col items-center gap-1.5 px-4 py-2 rounded-2xl transition-all duration-300 w-16">
                 <i :data-lucide="m.icon" class="w-6 h-6"></i>
                 <span class="text-[10px] font-bold uppercase tracking-widest" x-text="m.name"></span>
             </button>
         </template>
     </nav>
 
-    <!-- Global Loading Overlay -->
-    <div x-show="loading" class="fixed inset-0 z-[100] bg-white/90 flex flex-col items-center justify-center backdrop-blur-xl">
-        <div class="w-16 h-16 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-        <p class="mt-6 text-indigo-600 font-black tracking-widest uppercase">সিংক্রোনাইজিং...</p>
+    <!-- Global Loading Overlay (more premium) -->
+    <div x-show="loading" class="fixed inset-0 z-[100] bg-slate-50/90 flex flex-col items-center justify-center backdrop-blur-xl">
+        <div class="w-20 h-20 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin shadow-lg"></div>
+        <p class="mt-6 text-indigo-700 font-black tracking-widest uppercase text-xl">সিংক্রোনাইজ হচ্ছে...</p>
+        <p class="text-xs text-slate-400 mt-2">ডুয়াল শিট আপডেট হচ্ছে</p>
     </div>
 
     <script>
@@ -156,27 +239,42 @@
                     this.loading = true;
                     try {
                         const res = await fetch(`${API_URL}?action=sync`);
+                        if (!res.ok) throw new Error('network');
                         const data = await res.json();
-                        this.products = data.products;
-                        this.customers = data.customers;
-                        this.expenses = data.expenses;
-                        this.stats = data.stats;
+                        if (data.products) this.products = data.products;
+                        if (data.customers) this.customers = data.customers;
+                        if (data.expenses) this.expenses = data.expenses;
+                        if (data.stats) this.stats = data.stats;
                         lucide.createIcons();
-                    } catch(e) { Swal.fire('Error', 'সার্ভারে কানেক্ট করা যায়নি!', 'error'); }
+                    } catch(e) {
+                        Swal.fire({ icon: 'error', title: 'সংযোগ সমস্যা', text: 'সার্ভারে কানেক্ট করা যায়নি!' });
+                    }
                     this.loading = false;
                 },
 
-                filtered() { return this.products.filter(p => p.Name.toLowerCase().includes(this.search.toLowerCase())); },
-                addToCart(p) { this.cart.push({...p, qty: 1}); },
-                total() { return this.cart.reduce((s, i) => s + Number(i.SellPrice), 0); },
+                filtered() { 
+                    const term = this.search.trim().toLowerCase();
+                    if (!term) return this.products;
+                    return this.products.filter(p => p.Name && p.Name.toLowerCase().includes(term)); 
+                },
+                addToCart(p) { 
+                    this.cart.push({...p, qty: 1}); 
+                },
+                total() { 
+                    return this.cart.reduce((s, i) => s + Number(i.SellPrice || 0), 0); 
+                },
 
                 async openCheckout() {
                     const { value: formValues } = await Swal.fire({
-                        title: 'চেকআউট - ডুয়াল সেভ',
-                        html: `<input id="swal-phone" class="swal2-input" placeholder="ফোন নম্বর">` +
-                              `<input id="swal-paid" type="number" class="swal2-input" placeholder="জমা টাকা">`,
+                        title: 'চেকআউট - ডুয়াল সেভ',
+                        html: `<div class="text-left">
+                                <input id="swal-phone" class="swal2-input" placeholder="ফোন নম্বর">
+                                <input id="swal-paid" type="number" class="swal2-input" placeholder="জমা টাকা (paid)">
+                               </div>`,
                         focusConfirm: false,
                         showCancelButton: true,
+                        confirmButtonText: 'সাবমিট',
+                        cancelButtonText: 'বাতিল',
                         preConfirm: () => ({
                             phone: document.getElementById('swal-phone').value,
                             paid: document.getElementById('swal-paid').value
@@ -185,16 +283,21 @@
 
                     if (formValues) {
                         this.loading = true;
-                        const res = await fetch(API_URL, {
-                            method: 'POST',
-                            body: JSON.stringify({
-                                action: 'checkout',
-                                data: { items: this.cart, phone: formValues.phone, total: this.total(), paid: formValues.paid, due: this.total() - formValues.paid }
-                            })
-                        });
-                        await this.sync();
-                        this.cart = [];
-                        Swal.fire('সফল!', 'দুটি শিটে ডাটা সেভ হয়েছে।', 'success');
+                        try {
+                            const res = await fetch(API_URL, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                                body: JSON.stringify({
+                                    action: 'checkout',
+                                    data: { items: this.cart, phone: formValues.phone, total: this.total(), paid: formValues.paid, due: this.total() - (Number(formValues.paid) || 0) }
+                                })
+                            });
+                            await this.sync();
+                            this.cart = [];
+                            Swal.fire('সফল!', 'ডুয়াল শিটে ডাটা সেভ হয়েছে।', 'success');
+                        } catch (e) {
+                            Swal.fire('ত্রুটি', 'চেকআউট সম্পন্ন হয়নি', 'error');
+                        }
                     }
                 },
 
@@ -203,20 +306,35 @@
                         const { value: exp } = await Swal.fire({
                             title: 'খরচ যোগ করুন',
                             html: `<input id="e-res" class="swal2-input" placeholder="কারণ">` +
-                                  `<input id="e-amt" type="number" class="swal2-input" placeholder="টাকা">`,
-                            preConfirm: () => ({ reason: document.getElementById('e-res').value, amount: document.getElementById('e-amt').value, cat: 'General' })
+                                  `<input id="e-amt" type="number" class="swal2-input" placeholder="টাকার পরিমাণ">`,
+                            focusConfirm: false,
+                            showCancelButton: true,
+                            confirmButtonText: 'যোগ করুন',
+                            preConfirm: () => ({
+                                reason: document.getElementById('e-res').value,
+                                amount: document.getElementById('e-amt').value, 
+                                cat: 'General'
+                            })
                         });
-                        if(exp) {
+                        if(exp && exp.reason && exp.amount) {
                             this.loading = true;
-                            await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'addExpense', data: exp })});
-                            await this.sync();
+                            try {
+                                await fetch(API_URL, { 
+                                    method: 'POST', 
+                                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                                    body: JSON.stringify({ action: 'addExpense', data: exp })
+                                });
+                                await this.sync();
+                            } catch(e) { Swal.fire('ত্রুটি', 'খরচ যোগ করা যায়নি', 'error'); }
                         }
                     }
                 },
 
                 renderChart() {
                     const ctx = document.getElementById('salesChart').getContext('2d');
-                    new Chart(ctx, {
+                    // destroy previous if any (avoid duplicate on re-render)
+                    if (window._salesChart) window._salesChart.destroy();
+                    window._salesChart = new Chart(ctx, {
                         type: 'line',
                         data: {
                             labels: ['শনি', 'রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহঃ', 'শুক্র'],
@@ -224,12 +342,24 @@
                                 label: 'বিক্রি',
                                 data: [1200, 1900, 3000, 5000, 2000, 3000, 4500],
                                 borderColor: '#4f46e5',
-                                tension: 0.4,
+                                backgroundColor: 'rgba(79, 70, 229, 0.08)',
+                                tension: 0.5,
                                 fill: true,
-                                backgroundColor: 'rgba(79, 70, 229, 0.1)'
+                                pointBackgroundColor: '#ffffff',
+                                pointBorderColor: '#4f46e5',
+                                pointBorderWidth: 2,
+                                borderWidth: 3
                             }]
                         },
-                        options: { plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { grid: { display: false } } } }
+                        options: { 
+                            responsive: true, 
+                            maintainAspectRatio: true,
+                            plugins: { legend: { display: false } }, 
+                            scales: { 
+                                y: { display: false, grid: { display: false } }, 
+                                x: { grid: { display: false }, ticks: { color: '#94a3b8' } } 
+                            } 
+                        }
                     });
                 }
             }
