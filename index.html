@@ -1,299 +1,236 @@
 <!DOCTYPE html>
-<html lang="bn" x-data="erpSystem()">
+<html lang="bn" x-data="erpApp()">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BizPro v3.0 | Professional ERP</title>
+    <title>Enterprise BizPro | Dual Sync</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         [x-cloak] { display: none !important; }
-        body { font-family: 'Hind Siliguri', sans-serif; -webkit-tap-highlight-color: transparent; }
-        .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
-        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.3); }
-        .custom-scroll::-webkit-scrollbar { width: 4px; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-        .active-nav { color: #4f46e5 !important; background: #f0f4ff; border-radius: 16px; }
+        body { font-family: 'Hind Siliguri', sans-serif; background: #f4f7fe; }
+        .tab-active { background: #4f46e5; color: white; border-radius: 1rem; box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4); }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 h-screen flex flex-col overflow-hidden">
+<body class="h-screen flex flex-col overflow-hidden">
 
-    <!-- Loading Screen -->
-    <div x-show="loading" class="fixed inset-0 z-[100] bg-white flex items-center justify-center">
-        <div class="flex flex-col items-center">
-            <div class="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-            <p class="mt-4 font-bold text-indigo-600 animate-pulse">BizPro লোড হচ্ছে...</p>
-        </div>
-    </div>
-
-    <!-- Header -->
-    <header class="h-16 shrink-0 glass sticky top-0 z-40 px-5 flex items-center justify-between border-b">
+    <!-- Navbar -->
+    <nav class="h-20 shrink-0 bg-white border-b px-6 flex items-center justify-between sticky top-0 z-50">
         <div class="flex items-center gap-3">
-            <div class="bg-indigo-600 p-2 rounded-xl text-white shadow-lg shadow-indigo-200">
-                <i data-lucide="zap" class="w-5 h-5"></i>
-            </div>
-            <h1 class="text-xl font-bold tracking-tight text-slate-800">BizPro <span class="text-xs font-normal text-indigo-500">v3.0</span></h1>
+            <div class="bg-indigo-600 p-2.5 rounded-2xl text-white"><i data-lucide="zap"></i></div>
+            <h1 class="text-2xl font-black text-slate-800 tracking-tight">BizPro <span class="text-indigo-600">Enterprise</span></h1>
         </div>
-        <button @click="syncData()" class="p-2 hover:bg-slate-100 rounded-full transition-colors">
-            <i data-lucide="refresh-cw" class="w-5 h-5 text-slate-500" :class="loading && 'animate-spin'"></i>
-        </button>
-    </header>
-
-    <!-- Main Content Body -->
-    <main class="flex-1 overflow-y-auto custom-scroll pb-24 md:pb-8">
-        
-        <!-- Dashboard Tab -->
-        <div x-show="tab === 'home'" class="p-5 space-y-6" x-transition>
-            <!-- Stats Cards -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white p-5 rounded-[2rem] border shadow-sm border-slate-100">
-                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">আজকের বিক্রি</p>
-                    <h2 class="text-2xl font-bold text-slate-800 mt-1">৳<span x-text="stats.dayTotal">0</span></h2>
-                </div>
-                <div class="bg-indigo-600 p-5 rounded-[2rem] text-white shadow-xl shadow-indigo-100">
-                    <p class="text-xs font-semibold opacity-80 uppercase tracking-wider">আজকের লাভ</p>
-                    <h2 class="text-2xl font-bold mt-1">৳<span x-text="stats.dayProfit">0</span></h2>
-                </div>
-                <div class="bg-white p-5 rounded-[2rem] border shadow-sm border-slate-100">
-                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">মোট বাকি</p>
-                    <h2 class="text-2xl font-bold text-rose-500 mt-1">৳<span x-text="stats.totalDue">0</span></h2>
-                </div>
-                <div class="bg-white p-5 rounded-[2rem] border shadow-sm border-slate-100">
-                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">মোট আইটেম</p>
-                    <h2 class="text-2xl font-bold text-slate-800 mt-1" x-text="products.length">0</h2>
-                </div>
-            </div>
-
-            <!-- Stock Alerts -->
-            <div class="space-y-4">
-                <h3 class="font-bold text-lg flex items-center gap-2">
-                    <i data-lucide="alert-triangle" class="text-amber-500 w-5 h-5"></i> স্টক ফুরিয়ে যাচ্ছে
-                </h3>
-                <div class="flex gap-4 overflow-x-auto pb-2 no-scrollbar">
-                    <template x-for="p in products.filter(i => Number(i.Stock) < 10)">
-                        <div class="shrink-0 w-40 bg-white p-4 rounded-3xl border border-rose-100 shadow-sm shadow-rose-50">
-                            <p class="font-bold text-sm truncate" x-text="p.Name"></p>
-                            <p class="text-xs text-rose-500 font-bold mt-1">স্টক: <span x-text="p.Stock"></span></p>
-                        </div>
-                    </template>
-                </div>
-            </div>
+        <div class="flex gap-4">
+            <button @click="sync()" class="p-3 bg-indigo-50 rounded-2xl text-indigo-600 hover:bg-indigo-100"><i data-lucide="refresh-ccw" :class="loading && 'animate-spin'"></i></button>
         </div>
-
-        <!-- POS Tab -->
-        <div x-show="tab === 'pos'" class="p-5 space-y-4" x-transition>
-            <div class="sticky top-0 z-30 bg-slate-50 py-2">
-                <div class="relative">
-                    <i data-lucide="search" class="absolute left-4 top-3.5 text-slate-400 w-5 h-5"></i>
-                    <input type="text" x-model="search" placeholder="পণ্যের নাম খুঁজুন..." 
-                        class="w-full pl-12 pr-4 py-3.5 bg-white border-none rounded-2xl shadow-sm focus:ring-2 focus:ring-indigo-500 transition outline-none text-sm font-medium">
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                <template x-for="p in filtered()">
-                    <div @click="addToCart(p)" class="bg-white p-3 rounded-[1.5rem] border border-slate-100 hover:border-indigo-400 transition active:scale-95 shadow-sm">
-                        <div class="h-20 bg-slate-50 rounded-2xl flex items-center justify-center mb-3 text-slate-300">
-                            <i data-lucide="package" class="w-8 h-8"></i>
-                        </div>
-                        <h4 class="font-bold text-xs text-slate-700 truncate" x-text="p.Name"></h4>
-                        <div class="flex justify-between items-center mt-2">
-                            <span class="text-indigo-600 font-bold text-sm">৳<span x-text="p.SellPrice"></span></span>
-                            <span class="text-[10px] px-1.5 py-0.5 bg-slate-100 rounded-md text-slate-500 font-bold" x-text="p.Stock"></span>
-                        </div>
-                    </div>
-                </template>
-            </div>
-        </div>
-
-        <!-- Customers Tab -->
-        <div x-show="tab === 'customers'" class="p-5" x-transition>
-            <div class="space-y-3">
-                <template x-for="c in customers">
-                    <div class="bg-white p-4 rounded-2xl border flex justify-between items-center shadow-sm">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center font-bold">
-                                <i data-lucide="user" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <p class="font-bold text-sm" x-text="c.Name"></p>
-                                <p class="text-[10px] text-slate-400" x-text="c.Phone"></p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-xs font-bold text-slate-400">বাকি টাকা</p>
-                            <p class="text-sm font-bold text-rose-500">৳<span x-text="c.CurrentDue"></span></p>
-                        </div>
-                    </div>
-                </template>
-            </div>
-        </div>
-    </main>
-
-    <!-- Floating Checkout Bar (Mobile) -->
-    <div x-show="tab === 'pos' && cart.length > 0" class="fixed bottom-24 left-4 right-4 z-50 animate-bounce" x-transition>
-        <button @click="showCart = true" class="w-full bg-slate-900 text-white p-4 rounded-2xl shadow-2xl flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="bg-indigo-600 px-2 py-1 rounded-lg text-xs font-bold" x-text="cart.length"></div>
-                <span class="font-bold text-sm">আইটেম যোগ হয়েছে</span>
-            </div>
-            <span class="font-bold text-lg italic">মোট: ৳<span x-text="total()"></span> →</span>
-        </button>
-    </div>
-
-    <!-- Cart Modal -->
-    <div x-show="showCart" class="fixed inset-0 z-[60] bg-slate-900/60 backdrop-blur-sm flex items-end justify-center" x-cloak>
-        <div @click.away="showCart = false" class="bg-white w-full max-w-lg rounded-t-[2.5rem] p-6 space-y-6 shadow-2xl animate-slide-up">
-            <div class="flex justify-between items-center">
-                <h3 class="text-xl font-bold">আপনার কার্ট</h3>
-                <button @click="showCart = false" class="p-2 bg-slate-100 rounded-full text-slate-500"><i data-lucide="x"></i></button>
-            </div>
-            
-            <div class="max-h-60 overflow-y-auto space-y-3 custom-scroll pr-2">
-                <template x-for="(item, i) in cart">
-                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-2xl border">
-                        <div class="flex-1">
-                            <p class="font-bold text-sm" x-text="item.Name"></p>
-                            <p class="text-xs text-indigo-600 font-bold">৳<span x-text="item.SellPrice"></span></p>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <button @click="item.qty > 1 ? item.qty-- : cart.splice(i, 1)" class="w-8 h-8 bg-white border rounded-xl flex items-center justify-center font-bold">-</button>
-                            <span class="font-bold text-sm" x-text="item.qty"></span>
-                            <button @click="item.qty++" class="w-8 h-8 bg-white border rounded-xl flex items-center justify-center font-bold">+</button>
-                        </div>
-                    </div>
-                </template>
-            </div>
-
-            <div class="space-y-4">
-                <div class="grid grid-cols-2 gap-3">
-                    <input type="text" x-model="sale.phone" placeholder="কাস্টমার ফোন" class="p-3 bg-slate-50 border rounded-xl outline-none text-sm font-medium focus:ring-2 focus:ring-indigo-500">
-                    <input type="number" x-model="sale.paid" placeholder="জমা টাকা" class="p-3 bg-indigo-50 border border-indigo-200 rounded-xl outline-none text-sm font-bold text-indigo-700">
-                </div>
-                <div class="flex justify-between items-center text-2xl font-bold">
-                    <span>মোট:</span>
-                    <span class="text-indigo-600">৳<span x-text="total()"></span></span>
-                </div>
-                <button @click="checkout()" class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-bold text-lg shadow-xl shadow-indigo-200 active:scale-95 transition">অর্ডার কনফার্ম করুন</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bottom Navigation (Mobile) -->
-    <nav class="fixed bottom-0 left-0 right-0 h-20 bg-white/80 backdrop-blur-lg border-t flex justify-around items-center px-4 safe-bottom z-40">
-        <button @click="tab = 'home'" :class="tab === 'home' && 'active-nav'" class="flex flex-col items-center gap-1 p-2 w-16 transition-all duration-300">
-            <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
-            <span class="text-[10px] font-bold">হোম</span>
-        </button>
-        <button @click="tab = 'pos'" :class="tab === 'pos' && 'active-nav'" class="flex flex-col items-center gap-1 p-2 w-16 transition-all duration-300">
-            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-            <span class="text-[10px] font-bold">বিক্রি</span>
-        </button>
-        <button @click="tab = 'customers'" :class="tab === 'customers' && 'active-nav'" class="flex flex-col items-center gap-1 p-2 w-16 transition-all duration-300">
-            <i data-lucide="users" class="w-5 h-5"></i>
-            <span class="text-[10px] font-bold">ক্রেতা</span>
-        </button>
-        <button @click="tab = 'settings'" :class="tab === 'settings' && 'active-nav'" class="flex flex-col items-center gap-1 p-2 w-16 transition-all duration-300">
-            <i data-lucide="settings" class="w-5 h-5"></i>
-            <span class="text-[10px] font-bold">সেটিংস</span>
-        </button>
     </nav>
 
-    <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycby6geARsr2R_HS2QdghcCaDO5XeT24N9fk05Hz6u8yOZwj_OH98UiCHf8FFvPmEQccStQ/exec"; // এখানে আপনার URL দিন
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto p-4 md:p-8 pb-32">
+        
+        <!-- Dashboard -->
+        <div x-show="tab === 'dashboard'" x-transition x-cloak>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-[2rem] border shadow-sm border-indigo-100">
+                    <p class="text-xs font-bold text-slate-400 uppercase">আজকের মোট বিক্রি</p>
+                    <h2 class="text-3xl font-bold mt-2">৳<span x-text="stats.dayTotal">0</span></h2>
+                </div>
+                <div class="bg-white p-6 rounded-[2rem] border shadow-sm border-indigo-100">
+                    <p class="text-xs font-bold text-emerald-500 uppercase">আজকের নীট লাভ</p>
+                    <h2 class="text-3xl font-bold mt-2 text-emerald-600">৳<span x-text="stats.dayProfit">0</span></h2>
+                </div>
+                <div class="bg-white p-6 rounded-[2rem] border shadow-sm border-indigo-100">
+                    <p class="text-xs font-bold text-rose-500 uppercase">মোট বাকি (Due)</p>
+                    <h2 class="text-3xl font-bold mt-2 text-rose-600">৳<span x-text="stats.totalDue">0</span></h2>
+                </div>
+                <div class="bg-white p-6 rounded-[2rem] border shadow-sm border-indigo-100">
+                    <p class="text-xs font-bold text-amber-500 uppercase">আজকের খরচ</p>
+                    <h2 class="text-3xl font-bold mt-2 text-amber-600">৳<span x-text="stats.dayExp">0</span></h2>
+                </div>
+            </div>
 
-        function erpSystem() {
+            <!-- Visual Analytics (Demo) -->
+            <div class="bg-white p-8 rounded-[2.5rem] border shadow-sm mb-8">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="bar-chart-3"></i> বিক্রয় রিপোর্ট</h3>
+                <canvas id="salesChart" height="100"></canvas>
+            </div>
+        </div>
+
+        <!-- POS System -->
+        <div x-show="tab === 'pos'" x-transition x-cloak class="space-y-6">
+            <div class="relative group">
+                <i data-lucide="search" class="absolute left-5 top-5 text-slate-400 group-focus-within:text-indigo-500 transition"></i>
+                <input type="text" x-model="search" placeholder="পণ্যের নাম দিয়ে সার্চ করুন..." 
+                    class="w-full pl-14 pr-6 py-5 bg-white border-none rounded-3xl shadow-lg focus:ring-4 focus:ring-indigo-100 transition outline-none text-lg">
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <template x-for="p in filtered()">
+                    <div @click="addToCart(p)" class="bg-white p-5 rounded-[2rem] border border-slate-100 hover:border-indigo-500 hover:shadow-xl cursor-pointer transition active:scale-95 text-center relative overflow-hidden group">
+                        <div class="w-12 h-12 bg-indigo-50 rounded-2xl mx-auto mb-3 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all"><i data-lucide="package"></i></div>
+                        <h4 class="font-bold text-sm text-slate-700 truncate" x-text="p.Name"></h4>
+                        <p class="text-indigo-600 font-black mt-2 text-lg">৳<span x-text="p.SellPrice"></span></p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase mt-1">স্টক: <span x-text="p.Stock"></span></p>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Expense Management -->
+        <div x-show="tab === 'expense'" x-transition x-cloak class="space-y-6">
+            <button @click="showModal('expense')" class="w-full bg-slate-900 text-white py-5 rounded-3xl font-bold text-lg">+ নতুন খরচ যোগ করুন</button>
+            <div class="space-y-3">
+                <template x-for="e in expenses">
+                    <div class="bg-white p-5 rounded-2xl border flex justify-between items-center shadow-sm">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center font-bold">৳</div>
+                            <div>
+                                <p class="font-bold text-slate-700" x-text="e.Reason"></p>
+                                <p class="text-[10px] text-slate-400 uppercase tracking-widest" x-text="e.Category"></p>
+                            </div>
+                        </div>
+                        <p class="font-black text-rose-500">৳<span x-text="e.Amount"></span></p>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Cart Floating Bar (POS Only) -->
+    <div x-show="tab === 'pos' && cart.length > 0" class="fixed bottom-32 left-6 right-6 z-50">
+        <button @click="openCheckout()" class="w-full bg-slate-900 text-white p-6 rounded-[2rem] shadow-2xl flex justify-between items-center animate-bounce">
+            <div class="flex items-center gap-4">
+                <div class="bg-indigo-500 w-10 h-10 rounded-full flex items-center justify-center font-black" x-text="cart.length"></div>
+                <span class="font-bold text-lg">পণ্য যোগ করা হয়েছে</span>
+            </div>
+            <span class="text-2xl font-black italic">মোট: ৳<span x-text="total()"></span> →</span>
+        </button>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 inset-x-0 h-24 glass border-t flex justify-around items-center px-6 z-50 safe-bottom">
+        <template x-for="m in menu">
+            <button @click="tab = m.id" :class="tab === m.id && 'tab-active'" class="flex flex-col items-center gap-1.5 p-4 transition-all duration-300">
+                <i :data-lucide="m.icon" class="w-6 h-6"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest" x-text="m.name"></span>
+            </button>
+        </template>
+    </nav>
+
+    <!-- Global Loading Overlay -->
+    <div x-show="loading" class="fixed inset-0 z-[100] bg-white/90 flex flex-col items-center justify-center backdrop-blur-xl">
+        <div class="w-16 h-16 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+        <p class="mt-6 text-indigo-600 font-black tracking-widest uppercase">সিংক্রোনাইজিং...</p>
+    </div>
+
+    <script>
+        const API_URL = "https://script.google.com/macros/s/AKfycby6geARsr2R_HS2QdghcCaDO5XeT24N9fk05Hz6u8yOZwj_OH98UiCHf8FFvPmEQccStQ/exec";
+
+        function erpApp() {
             return {
-                tab: 'home',
-                loading: false,
-                search: '',
-                showCart: false,
-                products: [],
-                customers: [],
-                stats: { dayTotal: 0, dayProfit: 0, totalDue: 0 },
+                tab: 'dashboard', loading: false, search: '',
+                menu: [
+                    {id: 'dashboard', name: 'হোম', icon: 'layout-dashboard'},
+                    {id: 'pos', name: 'বিক্রি', icon: 'shopping-bag'},
+                    {id: 'inventory', name: 'স্টক', icon: 'package'},
+                    {id: 'expense', name: 'খরচ', icon: 'wallet'},
+                    {id: 'customers', name: 'ক্রেতা', icon: 'users'}
+                ],
+                products: [], customers: [], expenses: [],
+                stats: { dayTotal: 0, dayProfit: 0, totalDue: 0, dayExp: 0 },
                 cart: [],
-                sale: { phone: '', paid: 0 },
 
                 async init() {
                     lucide.createIcons();
-                    await this.syncData();
+                    await this.sync();
+                    this.renderChart();
                 },
 
-                async syncData() {
+                async sync() {
                     this.loading = true;
                     try {
                         const res = await fetch(`${API_URL}?action=sync`);
                         const data = await res.json();
                         this.products = data.products;
                         this.customers = data.customers;
+                        this.expenses = data.expenses;
                         this.stats = data.stats;
                         lucide.createIcons();
-                    } catch (e) {
-                        Swal.fire('Error', 'সার্ভারে কানেক্ট করা যাচ্ছে না!', 'error');
-                    }
+                    } catch(e) { Swal.fire('Error', 'সার্ভারে কানেক্ট করা যায়নি!', 'error'); }
                     this.loading = false;
                 },
 
-                filtered() {
-                    return this.products.filter(p => p.Name.toLowerCase().includes(this.search.toLowerCase()));
-                },
+                filtered() { return this.products.filter(p => p.Name.toLowerCase().includes(this.search.toLowerCase())); },
+                addToCart(p) { this.cart.push({...p, qty: 1}); },
+                total() { return this.cart.reduce((s, i) => s + Number(i.SellPrice), 0); },
 
-                addToCart(p) {
-                    let item = this.cart.find(i => i.Name === p.Name);
-                    if (item) item.qty++;
-                    else this.cart.push({ ...p, qty: 1 });
-                    
-                    // টোস্ট মেসেজ
-                    const Toast = Swal.mixin({ toast: true, position: 'top-end', showConfirmButton: false, timer: 1000 });
-                    Toast.fire({ icon: 'success', title: 'কার্টে যোগ হয়েছে' });
-                },
+                async openCheckout() {
+                    const { value: formValues } = await Swal.fire({
+                        title: 'চেকআউট - ডুয়াল সেভ',
+                        html: `<input id="swal-phone" class="swal2-input" placeholder="ফোন নম্বর">` +
+                              `<input id="swal-paid" type="number" class="swal2-input" placeholder="জমা টাকা">`,
+                        focusConfirm: false,
+                        showCancelButton: true,
+                        preConfirm: () => ({
+                            phone: document.getElementById('swal-phone').value,
+                            paid: document.getElementById('swal-paid').value
+                        })
+                    });
 
-                total() {
-                    return this.cart.reduce((s, i) => s + (Number(i.SellPrice) * i.qty), 0);
-                },
-
-                async checkout() {
-                    if (this.cart.length === 0 || !this.sale.phone) {
-                        return Swal.fire('সতর্কতা', 'কার্ট খালি বা ফোন নম্বর নেই!', 'warning');
-                    }
-
-                    this.loading = true;
-                    this.showCart = false;
-
-                    try {
+                    if (formValues) {
+                        this.loading = true;
                         const res = await fetch(API_URL, {
-                            method: "POST",
+                            method: 'POST',
                             body: JSON.stringify({
                                 action: 'checkout',
-                                data: {
-                                    items: this.cart,
-                                    customer: { Phone: this.sale.phone, Name: 'Customer' },
-                                    total: this.total(),
-                                    paid: this.sale.paid,
-                                    due: this.total() - this.sale.paid
-                                }
+                                data: { items: this.cart, phone: formValues.phone, total: this.total(), paid: formValues.paid, due: this.total() - formValues.paid }
                             })
                         });
-                        
-                        const result = await res.json();
-                        if (result.status === 'success') {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'অর্ডার সম্পন্ন!',
-                                text: 'ইনভয়েস ID: ' + result.invID,
-                                confirmButtonText: 'ঠিক আছে'
-                            });
-                            this.cart = [];
-                            this.sale = { phone: '', paid: 0 };
-                            await this.syncData();
-                        }
-                    } catch (e) {
-                        Swal.fire('Error', 'অর্ডার সেভ করা যায়নি!', 'error');
+                        await this.sync();
+                        this.cart = [];
+                        Swal.fire('সফল!', 'দুটি শিটে ডাটা সেভ হয়েছে।', 'success');
                     }
-                    this.loading = false;
+                },
+
+                async showModal(type) {
+                    if(type === 'expense') {
+                        const { value: exp } = await Swal.fire({
+                            title: 'খরচ যোগ করুন',
+                            html: `<input id="e-res" class="swal2-input" placeholder="কারণ">` +
+                                  `<input id="e-amt" type="number" class="swal2-input" placeholder="টাকা">`,
+                            preConfirm: () => ({ reason: document.getElementById('e-res').value, amount: document.getElementById('e-amt').value, cat: 'General' })
+                        });
+                        if(exp) {
+                            this.loading = true;
+                            await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'addExpense', data: exp })});
+                            await this.sync();
+                        }
+                    }
+                },
+
+                renderChart() {
+                    const ctx = document.getElementById('salesChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['শনি', 'রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহঃ', 'শুক্র'],
+                            datasets: [{
+                                label: 'বিক্রি',
+                                data: [1200, 1900, 3000, 5000, 2000, 3000, 4500],
+                                borderColor: '#4f46e5',
+                                tension: 0.4,
+                                fill: true,
+                                backgroundColor: 'rgba(79, 70, 229, 0.1)'
+                            }]
+                        },
+                        options: { plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { grid: { display: false } } } }
+                    });
                 }
             }
         }
